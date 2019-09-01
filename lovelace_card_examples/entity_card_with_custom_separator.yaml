@@ -1,0 +1,20 @@
+entities:
+  - entity: switch.dishwasher_power
+    name: Power Toggle
+  - entity: switch.dishwasher_start
+    name: Start/Pause
+
+  - text: Sensors
+      type: 'custom:text-divider-row'
+
+  - entity: sensor.dishwasher_power
+    icon: 'mdi:flash'
+    name: Power Being Used
+  - entity: sensor.dishwasher_current
+    icon: 'mdi:flash'
+    name: Current Being Used
+  - entity: sensor.dishwasher_energy_today
+    icon: 'mdi:flash'
+show_header_toggle: false
+title: Dishwasher
+type: entities

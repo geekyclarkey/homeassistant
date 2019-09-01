@@ -1,0 +1,3 @@
+entity: sensor.sonarr_upcoming_media
+title: Upcoming TV Shows
+type: 'custom:upcoming-media-card'

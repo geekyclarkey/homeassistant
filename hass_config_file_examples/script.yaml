@@ -1,0 +1,82 @@
+
+### this is a basic sequence of services that when the script is called will run from the top to bottom
+exit:
+  sequence:
+    - service: media_player.media_pause
+      entity_id: media_player.bathroom
+    - service: media_player.media_pause
+      entity_id: media_player.decking
+    - service: switch.turn_off
+      entity_id: switch.livingroom_lamp
+    - service: switch.turn_off
+      entity_id: switch.cj_lamp
+
+
+### Have Alexa say whatever is in the message aprt
+entry:
+  sequence:
+    - service: media_player.alexa_tts
+      data:
+        entity_id: media_player.kitchen
+        message: "Welcome home... "
+
+
+### Change the source of a media_player entity Remember the source has to be exactly what the attribute is in hass
+alexa_tv_hdmi1:
+  sequence:
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.lounge_tv
+        source: HDMI 1
+
+
+### Broadlink send a singl command
+tv_on:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: 192.168.18.134
+         packet:
+           - "JgBCACAdHR47Oh4dIBw8HR4cHzg8OTwAC7gfHR4eOzkfHh0eOx0eHB45PTk9AAu2Hx0eHjs5IB0dHjscHx0dOT05PQANBQAAAAAAAA=="
+
+### Broadlink send a series of command one after another from top to bottom
+bbc1:
+  alias: "Studio BBC1" ### The alias is good for alexa as it shows the alias and not the script entity name, bbc_lounge_tv For example
+  sequence:
+     - service: broadlink.send
+       data:
+         host: 192.168.18.134
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA"
+           - "JgA0AB4dPB0dOh4eHR47HR4dHhweHR0dHjoeAAubHh47HR46Hh0eHTwdHhweHR4cHh0dOh4ADQUAAAAA"
+           - "JgAaAB4dPB0eOh0eHh08HR0dHh0dHR4dHR0eAA0FAAAAAAAAAAAAAAAAAAA="
+           - "JgA0AB4dPB0dOh4eHR47HR4dHhweHR0dHjoeAAubHh47HR46Hh0eHTwdHhweHR4cHh0dOh4ADQUAAAAA"
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA=="
+
+
+### This when exicuted will record a 30 second clip from the camera entity and store it in the location below
+garagecam_record:
+  sequence:
+    - service: camera.record
+      data_template:
+        entity_id: camera.garage
+        filename: '/config/www/recordings/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        duration: 30
+
+
+### This when exicuted will take a picture from the camera entity and store it in the location below
+garagecam_snapshot:
+  sequence:
+    - service: camera.snapshot
+      data_template:
+        entity_id: camera.garage
+        filename: '/config/www/snapshots/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+
+
+### This will control the SonoffRf and send a stored rf command setup in the SonoffRf In this case, Key1
+bedroom_light_on:
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/bridge/rfkey1"
+        payload: 'rfkey1'

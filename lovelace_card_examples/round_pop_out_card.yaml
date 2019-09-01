@@ -1,0 +1,41 @@
+type: 'custom:radial-menu'
+icon: 'mdi:fan'
+name: Bedroom Fan Remote
+default_open: false
+dismiss_default: true
+entity: switch.bedroom
+hold_action:
+  action: toggle
+items:
+  - entity: script.bedroom_fan_medium
+    icon: 'mdi:alpha-m-circle'
+    name: Bedroom Fan Medium
+    tap_action:
+      action: exicute
+      haptic: true
+    hold_action:
+      action: more-info
+  - entity: script.bedroom_fan_high
+    icon: 'mdi:alpha-h-circle'
+    name: Bedroom Fan High
+    tap_action:
+      action: toggle
+      haptic: true
+    hold_action:
+      action: more-info
+  - entity: script.bedroom_fan_off
+    icon: 'mdi:power'
+    name: Bedroom Fan Off
+    tap_action:
+      action: toggle
+      haptic: true
+    hold_action:
+      action: more-info
+  - entity: script.bedroom_fan_low
+    icon: 'mdi:alpha-l-circle'
+    name: Bedroom Fan Low
+    tap_action:
+      action: toggle
+      haptic: true
+    hold_action:
+      action: more-info

@@ -1,0 +1,11 @@
+camera_image: camera.garage_camera
+entities:
+  - input_boolean.garagecam_record
+  - input_boolean.garagecam_snapshot
+  - switch.garage_light
+  - binary_sensor.garage_door
+  - binary_sensor.garage
+  - entity: binary_sensor.garage_door_trip_sensor
+    icon: 'mdi:garage-alert'
+title: Garage Camera
+type: picture-glance

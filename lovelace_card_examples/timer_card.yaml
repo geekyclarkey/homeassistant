@@ -1,0 +1,4 @@
+entity: timer.test
+icon: 'mdi:clock'
+name: Timer
+type: 'custom:timer-card'

@@ -1,0 +1,54 @@
+cards:
+  - cards:
+      - entity: script.livingroom_mag_bbc1
+        icon: 'mdi:remote'
+        name: BBC 1
+        tap_action:
+          action: toggle
+        type: entity-button
+      - entity: script.livingroom_mag_bbc2
+        icon: 'mdi:remote'
+        name: BBC 2
+        tap_action:
+          action: toggle
+        type: entity-button
+      - entity: script.livingroom_mag_itv1
+        icon: 'mdi:remote'
+        name: ITV 1
+        tap_action:
+          action: toggle
+        type: entity-button
+      - entity: script.livingroom_mag_itv2
+        icon: 'mdi:remote'
+        name: ITV 2
+        tap_action:
+          action: toggle
+        type: entity-button
+    type: horizontal-stack
+  - cards:
+      - entity: script.livingroom_mag_itvbe
+        icon: 'mdi:remote'
+        name: ITV Be
+        tap_action:
+          action: toggle
+        type: entity-button
+      - entity: script.livingroom_mag_e4
+        icon: 'mdi:remote'
+        name: E4
+        tap_action:
+          action: toggle
+        type: entity-button
+      - entity: script.livingroom_mag_e
+        icon: 'mdi:remote'
+        name: E!
+        tap_action:
+          action: toggle
+        type: entity-button
+      - entity: script.livingroom_mag_cartoon_network
+        icon: 'mdi:remote'
+        name: Cartoon Net
+        tap_action:
+          action: toggle
+        type: entity-button
+    type: horizontal-stack
+type: vertical-stack

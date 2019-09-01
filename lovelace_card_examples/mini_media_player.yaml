@@ -1,0 +1,8 @@
+artwork: cover
+entity: media_player.sean_s_5th_echo_dot
+hide:
+  power: true
+  power_state: false
+  source: true
+icon: 'mdi:music'
+type: 'custom:mini-media-player'

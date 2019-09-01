@@ -1,0 +1,21 @@
+cards:
+  - cards:
+      - entity: sensor.speedtest_download
+        graph: line
+        name: Downlaod
+        type: sensor
+    type: horizontal-stack
+  - cards:
+      - entity: sensor.speedtest_upload
+        graph: line
+        name: Upload
+        type: sensor
+    type: horizontal-stack
+  - cards:
+      - entity: sensor.speedtest_ping
+        graph: line
+        name: Ping
+        type: sensor
+    type: horizontal-stack
+name: Speed Test
+type: horizontal-stack
