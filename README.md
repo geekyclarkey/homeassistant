@@ -7,8 +7,11 @@ I am not a computer programmer in any way. Just a smart home enthusiast.
 I hope anyone who finds this repo makes use out of it.
 I am trying to keep it up to date as much as possible and adding any new features or tips i come across.
 
-## Installing HASSIO on Ubuntu
+## Installing HASSIO on Ubuntu server
 [Click Here](hassio_ubuntu_install_instructions.md) For installing hassio help
+
+## Tasmota Tips and rules
+[Click Here](tasmota_info_and_help.md) For tasmota help
 
 ## Homeassistant config file examples
 [Config Examples](hass_config_file_examples/config.yaml)  
@@ -26,16 +29,12 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [Sonarr Upcoming Media](lovelace_card_examples/sonarr_upcoming_media.yaml)  
 [Timer Card](lovelace_card_examples/timer_card.yaml)  
 
-## Tasmota Tips and rules
-[Click Here](tasmota_info_and_help.md) For tasmota help
-
 ## Port forwarding in routers I have used
 [Click Here](port_forwarding_in_routers/) For port forwarding examples
 
 ## Projects I have been Working on
 Including step by step instruction how i accomplished the end result.  
 [In Wall Multisensor](hass_projects/in_wall_multisensor/README.md)
-
 
 ## Acknowledgments
 I would like to thank the following people for providing videos, help and tips regarding Homeassistant.  
@@ -49,6 +48,7 @@ Everything i know and learned was from these guys and many more.
 * [Hasscasts](https://www.youtube.com/channel/UCGOCeqMJnLvr-5C-ypUw7IQ/featured) Here is a link to his youtube channel
 * [BurnsHa](https://www.youtube.com/channel/UCSKQutOXuNLvFetrKuwudpg) Here is a link to his youtube channel  
 
-When purchasing components and sensors, consider [Banggood](https://www.banggood.com/index.php?zf=24584579) They have great prices and quick shipping times.
+When purchasing components and sensors, consider [Banggood](https://www.banggood.com/index.php?zf=24584579) They have great prices and quick shipping times.  
+90% of the sensors and components i use are from Banggood.
 
 ![](images/hass_icon_small.png)

@@ -1,3 +1,7 @@
+
+![](images/2_rows_of_buttons.png)
+
+```
 cards:
   - cards:
       - entity: script.livingroom_mag_bbc1
@@ -52,3 +56,4 @@ cards:
         type: entity-button
     type: horizontal-stack
 type: vertical-stack
+```

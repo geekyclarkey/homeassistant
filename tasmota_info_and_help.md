@@ -4,9 +4,10 @@
 ```
 Backlog SwitchRetain off; ButtonRetain on; ButtonRetain off; PowerRetain on
 ```
+I run this backlog on all of my tasmota switches. This way homeassistant knows exactly what state the switch is in, even after a power cut or reboot.
+The switchretain should always be off, the buttonretain is on then off again to have an empty retain message in case there are any lingering around, then the powerretain
 
-
-using touch momentary switches:
+## using touch momentary switches:
 * `ledpower 0` This turns off the green led on the board because you can see it through the cracks
 * `switchmode 3` This turns the button into a momentary switch
 * `switchmode3 0` This makes momentary switchmode a toggle switch not on/off so it toggles the state no matter what home assistant is set to
@@ -54,5 +55,5 @@ Shelly 2.5 template.
 
 
 
-### Set a rule to switch off relay after 1 second
+## Set a rule to switch off relay after 1 second
 `Rule1 on power1#state=1 do backlog delay 10 ; power1 0 endon`

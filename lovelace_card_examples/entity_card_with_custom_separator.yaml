@@ -5,7 +5,7 @@ entities:
     name: Start/Pause
 
   - text: Sensors
-      type: 'custom:text-divider-row'
+    type: 'custom:text-divider-row'
 
   - entity: sensor.dishwasher_power
     icon: 'mdi:flash'
