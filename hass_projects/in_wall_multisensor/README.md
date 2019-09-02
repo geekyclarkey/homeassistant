@@ -9,6 +9,7 @@
 [Jumper Cable Dupont Wires](https://banggood.app.link/BBVZeTXjDZ)  
 
 ## Hardware
+
 ### Step 1
 solder small dupont cables onto the sensors and strip the ends.    
 solder onto the 3.3v, Ground, SDA and SCL. I used the same color cables for each pin.  
