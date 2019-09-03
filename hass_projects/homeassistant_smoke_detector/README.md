@@ -5,6 +5,7 @@ A conventional smoke detector with a high pitched sound when triggered. With the
 Below are links to the devices i used. You can use a different smoke alarm as long as it transmits a 433Mhz signal when triggered.  
 [433MHz Wireless Smoke Detector](https://banggood.app.link/IqGd3ZMOGZ)  
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
+![](images/smoke_alarm.jpeg)
 
 ### Flash Your sonoff RF Bridge with tasmota
 Because tasmota is the best! Every esp8266 chip should have tasmota.
