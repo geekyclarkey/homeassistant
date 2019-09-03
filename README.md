@@ -34,7 +34,7 @@ I am trying to keep it up to date as much as possible and adding any new feature
 
 ## Projects I have been Working on
 Including step by step instruction how i accomplished the end result.  
-[In Wall Multisensor](hass_projects/in_wall_multisensor/README.md)
+[In Wall Multisensor](hass_projects/in_wall_multisensor/README.md)  
 [Homeassistant Smoke Detector](hass_projects/homeassistant_smoke_detector/README.md)
 
 ## Acknowledgments
