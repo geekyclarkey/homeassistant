@@ -74,7 +74,7 @@ The `notify.notify` will send a notification to all my ios devices with the home
 If you are an android user, i cant help with notifications.
 the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.
 
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_smoke_detector/images/smoke_alarm_notification.jpeg" width="500px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_smoke_detector/images/smoke_alarm_notification.jpeg" width="300px">
 
 
 ## Restart homeassistant and Thats it! Have fun trying it for yourself.
