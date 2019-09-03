@@ -31,7 +31,7 @@ binary_sensor:
 as the alarm doesn't have a 2nd code for no smoke detected. The off payload can be anything you like, just add the `off_delay` to switch the entity off after 3 seconds in my example.  
 the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.
 
-![](images/smoke_alarm_entity_card.png | width=300)
+![](images/smoke_alarm_entity_card.png){:width="400px"}
 
 ### Create a group of lights
 These will be the lights you want to turn on during your fire exit  
