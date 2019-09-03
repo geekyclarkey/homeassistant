@@ -6,7 +6,7 @@ Below are links to the devices i used. You can use a different smoke alarm as lo
 [433MHz Wireless Smoke Detector](https://banggood.app.link/IqGd3ZMOGZ)  
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
 
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_smoke_detector/images/smoke_alarm.jpeg" width="300px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_smoke_detector/images/smoke_alarm1.jpeg" width="300px">
 
 ### Flash Your sonoff RF Bridge with tasmota
 Because tasmota is the best! Every esp8266 chip should have tasmota.
