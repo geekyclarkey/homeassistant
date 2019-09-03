@@ -7,7 +7,7 @@ A conventional smoke detector with high pitched sound when triggered. With the a
 
 ### Flash Your sonoff RF Bridge with tasmota
 Because tasmota is the best! Every esp8266 chip should have tasmota.
-[Click Here](https://www.youtube.com/watch?v=OfSbIFIJPuc) for a video tutorial on how to flash the Sonoff RF Bridge.
+[Click Here](https://www.youtube.com/watch?v=OfSbIFIJPuc) for a video tutorial on how to flash the Sonoff RF Bridge.  
 *The video is owned and created by DrZzs Check out his [website](http://drzzs.com/) and [youtube channel](https://www.youtube.com/channel/UC7G4tLa4Kt6A9e3hJ-HO8ng) for more great tutorials. If you like what hes doing consider [becoming on of his patrons](https://www.patreon.com/DrZzs/overviewbuying) for all of his hard work*
 
 ### Find out the RF code for your alarm.
@@ -30,6 +30,7 @@ binary_sensor:
 ```
 as the alarm doesn't have a 2nd code for no smoke detected. The off payload can be anything you like, just add the `off_delay` to switch the entity off after 3 seconds in my example.  
 the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.
+
 ![](images/smoke_alarm_entity_card.png)
 
 ### Create a group of lights
@@ -71,6 +72,9 @@ You will need to change the entities to suit your homeassistant entities.
 ```
 The `notify.notify` will send a notification to all my ios devices with the homeassistant app installed and signed in.  
 If you are an android user, i cant help with notifications.
+the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.
+
+![](images/smoke_alarm_notification.jpeg)
 
 
 ## Restart homeassistant and Thats it! Have fun trying it for yourself.
