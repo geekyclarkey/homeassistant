@@ -2,21 +2,24 @@
 
 ## Purchase the components needed
 Below are links to the devices i used.
-[SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ
+[SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
 
 ### Connect the RM Mini3 to your network
 * Plug the Broadlink RM Mini3 in and wait for the blue led to start blinking.  
 * Download the [e-Control app](https://apps.apple.com/us/app/broadlink-e-control/id793152994) from the app store.  
 * Open the app, skip the cloud setup and click the + button at the top right  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/add_button.jpg" width="200px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/add_button.jpg" width="200px">  
+
 * Click add device  
 * Enter your wifi name and password. (make sure your phone is connected to the 2.4Ghz wifi network too. dont use 5Ghz) 
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/wifi.jpg" width="200px"> 
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/wifi.jpg" width="200px">   
+
 * Click Configure and wait for the app to complete the setup. It will find the broadlink device and configure the wifi.
 * Go to Device list and you will see your RM Mini htere. Make note of the mac address. You will need that later. 
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/device_list.jpg" width="200px"> 
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/mac.jpg" width="200px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/mac.jpg" width="200px">  
 
+Log into your router and find the IP address the RM Mini has been assigned. Make note of that too.
 Once this is set up you wont need the app again you can remove it if you like.
 
 ### Set up the RM Mini3 in Homeassistant
