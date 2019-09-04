@@ -13,7 +13,6 @@ Because tasmota is the best! Every esp8266 chip should have tasmota.
 ### Find out the RF code for your motion sensor.
 Every device will have a different code. The example below is mine. Yours will be different so **please don't skip this part.**  
 Log into the RF bridge web ui and go into the console. Wave your hans or walk in fornt of the sensor to trigger it. The model i used flashed green when it detects movement and sends the rf code. The RF code for your device will show up in the console.
-![](images/sonoff_rf_recieve_code.png)
 
 ### Set up the motion sensor in Homeassistant
 Add the following to the binary_sensor section of your configuration.yaml file  
@@ -30,8 +29,6 @@ binary_sensor:
 ``` 
 the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.  
 Once you have added the motion sensor as a binary sensor, restart homeassistant. I added the sensor as an entity in lovelace and tested it by walking in fornt of it. The entity showed as `detected` for  about 3 seconds then went back to `clear`. Everything is working correctly.
-
-![](images/smoke_alarm_entity_card.png)
 
 ### Set up the camera as an entiy
 Add the camera entity into your configoration.yaml file.
@@ -70,7 +67,7 @@ entities:
 title: Front Yard Camera
 type: picture-glance
 ```
-![](images/front_yard_card.png)
+![](images/front_yard_card.PNG)
 
 ### Create the directory for your recordings and snapshots
 inside the **config folder** you should see a folder called **www**. if you dont then create one.  
@@ -170,7 +167,7 @@ It will also send a notification to me and my wife letting us know there is move
       entity_id: automation.record_clip_of_front_yard_if_motion_detected_while_we_are_away
 ```
 
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/cctv_with_recording_in_homeassistant/images/notification.jpeg" width="300px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/cctv_with_recording_in_homeassistant/images/notification.jpg" width="300px">
 
 The `notify.notify` will send a notification to all my ios devices with the homeassistant app installed and signed in.  
 If you are an android user, **i cant help with notifications.** I don't have any android devices to try!
