@@ -2,7 +2,7 @@
 
 ## Purchase the components needed
 Below are links to the devices i used. You can use a different smoke alarm as long as it transmits a 433Mhz signal when triggered.  
-[SONOFF PIR2 Wireless Infrared Detector](https://banggood.app.link/97bSjxKSHZ)
+[SONOFF PIR2 Wireless Infrared Detector](https://banggood.app.link/97bSjxKSHZ)  
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
 
 ### Flash Your sonoff RF Bridge with tasmota
@@ -31,7 +31,7 @@ as the motion sensor doesn't have a 2nd code for `no movenent detected`. The off
 the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.  
 Once you have added the motion sensor as a binary sensor, restart homeassistant. I added the sensor as an entity in lovelace and tested it by walking in fornt of it. The entity showed as `detected` for  about 3 seconds then went back to `clear`. Everything is working correctly.
 
-### Set up the camera as an entiy
+### Set up the camera as an entity
 Add the camera entity into your configoration.yaml file.
 ```
 camera:
@@ -41,7 +41,8 @@ camera:
     stream_source: "rtsp://username:password@192.168.10.222/Src/MediaInput/h264/stream_1/ch_"
 ``` 
 Your camera entity will probably look different, you may need to research how to add your camera into homeassistant.
-I am using the Panasonic WV-SF335 and the example above is how to incorporate that particulat make and model.
+I am using the Panasonic WV-SF335 and the example above is how to incorporate that particulat make and model.  
+You can find many stream urls from [this website](https://www.ispyconnect.com/sources.aspx)
 
 ### Set up the input booleans for the lovelace card
 These booleans will be for us to take instant snapshots and recordings from the lovelace interface.
