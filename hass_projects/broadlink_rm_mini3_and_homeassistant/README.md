@@ -1,7 +1,7 @@
 # How to setup a Broadlink RM Mini3 and Homeassistant
 
 ## Purchase the components needed
-Below are links to the devices i used.
+Below are links to the devices i used.  
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
 
 ### Connect the RM Mini3 to your network
