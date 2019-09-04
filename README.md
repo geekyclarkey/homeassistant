@@ -36,7 +36,8 @@ I am trying to keep it up to date as much as possible and adding any new feature
 Including step by step instruction how i accomplished the end result.  
 [In Wall Multisensor](hass_projects/in_wall_multisensor/README.md)  
 [Homeassistant Smoke Detector](hass_projects/homeassistant_smoke_detector/README.md)  
-[CCTV With Recording In Homeassistant](hass_projects/cctv_with_recording_in_homeassistant/README.md)
+[CCTV With Recording In Homeassistant](hass_projects/cctv_with_recording_in_homeassistant/README.md)  
+[How to Set up Broadlink RM Mini in Homeassistant](hass_projects/broadlink_rm_mini3_and_homeassistant/README.md)
 
 ## Acknowledgments
 I would like to thank the following people for providing videos, help and tips regarding Homeassistant.  

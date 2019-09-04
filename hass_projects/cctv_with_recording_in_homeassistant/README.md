@@ -1,14 +1,14 @@
 # CCTV in Homeassistant with recording 
 
 ## Purchase the components needed
-Below are links to the devices i used. You can use a different smoke alarm as long as it transmits a 433Mhz signal when triggered.  
+Below are links to the devices i used.
 [SONOFF PIR2 Wireless Infrared Detector](https://banggood.app.link/97bSjxKSHZ)  
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
 
 ### Flash Your sonoff RF Bridge with tasmota
 Because tasmota is the best! Every esp8266 chip should have tasmota.
 [Click Here](https://www.youtube.com/watch?v=OfSbIFIJPuc) for a video tutorial on how to flash the Sonoff RF Bridge.  
-*The video is owned and created by DrZzs Check out his [website](http://drzzs.com/) and [youtube channel](https://www.youtube.com/channel/UC7G4tLa4Kt6A9e3hJ-HO8ng) for more great tutorials. If you like what hes doing consider [becoming one of his patrons](https://www.patreon.com/DrZzs/overviewbuying) to thank him for all of his hard work*
+*The video is owned and created by DrZzs Check out his [website](http://drzzs.com/) and [youtube channel](https://www.youtube.com/channel/UC7G4tLa4Kt6A9e3hJ-HO8ng) for more great tutorials. If you like what he's doing consider [becoming one of his patrons](https://www.patreon.com/DrZzs/overviewbuying) to thank him for all of his hard work*
 
 ### Find out the RF code for your motion sensor.
 Every device will have a different code. The example below is mine. Yours will be different so **please don't skip this part.**  
@@ -130,7 +130,7 @@ These automations are for the buttons in the entity card so we can press them an
       entity_id: input_boolean.frontyardcam_record
 ```
 
-This automation will trigger when motion is detected in the front yard with the condition, both me any my wife are not home or it it between 11pm and 7am.  
+This automation will trigger when motion is detected in the front yard with the condition, both me and my wife are not home or it it between 11pm and 7am.  
 It will Tur on the light for better visability, record a 30 second clip and record another if more movement is detected 30 second later, and will repeat untill no more movement is detected.  
 It will also send a notification to me and my wife letting us know there is movement and that a recording has been made.
 ```
