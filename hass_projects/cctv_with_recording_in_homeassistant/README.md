@@ -1,9 +1,10 @@
-# CCTV in Homeassistant with recording 
+# CCTV in Homeassistant with recording
 
 ## Purchase the components needed
 Below are links to the devices i used.
 [SONOFF PIR2 Wireless Infrared Detector](https://banggood.app.link/97bSjxKSHZ)  
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
+[Reolink RLC-420-5MP PoE Camera](https://www.amazon.es/dp/B07F3CH6QQ?aaxitk=QMqLThvgTKUSpHpc00uVFA&pd_rd_i=B07F3CH6QQ&pf_rd_p=a1981982-b06b-419a-9b66-495420231b59&hsa_cr_id=9512477600402&sb-ci-n=productDescription&sb-ci-v=C%C3%A1mara%20de%20Seguridad%20PoE%20Reolink%205MP%20HD%20Ranura%20para%20Tarjeta%20SD%20incorporada%20Soporte%20de%20Audio%20Vigilancia%20en%20el%20hogar%20al%20Aire%20Libre%20IR%20Impermeable%20Visi%C3%B3n%20Nocturna%20C%C3%A1mara%20IP%20RLC-420-5MP&sb-ci-a=B07F3CH6QQ) I personally own this camera and car recommend it. The picture quality is the best i have seen so far. I have added the camera entity down below if anyone also has this camera model
 
 ### Flash Your sonoff RF Bridge with tasmota
 Because tasmota is the best! Every esp8266 chip should have tasmota.
@@ -26,7 +27,7 @@ binary_sensor:
     payload_off: "OFF"
     off_delay: 3
     device_class: motion
-``` 
+```
 as the motion sensor doesn't have a 2nd code for `no movenent detected`. The off payload can be anything you like, just add the off_delay to switch the entity off after 3 seconds in my example.
 the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.  
 Once you have added the motion sensor as a binary sensor, restart homeassistant. I added the sensor as an entity in lovelace and tested it by walking in fornt of it. The entity showed as `detected` for  about 3 seconds then went back to `clear`. Everything is working correctly.
@@ -39,10 +40,19 @@ camera:
     name: Front Yard Camera
     still_image_url: "http://username:password@192.168.10.222/SnapshotJPEG?Resolution=1280x960"
     stream_source: "rtsp://username:password@192.168.10.222/Src/MediaInput/h264/stream_1/ch_"
-``` 
+```
 Your camera entity will probably look different, you may need to research how to add your camera into homeassistant.
 I am using the Panasonic WV-SF335 and the example above is how to incorporate that particulat make and model.  
 You can find many stream urls from [this website](https://www.ispyconnect.com/sources.aspx)
+```
+camera:
+  - platform: generic
+    name: Garage Camera
+    still_image_url: "http://192.168.10.221/cgi-bin/api.cgi?cmd=Snap&amp;channel=0&amp;rs=wuuPhkmUCeI9WG7C&amp;user=user&amp;password=password"
+    stream_source: "rtsp://user:password@192.168.10.221:554/h264Preview_01_main"
+```
+This is the Camera entity setup for the [Reolink RLC-420-5MP PoE Camera](https://www.amazon.es/dp/B07F3CH6QQ?aaxitk=QMqLThvgTKUSpHpc00uVFA&pd_rd_i=B07F3CH6QQ&pf_rd_p=a1981982-b06b-419a-9b66-495420231b59&hsa_cr_id=9512477600402&sb-ci-n=productDescription&sb-ci-v=C%C3%A1mara%20de%20Seguridad%20PoE%20Reolink%205MP%20HD%20Ranura%20para%20Tarjeta%20SD%20incorporada%20Soporte%20de%20Audio%20Vigilancia%20en%20el%20hogar%20al%20Aire%20Libre%20IR%20Impermeable%20Visi%C3%B3n%20Nocturna%20C%C3%A1mara%20IP%20RLC-420-5MP&sb-ci-a=B07F3CH6QQ)  
+Just change the username and password to your camera
 
 ### Set up the input booleans for the lovelace card
 These booleans will be for us to take instant snapshots and recordings from the lovelace interface.

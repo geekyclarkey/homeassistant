@@ -101,10 +101,11 @@ You can find the rf code for any infrared remote.
 
 ## Restart homeassistant and Thats it! Have fun trying it for yourself.
 
-## Other github projects for the Broadlink RM Mini3
+## Other Github projects for the Broadlink RM Mini3
 Try the [Smart IR](https://github.com/smartHomeHub/SmartIR) custom component by [Vassilis Panos](https://github.com/smartHomeHub)  
-I personally use this for controlling my air conditioning units.
+**I personally use this custom component for controlling my air conditioning units.**
 
 There is also a windows program for learning ir codes.
 See This [Website](https://sourceforge.net/u/tech-blog/profile/) and choose the `broadlink manager` project for the latest version
+
 I have uploaded the latest version as of 04/09/19 in case the project ever gets deleted. [Click here](https://github.com/geekyclarkey/homeassistant/raw/master/hass_projects/broadlink_rm_mini3_and_homeassistant/Broadlink_Manager.zip) to download the version i have installed on my pc. I can confirm it works perfectly.
