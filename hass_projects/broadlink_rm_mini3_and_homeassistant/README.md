@@ -107,4 +107,4 @@ I personally use this for controlling my air conditioning units.
 
 There is also a windows program for learning ir codes.
 See This [Website](https://sourceforge.net/u/tech-blog/profile/) and choose the `broadlink manager` project for the latest version
-I have uploaded the latest version as of 04/09/19 in case the project ever gets deleted. [Click here](https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/Broadlink_Manager.zip) to download the version i have installed on my pc. I can confirm it works perfectly.
+I have uploaded the latest version as of 04/09/19 in case the project ever gets deleted. [Click here](https://github.com/geekyclarkey/homeassistant/raw/master/hass_projects/broadlink_rm_mini3_and_homeassistant/Broadlink_Manager.zip) to download the version i have installed on my pc. I can confirm it works perfectly.
