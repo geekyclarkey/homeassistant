@@ -2,7 +2,7 @@
 
 ## Purchase the components needed
 Below are links to the devices i used. You can use a different smoke alarm as long as it transmits a 433Mhz signal when triggered.  
-[433MHz Wireless Smoke Detector](https://banggood.app.link/IqGd3ZMOGZ)  
+[SONOFF PIR2 Wireless Infrared Detector](https://banggood.app.link/97bSjxKSHZ)
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
 
 ### Flash Your sonoff RF Bridge with tasmota
@@ -19,14 +19,15 @@ Add the following to the binary_sensor section of your configuration.yaml file
 ```
 binary_sensor:
   - platform: mqtt
-    state_topic: "tele/sonoffrf/RESULT"
+    name: "Front Yard"
+    state_topic: "home/sonoffrf/rfrecieve"
     value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: "D9DFA6"
+    payload_on: "EC2EEE"
     payload_off: "OFF"
     off_delay: 3
-    name: "Smoke Alarm"
-    device_class: smoke
+    device_class: motion
 ``` 
+as the motion sensor doesn't have a 2nd code for `no movenent detected`. The off payload can be anything you like, just add the off_delay to switch the entity off after 3 seconds in my example.
 the `state_topic: "tele/sonoffrf/RESULT"` in my example is this because i made the MQTT topic `sonoffrf` if you chose something else remember to make it the same.  
 Once you have added the motion sensor as a binary sensor, restart homeassistant. I added the sensor as an entity in lovelace and tested it by walking in fornt of it. The entity showed as `detected` for  about 3 seconds then went back to `clear`. Everything is working correctly.
 
