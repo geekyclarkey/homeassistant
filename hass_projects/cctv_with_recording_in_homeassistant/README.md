@@ -4,7 +4,7 @@
 Below are links to the devices i used.  
 [SONOFF PIR2 Wireless Infrared Detector](https://banggood.app.link/97bSjxKSHZ)  
 [SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)  
-[Reolink RLC-420-5MP PoE Camera](https://www.amazon.es/dp/B07F3CH6QQ?aaxitk=QMqLThvgTKUSpHpc00uVFA&pd_rd_i=B07F3CH6QQ&pf_rd_p=a1981982-b06b-419a-9b66-495420231b59&hsa_cr_id=9512477600402&sb-ci-n=productDescription&sb-ci-v=C%C3%A1mara%20de%20Seguridad%20PoE%20Reolink%205MP%20HD%20Ranura%20para%20Tarjeta%20SD%20incorporada%20Soporte%20de%20Audio%20Vigilancia%20en%20el%20hogar%20al%20Aire%20Libre%20IR%20Impermeable%20Visi%C3%B3n%20Nocturna%20C%C3%A1mara%20IP%20RLC-420-5MP&sb-ci-a=B07F3CH6QQ) I personally own this camera and car recommend it. The picture quality is the best i have seen so far. I have added the camera entity down below if anyone also has this camera model
+[Reolink RLC-420-5MP PoE Camera](https://www.amazon.es/dp/B07F3CH6QQ?aaxitk=QMqLThvgTKUSpHpc00uVFA&pd_rd_i=B07F3CH6QQ&pf_rd_p=a1981982-b06b-419a-9b66-495420231b59&hsa_cr_id=9512477600402&sb-ci-n=productDescription&sb-ci-v=C%C3%A1mara%20de%20Seguridad%20PoE%20Reolink%205MP%20HD%20Ranura%20para%20Tarjeta%20SD%20incorporada%20Soporte%20de%20Audio%20Vigilancia%20en%20el%20hogar%20al%20Aire%20Libre%20IR%20Impermeable%20Visi%C3%B3n%20Nocturna%20C%C3%A1mara%20IP%20RLC-420-5MP&sb-ci-a=B07F3CH6QQ) I personally own this camera and can recommend it. The picture quality is the best i have seen so far. I have added the camera entity down below if anyone also has this camera model
 
 ### Flash Your sonoff RF Bridge with tasmota
 Because tasmota is the best! Every esp8266 chip should have tasmota.
