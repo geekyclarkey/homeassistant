@@ -14,20 +14,17 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [Click Here](tasmota_info_and_help.md) For tasmota help
 
 ## Homeassistant config file examples
-[Config Examples](hass_config_file_examples/config.yaml)  
-[Automation Examples](hass_config_file_examples/automation.yaml)  
-[Script Examples](hass_config_file_examples/script.yaml)  
-[Theme Examples](hass_config_file_examples/themes.yaml)  
+[Configoration.yaml](hass_config_file_examples/config.yaml)  
+[Automations.yaml](hass_config_file_examples/automation.yaml)  
+[Scripts.yaml](hass_config_file_examples/script.yaml)  
+[Themes.yaml](hass_config_file_examples/themes.yaml)  
 
 ## Homeassistant lovelace card examples
-[2 Horizontal Rows Of Vertical Buttons](lovelace_card_examples/2_horizontal_rows_of_vertical_buttons.yaml)  
-[3 Gauges In A Horizontal Stack](lovelace_card_examples/3_gauges_in_a_horizontal_stack.yaml)  
-[Camera Card With Entities](lovelace_card_examples/camera_card_with_entities.yaml)  
-[Entity Card With Custom Separator](lovelace_card_examples/entity_card_with_custom_separator.yaml)  
-[Mini Media Player](lovelace_card_examples/mini_media_player.yaml)  
-[Round Pop Out Card](lovelace_card_examples/round_pop_out_card.yaml)  
-[Sonarr Upcoming Media](lovelace_card_examples/sonarr_upcoming_media.yaml)  
-[Timer Card](lovelace_card_examples/timer_card.yaml)  
+[2 Horizontal Rows Of Vertical Buttons](lovelace_card_examples/2_horizontal_rows_of_vertical_buttons.md)  
+[3 Gauges In A Horizontal Stack](lovelace_card_examples/3_gauges_in_a_horizontal_stack.md)  
+[Camera Card With Entities](lovelace_card_examples/camera_card_with_entities.md)  
+[Entity Card With Custom Separator](lovelace_card_examples/entity_card_with_custom_separator.md)  
+[Round Pop Out Card](lovelace_card_examples/round_pop_out_card.md)   
 
 ## Port forwarding in routers I have used
 [Click Here](port_forwarding_in_routers/) For port forwarding examples

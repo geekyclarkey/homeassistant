@@ -1,3 +1,8 @@
+# Camera card with actionable buttons
+
+![](images/camera_with_buttons.png)
+
+```
 camera_image: camera.garage_camera
 entities:
   - input_boolean.garagecam_record
@@ -9,3 +14,4 @@ entities:
     icon: 'mdi:garage-alert'
 title: Garage Camera
 type: picture-glance
+```

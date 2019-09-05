@@ -1,3 +1,8 @@
+# 3 Graphs in a horizontal row
+
+![](images/3gauges.png)
+
+```
 cards:
   - cards:
       - entity: sensor.speedtest_download
@@ -19,3 +24,4 @@ cards:
     type: horizontal-stack
 name: Speed Test
 type: horizontal-stack
+```

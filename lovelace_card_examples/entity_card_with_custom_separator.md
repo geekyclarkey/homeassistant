@@ -1,3 +1,8 @@
+# Entity card with custom separator
+
+![](images/custom_sep.png)
+
+```
 entities:
   - entity: switch.dishwasher_power
     name: Power Toggle
@@ -18,3 +23,4 @@ entities:
 show_header_toggle: false
 title: Dishwasher
 type: entities
+```
