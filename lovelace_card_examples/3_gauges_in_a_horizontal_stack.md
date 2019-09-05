@@ -1,4 +1,4 @@
-# 3 Graphs in a horizontal row
+# 3 Gauges in a horizontal row
 
 ![](images/3_gauges.png)
 
