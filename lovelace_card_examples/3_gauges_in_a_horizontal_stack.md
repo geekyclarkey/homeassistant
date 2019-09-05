@@ -1,27 +1,45 @@
 # 3 Graphs in a horizontal row
 
-![](images/3gauges.png)
+![](images/3_gauges.png)
 
 ```
+name: Speed Test
+type: horizontal-stack
 cards:
   - cards:
       - entity: sensor.speedtest_download
-        graph: line
-        name: Downlaod
-        type: sensor
+        min: 0
+        max: 500
+        severity:
+          green: 400
+          yellow: 250
+          red: 100
+        theme: default
+        type: gauge
+        name: Download
     type: horizontal-stack
   - cards:
       - entity: sensor.speedtest_upload
-        graph: line
+        min: 0
+        max: 500
+        severity:
+          green: 400
+          yellow: 250
+          red: 100
+        theme: default
+        type: gauge
         name: Upload
-        type: sensor
     type: horizontal-stack
   - cards:
       - entity: sensor.speedtest_ping
-        graph: line
+        min: 0
+        max: 100
+        severity:
+          green: 1
+          yellow: 40
+          red: 90
+        theme: default
         name: Ping
-        type: sensor
+        type: gauge
     type: horizontal-stack
-name: Speed Test
-type: horizontal-stack
 ```
