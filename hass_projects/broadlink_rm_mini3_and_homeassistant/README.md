@@ -2,7 +2,7 @@
 
 ## Purchase the components needed
 Below are links to the devices i used.  
-[Broadlink RM Mini3](https://banggood.app.link/qD0AqCyqIZ)  
+[Broadlink RM Mini3](https://www.banggood.com/custlink/KD3GBKOZT9)  
 
 ### Connect the RM Mini3 to your network
 * Plug the Broadlink RM Mini3 in and wait for the blue led to start blinking.  
