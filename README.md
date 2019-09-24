@@ -38,7 +38,7 @@ Including step by step instruction how i accomplished the end result.
 
 ## Links to sensors, components and devices
 Below is a list of sensors, components, devices and tools that i have personally used.  
-Using them in Homeassistant and day to day life. If you are looking for a specific component or tool, have a look at what makes and models i would recommend.
+Using them in Homeassistant and day to day life. If you are looking for a specific component or tool, have a look at what makes and models i would recommend.  
 [Click Here to access the list](approved_components.md)  
 
 ## Acknowledgments
