@@ -1,12 +1,12 @@
 # Homeassistant In Wall Multisensor
 
 ## Purchase all the sensors and components needed
-[D1 Mini](https://banggood.app.link/DMaosBzjDZ)  
-[BH1750FVI Digital Light Intensity Sensor](https://banggood.app.link/8EDHRH6iDZ)  
-[Mini IR Infrared Pyroelectric PIR](https://banggood.app.link/Tg1R2iFjDZ)  
-[HTU21D Temperature Humidity Sensor](https://banggood.app.link/6JE5LxJjDZ)  
-[5V AC-DC Power Supply](https://banggood.app.link/yqQWaiOjDZ)  
-[Jumper Cable Dupont Wires](https://banggood.app.link/BBVZeTXjDZ)  
+[D1 Mini](https://www.banggood.com/custlink/Gm3KgKZrD4)  
+[BH1750FVI Digital Light Intensity Sensor](https://www.banggood.com/custlink/DGKG0KZp3q)  
+[Mini IR Infrared Pyroelectric PIR](https://www.banggood.com/custlink/3KK3BDIEwm)  
+[HTU21D Temperature Humidity Sensor](https://www.banggood.com/custlink/m3KG0m8CYD)  
+[5V AC-DC Power Supply](https://www.banggood.com/custlink/33Dm43IWdV)  
+[Jumper Cable Dupont Wires](https://www.banggood.com/custlink/vDvD6DjOQt)  
 
 ## Hardware
 

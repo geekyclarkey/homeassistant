@@ -3,8 +3,8 @@ A conventional smoke detector with a high pitched sound when triggered. With the
 
 ## Purchase the components needed
 Below are links to the devices i used. You can use a different smoke alarm as long as it transmits a 433Mhz signal when triggered.  
-[433MHz Wireless Smoke Detector](https://banggood.app.link/IqGd3ZMOGZ)  
-[SONOFF RF Bridge](https://banggood.app.link/mKX96JHOGZ)
+[433MHz Wireless Smoke Detector](https://www.banggood.com/custlink/vvDm03SCJy)  
+[SONOFF RF Bridge](https://www.banggood.com/custlink/DGDv0K9Jvc)
 
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_smoke_detector/images/smoke_alarm1.jpeg" width="300px">
 

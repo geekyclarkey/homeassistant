@@ -14,20 +14,17 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [Click Here](tasmota_info_and_help.md) For tasmota help
 
 ## Homeassistant config file examples
-[Config Examples](hass_config_file_examples/config.yaml)  
-[Automation Examples](hass_config_file_examples/automation.yaml)  
-[Script Examples](hass_config_file_examples/script.yaml)  
-[Theme Examples](hass_config_file_examples/themes.yaml)  
+[Configoration.yaml](hass_config_file_examples/config.yaml)  
+[Automations.yaml](hass_config_file_examples/automation.yaml)  
+[Scripts.yaml](hass_config_file_examples/script.yaml)  
+[Themes.yaml](hass_config_file_examples/themes.yaml)  
 
 ## Homeassistant lovelace card examples
-[2 Horizontal Rows Of Vertical Buttons](lovelace_card_examples/2_horizontal_rows_of_vertical_buttons.yaml)  
-[3 Gauges In A Horizontal Stack](lovelace_card_examples/3_gauges_in_a_horizontal_stack.yaml)  
-[Camera Card With Entities](lovelace_card_examples/camera_card_with_entities.yaml)  
-[Entity Card With Custom Separator](lovelace_card_examples/entity_card_with_custom_separator.yaml)  
-[Mini Media Player](lovelace_card_examples/mini_media_player.yaml)  
-[Round Pop Out Card](lovelace_card_examples/round_pop_out_card.yaml)  
-[Sonarr Upcoming Media](lovelace_card_examples/sonarr_upcoming_media.yaml)  
-[Timer Card](lovelace_card_examples/timer_card.yaml)  
+[2 Horizontal Rows Of Vertical Buttons](lovelace_card_examples/2_horizontal_rows_of_vertical_buttons.md)  
+[3 Gauges In A Horizontal Stack](lovelace_card_examples/3_gauges_in_a_horizontal_stack.md)  
+[Camera Card With Entities](lovelace_card_examples/camera_card_with_entities.md)  
+[Entity Card With Custom Separator](lovelace_card_examples/entity_card_with_custom_separator.md)  
+[Round Pop Out Card](lovelace_card_examples/round_pop_out_card.md)   
 
 ## Port forwarding in routers I have used
 [Click Here](port_forwarding_in_routers/) For port forwarding examples
@@ -38,6 +35,11 @@ Including step by step instruction how i accomplished the end result.
 [Homeassistant Smoke Detector](hass_projects/homeassistant_smoke_detector/README.md)  
 [CCTV With Recording In Homeassistant](hass_projects/cctv_with_recording_in_homeassistant/README.md)  
 [How to Set up Broadlink RM Mini in Homeassistant](hass_projects/broadlink_rm_mini3_and_homeassistant/README.md)
+
+## Links to sensors, components and devices
+Below is a list of sensors, components, devices and tools that i have personally used.  
+Using them in Homeassistant and day to day life. If you are looking for a specific component or tool, have a look at what makes and models i would recommend.  
+[Click Here to access the list](approved_components.md)  
 
 ## Acknowledgments
 I would like to thank the following people for providing videos, help and tips regarding Homeassistant.  
@@ -52,6 +54,8 @@ Everything i know and learned was from these guys and many more.
 * [BurnsHa](https://www.youtube.com/channel/UCSKQutOXuNLvFetrKuwudpg) Here is a link to his youtube channel  
 
 When purchasing components and sensors, consider [Banggood](https://www.banggood.com/index.php?zf=24584579) They have great prices and quick shipping times.  
-90% of the sensors and components i use are from Banggood.
+90% of the sensors and components i use are from Banggood.  
+Some links in this repository are affiliate links. When you purchase using them the product doesn't cost you any extra but i do get a kickback for my referral.  
+Using these links helps me purchase more components to make new projects, so i can keep updating this repository.
 
 ![](images/hass_icon_small.png)
