@@ -8,16 +8,16 @@ Below are links to the devices i used.
 * Plug the Broadlink RM Mini3 in and wait for the blue led to start blinking.  
 * Download the [e-Control app](https://apps.apple.com/us/app/broadlink-e-control/id793152994) from the app store.  
 * Open the app, skip the cloud setup and click the + button at the top right  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/add_button.jpg" width="200px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/images/add_button.jpg" width="200px">  
 
 * Click add device  
 * Enter your wifi name and password. (make sure your phone is connected to the 2.4Ghz wifi network too. dont use 5Ghz)
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/wifi.jpg" width="200px">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/images/wifi.jpg" width="200px">   
 
 * Click Configure and wait for the app to complete the setup. It will find the broadlink device and configure the wifi.
 * Go to Device list and you will see your RM Mini htere. Make note of the mac address. You will need that later.
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/device_list.jpg" width="200px">
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/images/mac.jpg" width="200px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/images/device_list.jpg" width="200px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/images/mac.jpg" width="200px">  
 
 Log into your router and find the IP address the RM Mini has been assigned. Make note of that too.
 Once this is set up you wont need the app again you can remove it if you like.
@@ -100,7 +100,7 @@ You can find the rf code for any infrared remote.
 * Then paste the code somewhere for you to use later
 
 # OR Check out my personal list of Broadlink IR Codes 
-[Click here](https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/broadlink_rm_mini3_and_homeassistant/Broadlink_IR_Codes.md) to go to the list
+[Click here](https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/Broadlink_IR_Codes.md) to go to the list
 
 ## Restart homeassistant and Thats it! Have fun trying it for yourself.
 
@@ -111,4 +111,4 @@ Try the [Smart IR](https://github.com/smartHomeHub/SmartIR) custom component by 
 There is also a windows program for learning ir codes.
 See This [Website](https://sourceforge.net/u/tech-blog/profile/) and choose the `broadlink manager` project for the latest version
 
-I have uploaded the latest version as of 04/09/19 in case the project ever gets deleted. [Click here](https://github.com/geekyclarkey/homeassistant/raw/master/hass_projects/broadlink_rm_mini3_and_homeassistant/Broadlink_Manager.exe) to download the version i have installed on my pc. I can confirm it works perfectly.
+I have uploaded the latest version as of 04/09/19 in case the project ever gets deleted. [Click here](https://github.com/geekyclarkey/homeassistant/raw/master/howto_guides/broadlink_rm_mini3_and_homeassistant/Broadlink_Manager.exe) to download the version i have installed on my pc. I can confirm it works perfectly.
