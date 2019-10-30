@@ -62,6 +62,7 @@ livingroom_volume_down:
 When these scripts are executed in lovelace, they make the RM Mini send a one off code that in this example turns the tv volume up or down.  
 Now with this i can make a button in lovelace and use that as a remote or have an automation action turn the tv down.
 
+
 ```
 livingroom_bbc1:
   alias: "BBC 1"
@@ -82,7 +83,7 @@ livingroom_bbc1:
          entity_id: media_player.living_room_tv
          source: HDMI 1
 ```
-This automation changes my set top box to BBC One by simulating the buttons 1-0-1 then switched the tv on waits 6 seconds (because of the boot screen) then changes the TV input over to HDMI 1  
+This script changes my set top box to BBC One by simulating the buttons 1-0-1 then switched the tv on waits 6 seconds (because of the boot screen) then changes the TV input over to HDMI 1  
 These actions will be played out one after the other starting from the top. All from one executable button in lovelace, or an automation could run this script as the action.
 
 ### Generating your own RF codes
@@ -99,12 +100,12 @@ You can find the rf code for any infrared remote.
 * Copy the code by pressing CMD+C (Mac) or CTRL+C (PC)
 * Then paste the code somewhere for you to use later
 
-# OR Check out my personal list of Broadlink IR Codes 
+### OR Check out my personal list of Broadlink IR Codes 
 [Click here](https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/Broadlink_IR_Codes.md) to go to the list
 
 ## Restart homeassistant and Thats it! Have fun trying it for yourself.
 
-## Other Github projects for the Broadlink RM Mini3
+# Other Github projects for the Broadlink RM Mini3
 Try the [Smart IR](https://github.com/smartHomeHub/SmartIR) custom component by [Vassilis Panos](https://github.com/smartHomeHub)  
 **I personally use this custom component for controlling my air conditioning units.**
 
