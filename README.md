@@ -30,7 +30,8 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [Click Here](port_forwarding_in_routers/) For port forwarding examples
 
 ## How To Guides
-[How to Set up Broadlink RM Mini in Homeassistant](howto_guides/broadlink_rm_mini3_and_homeassistant/README.md)
+[How to Set up Broadlink RM Mini in Homeassistant](howto_guides/broadlink_rm_mini3_and_homeassistant/README.md)  
+[How to add a low pass filter to sonoff basic and other devices](howto_guides/sonoff_low_pass_filter/README.md)
 
 ## Projects I have been Working on
 Including step by step instruction how i accomplished the end result.  
