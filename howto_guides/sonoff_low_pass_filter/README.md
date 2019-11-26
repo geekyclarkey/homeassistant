@@ -20,7 +20,7 @@ It works because the capacitor allows higher frequency signals to pass through e
 
 The same thing will work to keep interference from messing with other devices, like a D1 mini, or a NodeMCU.   
 
-** Disclaimer **
+### Disclaimer
 I found out this information from [DrZzs](http://drzzs.com/) Here is a link to the docs website.  Im only adding it to my github so i can access the info easily in the future.
 [Here](https://www.youtube.com/watch?v=aq8_os6g13s&t=173s) is a link to his youtube video on the subject.
 
