@@ -1,14 +1,17 @@
-# Emergy Monitoring with the Shelly EM
+# Whole Home Emergy Monitoring With The Shelly EM
 
 ## Purchase the components
 Below are links to the devices i used.  
-[Sonoff Basic](https://www.banggood.com/custlink/3DmKBma4V4)   
+[Shelly EM](https://shop.shelly.cloud/shelly-em-50a-clamp-wifi-smart-home-automation-1#139)   
 
 ### Setup the Shelly EM in the Shelly App
-I havent flashed the Shelly EM with tasmota. This demonstration uses the Shelly EM stock firmware.
+I havent flashed the Shelly EM with tasmota. This demonstration uses the Shelly EM stock firmware.  
+
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_menu_icon.jpeg" width="400px">  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_add_device.jpeg" width="400px">  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_wifi_config.jpeg" width="400px">  
+
+Follow the on screen instructions to add the Shelly EM to your home network.
   
 ### Add the Shelly EM to your configrotation.yaml
 in the sensors section add the following:
@@ -24,7 +27,7 @@ sensor:
     unit_prefix: k
     round: 2
 ```
-You can change the name if you like but remember to use the alternative name later on in your setup.
+You can change the name if you like but remember to use the alternative name later on in your setup.  
 *You* **will** *need to change the MQTT state topic to your shelly em´s state topic*
 
 ### Add More in depth sensors
