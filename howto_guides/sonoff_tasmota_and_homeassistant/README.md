@@ -3,7 +3,8 @@ Here is tips i have found about the sonoff and using it with homeassistant.
 
 ## Purchase the components
 Below are links to the devices i used.  
-
+[Sonoff Basic](https://www.banggood.com/custlink/3DmKBma4V4)  
+[4.7k Ohm resistors](https://www.banggood.com/custlink/mm3m4MwuYA)  
 
 ### Adding a Low Pass Filter
 When using a sonoff and using gpio pins to switch the relay, if the sonoff is installed in the wall or near high fequeuncy electricicty cables you may experience ghost switching.  
