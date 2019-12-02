@@ -132,7 +132,7 @@ type: vertical-stack
 ```
 
 ### Add your script into Alexa
-To do this i use the homeassistant cloud service. It costs 5$ a month but its worth it for the ease of integrating your Alexa into homeassistant, plus it helps contribute to the developers and keeps homeassistant going. You also need the homeassistant Alexa skill installed.  
+To do this i use the homeassistant cloud service. It costs 5$ a month but its worth it for the ease of integrating your Alexa into homeassistant, plus it helps contribute to the developers and keeps homeassistant going. You also need the homeassistant skill installed on your Alexa device.  
 
 You Add your new script into the cloud entity in your configoration.yaml (I have mine filtered so i can control what entities get added into my Alexa app)  
 ```
