@@ -1,7 +1,7 @@
 # How to change TV channels with your Alexa
 
 ## Purchase the components
-Obviously as of the nature of my GitHub you will need Homeassistant. [Click Here](https://www.home-assistant.io/) to find out more about Homeassistant
+Obviously as of the nature of my GitHub you will need Homeassistant. [Click Here](https://www.home-assistant.io/) to find out more about Homeassistant.  
 Below are links to the devices i used.  
 [Broadlink RM Mini](https://www.banggood.com/Broadlink-Black-Bean-Smart-Home-Wifi-Remote-IR-Controller-Universal-Appliances-Smart-Control-p-1049494.html?p=VJ050124584579201809&custlinkid=605494&cur_warehouse=CN)  
 [Amazon Echo](https://www.amazon.es/echo-dot-3-generacion-altavoz-inteligente-con-alexa-tela-de-color-antracita/dp/B07PHPXHQS/ref=sr_1_3?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&keywords=echo&qid=1575247703&smid=A1AT7YVPFBWXBL&sr=8-3)  
@@ -53,8 +53,21 @@ switch:
         command_off: 'JgBGAJOVEDoQOhA6DxYPFhAVEBUQFRA6ETkROREUERQRFBEUEBUQFREUERQRORE5EBUQFRE5ETkRORE5ERUQFRA6DzsPFhAADQUAAA=='
 
 ```
-* Next it waits 6 seconds, you do this by adding in a `delay`. I have it wait because if the tv is off when i ask alexa to "Switch on BBC One" the tv needs time to start up before choosing the input source. The 6 seconds delay allows for that. The down side is if the TV is already on i still have to wait the 6 seconds for the tv to change source. As the channel change is at the start of the script, if the TV is already on the correct source, the channel changes immediately.  
+* Next it waits 6 seconds, you do this by adding in a `delay`. I have it wait because if the tv is off when i ask Alexa to "Switch on BBC One" the tv needs time to start up before choosing the input source. The 6 seconds delay allows for that. The down side is if the TV is already on, i still have to wait the 6 seconds for the tv to change source. As the channel change is at the start of the script, if the TV is already on the correct source, the channel changes immediately.  
 * Next the broadlink sends the command to change to HDMI 1 becuase my set top box is on HDMI 1. I have a list of broadlink ir codes with some tv brands direct HDMI port commands [here](https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/Broadlink_IR_Codes.md) if your brand does not have a direct code you will not be abot to do the source change as homeassistant does not know your current source so it cant know how many times to press the source button. If you have a smart TV thats intergrated into homeassistant you can use the `media_player.select_source` service. Find out more [here](https://www.home-assistant.io/integrations/media_player/)  
+
+### Add as many channels or simulated buttons as you like
+You can create scripts for simple tasks like just one sequence. the script below will simply change the tv source to HDMI 3  
+```
+livingroom_hdmi3:
+  alias: "HDMI 3"
+  sequence:
+     - service: broadlink.send
+         data:
+           host: 192.168.10.91
+           packet:
+             - "JgBGAJOUEDoRORE5ERQRFRAUERQRFBE5EDsQOhAVEBUPFg8WDxYPFhA6EBUPFg8WEBUROQ87EDoQFQ87EDoQOhA6EBUPFhAADQUAAA==" # Sends the Samsung HDMI3 command
+```
 
 ### Create buttons for your channels in the homeassistant UI  
 You dont need to do this for the Alexa part, but its nice to have it there in case you need it.  
@@ -118,22 +131,23 @@ cards:
 type: vertical-stack
 ```
 
-### Add your script into alexa
-To do this i use the homeassistant cloud service. It costs 5$ a month but its worth it for the ease of intergrating your alexa into homeassistant, plus it helps contribute to the developers and keeps homeassistant going. You also need the homeassistant skill installed.  
+### Add your script into Alexa
+To do this i use the homeassistant cloud service. It costs 5$ a month but its worth it for the ease of integrating your Alexa into homeassistant, plus it helps contribute to the developers and keeps homeassistant going. You also need the homeassistant Alexa skill installed.  
 
-You Add your new script into the cloud entity in your configoration.yaml (I have mine filtered so i can control what entities get added into my alexa app)  
+You Add your new script into the cloud entity in your configoration.yaml (I have mine filtered so i can control what entities get added into my Alexa app)  
 ```
 cloud:
-  alexa:
+  Alexa:
     filter:
       include_entities:
       - script.livingroom_bbc1
+      - script.livingroom_hdmi3
 ```
 
 ### Ask Alexa to discover devices
-Sinmply ask your alexa to "discover my devices"  
-She will scan and find your new script and see it as a scene.  
-Then all you need to do is ask Alexa to "Switch on BBC One" (the Alias is the name the alexa will use)  
+Sinmply ask your Alexa to "discover my devices"  
+She will scan and find your new scripts and see them as scenes.  
+Then all you need to do is ask Alexa to "Switch on BBC One" (the Alias is the name the Alexa will use)  
 She will run the script/scene and de exactly as i showed in my [Instagram Post](https://www.instagram.com/p/B5d27TIAnFZ/)  
 
 ## Thats it! have fun adding channel requests to your Alexa device.
