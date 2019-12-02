@@ -5,7 +5,7 @@ The realy will go on and off within 300 miliseconds simulating the press of the 
 While i had a D1 Mini in there i decided to use a 2 channel relay and also power the lights with that instead of using a smart plug or sonoff.  
 
 ## Purchase the components needed
-Below are links to the devices i used.
+Below are links to the devices i used.  
 [D1 Mini](https://www.banggood.com/custlink/Gm3KgKZrD4)  
 [2 Channel Relay](https://www.banggood.com/custlink/K3mveKON0G)
 [Dupont Junper Cables](https://www.banggood.com/custlink/vDvD6DjOQt)
@@ -19,7 +19,23 @@ You need to locate the button that you press to cycle through the effets.
 using the continuity feature of a multimeter, find 2 pins that make contact when the button is pressed.  
 
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_pcb_soldered.jpeg" width="300px">  
+Solder 2 thin wires to the two pins that you have determined. Make sure thet are long enough to come out of the controler and connect to your relay.  
 
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_controler.jpeg" width="300px">  
+close up the controler and use cable tie to hold the soldered wires, just in case they move and break free.  
+
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_controler_with_relays.jpeg" width="300px">  
+connect the soldered wires to your relay. I added them to the common and normaly open ports. It doesnt matter whether you use the normaly open or normaly closed because you can change the relay to inverted in tasmota later.  
+As i said above i am also using the 2nd relay to initially power the lights so i connect one side to the normaly open side of the relay and patch a live wire into the common of the relay.  
+I also added a usb plug thats connected directly to the mains wire, this will power the D1 Mini.  
+
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_all_connected.jpeg" width="300px">  
+Next Connect up the D1 Mini.  
+* Connect the VCC to the 3.3v pin on the D1  
+* Connect the ground to the G pin on the D1  
+* Connect the in1 to the D1 pin on the D1  
+* connect the in2 to the D2 pin on the D1
+*(if you are not using the D1 mini to power the lights you only need the D1 pin to be connected)
 
 ### Flash Your D1 Mini With Tasmota
 Because tasmota is the best! Every esp8266 chip should have tasmota.
