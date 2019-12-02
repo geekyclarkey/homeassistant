@@ -16,6 +16,7 @@ Below are links to the devices i used.
 Lets build the project. Follow the steps below to recreate what i have.
 
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_pcb.jpeg" width="300px">  
+
 * First take the controler apart and inspect the PCB.  
 You need to locate the button that you press to cycle through the effets.  
 using the continuity feature of a multimeter, find 2 pins that make contact when the button is pressed.  
