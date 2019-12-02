@@ -25,6 +25,7 @@ Including step by step instruction how i accomplished the end result.
 [In Wall Multisensor](hass_projects/in_wall_multisensor/README.md)  
 [Homeassistant Smoke Detector](hass_projects/homeassistant_smoke_detector/README.md)  
 [CCTV With Recording In Homeassistant](hass_projects/cctv_with_recording_in_homeassistant/README.md)  
+[Christmas Tree Lights In Homeassistant](hass_projects/homeassistant_christmas_tree_lights/README.md)  
 
 ## Links to sensors, components and devices
 Below is a list of sensors, components, devices and tools that i have personally used.  
