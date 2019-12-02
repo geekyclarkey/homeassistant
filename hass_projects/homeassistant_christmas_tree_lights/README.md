@@ -1,6 +1,6 @@
 # Homeassistant Christmas Tree Lights
 How to make any standard, dumb christmas tree lights smart.  
-I have done this using a D1 Mini and relay because the lights have a contoler that cycles through effects. to make use of these effects we need to simulate pressing the button on the controler to cycle through the different options.  
+I have done this using a D1 Mini and relay because the lights have a contoller that cycles through effects. to make use of these effects we need to simulate pressing the button on the controler to cycle through the different options.  
 The realy will go on and off within 300 miliseconds simulating the press of the button. We do this using rules in tasmota. (More info below)
 While i had a D1 Mini in there i decided to use a 2 channel relay and also power the lights with that instead of using a smart plug or sonoff.  
 
