@@ -31,6 +31,7 @@ I also added a usb plug thats connected directly to the mains wire, this will po
 
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_all_connected.jpeg" width="300px">  
 Next Connect up the D1 Mini.  
+
 * Connect the VCC to the 3.3v pin on the D1  
 * Connect the ground to the G pin on the D1  
 * Connect the in1 to the D1 pin on the D1  
