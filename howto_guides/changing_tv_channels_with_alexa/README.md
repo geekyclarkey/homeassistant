@@ -145,7 +145,7 @@ cloud:
 ```
 
 ### Ask Alexa to discover devices
-Sinmply ask your Alexa to "discover my devices"  
+Simply ask your Alexa to "discover my devices"  
 She will scan and find your new scripts and see them as scenes.  
 Then all you need to do is ask Alexa to "Switch on BBC One" (the Alias is the name the Alexa will use)  
 She will run the script/scene and de exactly as i showed in my [Instagram Post](https://www.instagram.com/p/B5d27TIAnFZ/)  
