@@ -15,12 +15,12 @@ Below are links to the devices i used.
 ### The Main Build  
 Lets build the project. Follow the steps below to recreate what i have.
 
-![](images/lights_pcb.jpeg)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_pcb.jpeg" width="300px">  
 * First take the controler apart and inspect the PCB.  
 You need to locate the button that you press to cycle through the effets.  
 using the continuity feature of a multimeter, find 2 pins that make contact when the button is pressed.  
 
-![](images/lights_pcb_soldered.jpeg)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_pcb_soldered.jpeg" width="300px">  
 
 
 ### Flash Your D1 Mini With Tasmota
