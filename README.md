@@ -18,6 +18,7 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [How to add a low pass filter to sonoff basic and other devices](howto_guides/sonoff_low_pass_filter/README.md)  
 [How to set up energy monitoring in Homeassistant](howto_guides/shelly_energy_monitoring/README.md)  
 [How to backup Homeassistant to Google Drive](howto_guides/hassio_google_backup/README.md)  
+[How to change TV channels with Alexa](howto_guides/changing_tv_channels_with_alexa/README.md)  
 
 ## Projects I have been Working on
 Including step by step instruction how i accomplished the end result.  

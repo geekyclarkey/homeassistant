@@ -1,19 +1,25 @@
-# Whole Home Emergy Monitoring With The Shelly EM
+# Whole Home Energy Monitoring With The Shelly EM
 
 ## Purchase the components
 Below are links to the devices i used.  
 [Shelly EM](https://shop.shelly.cloud/shelly-em-50a-clamp-wifi-smart-home-automation-1#139)   
 
 ### Setup the Shelly EM in the Shelly App
-I havent flashed the Shelly EM with tasmota. This demonstration uses the Shelly EM stock firmware.  
+I haven't flashed the Shelly EM with tasmota. This demonstration uses the Shelly EM stock firmware.  
 
+Follow the on screen instructions to add the Shelly EM to your home network.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_menu_icon.jpeg" width="400px">  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_add_device.jpeg" width="400px">  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_wifi_config.jpeg" width="400px">  
 
-Follow the on screen instructions to add the Shelly EM to your home network.
-  
-### Add the Shelly EM to your configrotation.yaml
+Log onto your Shelly EM's web UI  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_ui.png" width="400px">  
+Go to `Internet & Security` then click on `Advanced - Developer Settings`
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_advanced.png" width="400px">  
+Type in your MQTT server, username and password Make note of the Topic, (Don't change it) you will need that part next. Click `Save`  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/shelly_energy_monitoring/images/shelly_mqtt.png" width="400px">  
+
+### Add the Shelly EM to your configoration.yaml
 in the sensors section add the following:
 ```
 sensor:
@@ -31,7 +37,7 @@ You can change the name if you like but remember to use the alternative name lat
 *You* **will** *need to change the MQTT state topic to your shelly em´s state topic*
 
 ### Add More in depth sensors
-This next section will use the shelly em power entity and create a cost per KWH. mine in this case is 0.158 euroes per kwh (You will need to change the price per kwh to your tarrif)  
+This next section will use the shelly em power entity and create a cost per KWH. mine in this case is 0.158 euroes per kwh (You will need to change the price per kwh to your tariff)  
 still in the sensors section add the following:  
 ```
 sensor:
@@ -43,7 +49,7 @@ sensor:
         unit_of_measurement: 'Euro'
 ```
 
-This next section will use the reading from the utility meter (see next step below) to create an entity showing you todays electricitc cost  
+This next section will use the reading from the utility meter (see next step below) to create an entity showing you todays electricity cost  
 still in the sensors section add the following:  
 ```
 sensor:
@@ -56,7 +62,7 @@ sensor:
 ```
 
 ### Add a Utility Meter to your Homeassistant
-In your configoration.yaml add a utility meter section if you dont have one by adding the following  
+In your configoration.yaml add a utility meter section if you don't have one by adding the following  
 This will create a monthly, weekly and daily reading of your energy readings and store them as entities in your homeassistant.  
 ```
 utility_meter:
@@ -99,4 +105,4 @@ show_header_toggle: false
 title: Home Energy Monitering
 type: entities
 ```
-If you chaged and names in your config you will need to edit this example to acomidate.  
+If you changed and names in your config you will need to edit this example to accommodate.  
