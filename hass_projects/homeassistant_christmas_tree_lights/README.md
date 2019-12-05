@@ -52,8 +52,53 @@ Next Connect up the D1 Mini. **Please make sure you have flashed your D1 before 
 ### Set up Tasmota
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_tasmota.jpeg" width="300px">  
 
+Log into the ip address of your newly flached Tasmota D1 Mini.  
+In the Configoration section set the module type to`Generic`  
+Then set the gpio pins `D1` and `D2` to `Relay1` and `Relay2`  
+You may need to invert the relays if the on and off options are wrond. To do this change the `Relay1` to `Relay1i` and the same for 2.   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/gpio_selection.PNG" width="300px">  
 
+Next set up MQTT  
+Add in your MQTT host, username and password if you didnt do that already using termite.  
+Change the Topic to something unique.  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/mqtt.PNG" width="300px">  
+Save settings and that part is done. You can give your D1 a friendly name if you like in the `Configure Other` section.  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/config_other.PNG" width="300px">  
+
+### Setting up the entities in Homeassistant
+Go to your configoration.yaml and add the following into your switches section:  
 ```
-
+switch:
+  - platform: mqtt
+    name: "Xmas Tree"
+    command_topic: "cmnd/xmastree/power2"
+    state_topic: "stat/xmastree/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+    icon: mdi:pine-tree
+  - platform: mqtt
+    name: "Xmas Tree Effects"
+    command_topic: "cmnd/xmastree/power1"
+    state_topic: "stat/xmastree/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+    icon: mdi:autorenew
 ```
+You may need to swap the power1 and power2 sections according to your hardware setup. 
+*Remember to set the MQTT command_topic and state_topic to the same as what you made it in your Tasmota setup  
+Save the file then reboot Homeassistant. (after checking your config to make sure you havent done anything wrong in your config file)  
 
+### Adding your lights into Lovelace
+When Homeassistant Boots back up, click the 3 dots in the top right and click `Configure UI`  
+Click on the Plus in the bottom right corner to add a new card.  
+Choose the entities card  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/add_card.PNG" width="300px">  
+Then give your card a title add the Xmas lights entities you created  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/xmas_light_card.PNG" width="300px">  
+Save and Your Done.  
+
+## Now you have control of you Tree lights and its effects in Homeassistant
