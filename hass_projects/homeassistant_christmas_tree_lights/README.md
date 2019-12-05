@@ -96,9 +96,9 @@ Save the file then reboot Homeassistant. (after checking your config to make sur
 When Homeassistant Boots back up, click the 3 dots in the top right and click `Configure UI`  
 Click on the Plus in the bottom right corner to add a new card.  
 Choose the entities card  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/add_card.PNG" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/add_card.PNG" width="600px">  
 Then give your card a title add the Xmas lights entities you created  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/xmas_light_card.PNG" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/xmas_light_card.PNG" width="600px">  
 Save and Your Done.  
 
 ## Now you have control of you Tree lights and its effects in Homeassistant
