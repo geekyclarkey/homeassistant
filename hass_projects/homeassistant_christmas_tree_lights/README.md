@@ -101,4 +101,10 @@ Then give your card a title add the Xmas lights entities you created
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/xmas_light_card.PNG" width="600px">  
 Save and Your Done.  
 
+### Automations
+Now your lights are in Homeassistant you can start automating them.
+I have an automationthat toggles the effects 7 times to get to the effect we want whenever the lights get switched on.  
+We still ahve the option to change the effects once they are on of course.  
+
+
 ## Now you have control of your tree lights and its effects in Homeassistant
