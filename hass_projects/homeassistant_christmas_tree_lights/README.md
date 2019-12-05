@@ -56,14 +56,14 @@ Log into the ip address of your newly flached Tasmota D1 Mini.
 In the Configoration section set the module type to`Generic`  
 Then set the gpio pins `D1` and `D2` to `Relay1` and `Relay2`  
 You may need to invert the relays if the on and off options are wrond. To do this change the `Relay1` to `Relay1i` and the same for 2.   
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/gpio_selection.PNG" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/gpio_selection.PNG" width="400px">  
 
 Next set up MQTT  
 Add in your MQTT host, username and password if you didnt do that already using termite.  
 Change the Topic to something unique.  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/mqtt.PNG" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/mqtt.PNG" width="400px">  
 Save settings and that part is done. You can give your D1 a friendly name if you like in the `Configure Other` section.  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/config_other.PNG" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/config_other.PNG" width="400px">  
 
 ### Setting up the entities in Homeassistant
 Go to your configoration.yaml and add the following into your switches section:  
