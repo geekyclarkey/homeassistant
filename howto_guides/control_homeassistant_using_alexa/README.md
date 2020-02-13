@@ -90,8 +90,14 @@ From left to right we have:
 * The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
-* Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
+* Function node - To determine if the service is on or off  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+The code is:  
+```
+if (msg.payload == "on") msg.payload = {"service":"turn_on"}
+else if (msg.payload == "off") msg.payload = {"service":"turn_off"}
+return msg;
+```
 
 * Call Service node - to activate the script in homeassistant
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
