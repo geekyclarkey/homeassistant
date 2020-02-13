@@ -1,6 +1,6 @@
 # Control homeassistant using alexa. No subscriptions or cloud services  
 Learn how i control my homeassistant lights, scripts and devices using my amazon alexa with no cloud services needed and no subscriptions.
-Unfortunatly the echo needs an internet connection to process any command. but the control of the devices is all happening in home locally.
+Unfortunatly the echo needs an internet connection to process any command. But the control of the devices is all happening in home locally.
 
 ## Install & Setup Node-Red
 The first thing we need to do is install node-red.  
@@ -11,7 +11,7 @@ Node-red is an addon availiable in the supervisor section. (previously called Ha
 * Follow the instalation instructions and start the node-red addon.  
 
 ## Setup Node-Red
-Firstly we are going to install athe pallet.  
+Firstly we are going to install the amazon alexa pallet.  
 * go to the hamburger icon in the top right and click on manage pallet  
 * Click on the install tab and search for `node-red-contrib-amazon-echo`
 * install the pallet  
@@ -94,7 +94,7 @@ From left to right we have:
 * The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/amazon_device_entity.PNG">   
 
-* Function node - To determine if the service is on or off  
+* Function node - To determine if the requested service is on or off  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/on_off_function.PNG">   
 
 The code is:  
