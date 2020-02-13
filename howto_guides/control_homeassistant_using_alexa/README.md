@@ -12,7 +12,8 @@ Node-red is an addon availiable in the supervisor section. (previously called Ha
 ## Setup Node-Red
 Firstly we are going to install athe pallet.  
 * go to the hamburger icon in the top right and click on manage pallet  
-* Click on the install tab and search for* 'node-red-contrib-amazon-echo'
+* Click on the install tab and search for  
+'node-red-contrib-amazon-echo'
 * install the pallet 
 
 ## Add Devices to Alexa
