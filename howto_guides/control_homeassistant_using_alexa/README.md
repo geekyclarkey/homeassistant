@@ -24,6 +24,10 @@ If you are using MQTT you need to add your broker in sop we can use the MQTT nod
 * Click Update in the top right 
 
 ## Now we need to create some flows  
+Below i have separated each flow indevidually but you can only have one Amazon Echo Hub on your flow.
+You should end up with something like this:  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
 ### For Lights that are using MQTT we can set our flow like this
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
@@ -45,14 +49,83 @@ From left to right we have:
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
 
-### For scripts that we want to exicute we can set our flow like this
+### For scripts you want to exicute we can set our flow like this
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+From left to right we have:  
+
+* Eventnts-state node - thi will let alexa know if homeassistant changes the device. 
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* The Amazon Echo Hub node - Set `process input` to `process`  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* A Switch node - To only allow on commands pass through (because scripts are set to on then fo off automatically when the script has been completed)
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* Call Service node - to activate the script in homeassistant
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
 
+### For any other entity that we want to switch on or off we can set our flow like this
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
+From left to right we have:  
 
+* Eventnts-state node - thi will let alexa know if homeassistant changes the device. 
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
+* Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* The Amazon Echo Hub node - Set `process input` to `process`  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+* Call Service node - to activate the script in homeassistant
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
+### Function node - for the alexa-hass sync
+
+When the entitie changes state this function sends the current state from the input and passes the on or off command to the echo device node teling the alexa app that the deviec has been switched on or off.
+The code is:  
+```
+var nodeid="alexa-device-node-id";
+
+if (msg.payload == "on"){
+    msg.payload = {
+        on: true,
+        nodeid: nodeid
+    }
+
+} else if(msg.payload == "off"){
+    msg.payload = {
+        on: false,
+        nodeid: nodeid
+    }
+}
+
+return msg;
+```
+in the `var nodeid` section add the node id of the alexa device node. To find that, click on the amazon device node and see the information section at the top  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+copy and paste the node id from the amazon-device node into the function 
 
 ## Add Devices to Alexa
+
+As this is all local, all you need to do is ask alexa to "Discover my devices"   
+It will scan your local network and find all of the alexa devises you have added.  
 
 # Acknowledgments
 I would like to thank the following people for their help in helping me figure out how to do this in the most effective way.
