@@ -3,16 +3,16 @@ Learn how i control my homeassistant lights, scripts and devices using my amazon
 Unfortunatly the echo needs an internet connection to process any command. but the control of the devices is all happening in home locally.
 
 ## Install & Setup Node-Red
-The first thing we need to do is install node-red.
+The first thing we need to do is install node-red.  
 Node-red is an addon availiable in the supervisor section. (previously called Hass.io)  
-* Make your way to the add-on store page, search and install the node-red addon.
+* Make your way to the add-on store page, search and install the node-red addon.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
-* Follow the instalation instructions and start the node-red addon.
+* Follow the instalation instructions and start the node-red addon.  
 
 ## Setup Node-Red
-Firstly we are going to install athe pallet.
+Firstly we are going to install athe pallet.  
 * go to the hamburger icon in the top right and click on manage pallet  
-* Click on the install tab and search for 'node-red-contrib-amazon-echo'
+* Click on the install tab and search for* 'node-red-contrib-amazon-echo'
 * install the pallet 
 
 ## Add Devices to Alexa
