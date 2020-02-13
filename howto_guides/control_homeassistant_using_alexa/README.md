@@ -92,6 +92,7 @@ From left to right we have:
 
 * Function node - To determine if the service is on or off  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
 The code is:  
 ```
 if (msg.payload == "on") msg.payload = {"service":"turn_on"}
