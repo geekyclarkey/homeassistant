@@ -58,7 +58,7 @@ From left to right we have:
 
 From left to right we have:  
 
-* Eventnts-state node - thi will let alexa know if homeassistant changes the device. 
+* Events-state node - this will let alexa know if homeassistant changes the device. 
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/event_state_node_script.PNG">   
 
 * Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
@@ -68,7 +68,7 @@ From left to right we have:
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/amazon_hub.PNG">   
 
 * The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/amazon_devie_script.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/amazon_device_script.PNG">   
 
 * A Switch node - To only allow on commands pass through (because scripts are set to on then fo off automatically when the script has been completed)
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/switch_node.PNG">   
@@ -78,24 +78,24 @@ From left to right we have:
 
 
 ### For any other entity that we want to switch on or off we can set our flow like this
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/entity_flow.PNG">   
 
 From left to right we have:  
 
 * Eventnts-state node - thi will let alexa know if homeassistant changes the device. 
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/event_state_entity.PNG">   
 
 * Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/sync_function.PNG">   
 
 * The Amazon Echo Hub node - Set `process input` to `process`  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/amazon_hub.PNG">   
 
 * The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/amazon_device_entity.PNG">   
 
 * Function node - To determine if the service is on or off  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/on_off_function.PNG">   
 
 The code is:  
 ```
@@ -105,7 +105,8 @@ return msg;
 ```
 
 * Call Service node - to activate the script in homeassistant
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/call_service_entity.PNG">   
+** Notice there is no servie in the node. thats because the service is passed in from the function node befor it.
 
 ### Function node - for the alexa-hass sync
 
@@ -130,7 +131,7 @@ if (msg.payload == "on"){
 return msg;
 ```
 in the `var nodeid` section add the node id of the alexa device node. To find that, click on the amazon device node and see the information section at the top  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/node_id.PNG">   
 copy and paste the node id from the amazon-device node into the function 
 
 ## Add Devices to Alexa
