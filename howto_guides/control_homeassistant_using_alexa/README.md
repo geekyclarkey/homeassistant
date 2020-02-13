@@ -28,15 +28,20 @@ If you are using MQTT you need to add your broker in sop we can use the MQTT nod
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
 From left to right we have:  
-*MQTT in node - with the state topic of the light we are controlling.  
+
+* MQTT in node - with the state topic of the light we are controlling.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
-*Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
+
+* Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
-*The Amazon Echo Hub node - Set `process input` to `process`  
+
+* The Amazon Echo Hub node - Set `process input` to `process`  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
-*The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
+
+* The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
-*MQTT out node - with the command topic of the light we are controlling.  
+
+* MQTT out node - with the command topic of the light we are controlling.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
 
 
