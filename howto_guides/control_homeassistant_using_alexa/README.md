@@ -107,11 +107,11 @@ return msg;
 * Call Service node - to activate the script in homeassistant
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/call_service_entity.PNG">   
 
-* Notice there is no servie in the node. thats because the service is passed in from the function node befor it.
+* Notice there is no service in the node. thats because the service is passed in from the function node before it.
 
 ### Function node - for the alexa-hass sync
 
-When the entitie changes state this function sends the current state from the input and passes the on or off command to the echo device node teling the alexa app that the deviec has been switched on or off.
+When the entity changes state this function sends the current state from the input and passes the on or off command to the echo device node telling the alexa app that the deviec has been switched on or off.
 The code is:  
 ```
 var nodeid="alexa-device-node-id";
