@@ -106,6 +106,7 @@ return msg;
 
 * Call Service node - to activate the script in homeassistant
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/call_service_entity.PNG">   
+
 ** Notice there is no servie in the node. thats because the service is passed in from the function node befor it.
 
 ### Function node - for the alexa-hass sync
