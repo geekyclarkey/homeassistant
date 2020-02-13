@@ -7,6 +7,7 @@ The first thing we need to do is install node-red.
 Node-red is an addon availiable in the supervisor section. (previously called Hass.io)  
 * Make your way to the add-on store page, search and install the node-red addon.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+
 * Follow the instalation instructions and start the node-red addon.  
 
 ## Setup Node-Red
@@ -26,10 +27,10 @@ If you are using MQTT you need to add your broker in sop we can use the MQTT nod
 ## Now we need to create some flows  
 Below i have separated each flow indevidually but you can only have one Amazon Echo Hub on your flow.
 You should end up with something like this:  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG" width="400px">  
 
 ### For Lights that are using MQTT we can set our flow like this
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/hassio_page.PNG" width="400px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/mqtt_flow.PNG" width="400px">  
 
 From left to right we have:  
 
