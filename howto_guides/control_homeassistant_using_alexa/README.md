@@ -30,7 +30,7 @@ You should end up with something like this:
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">  
 
 ### For Lights that are using MQTT we can set our flow like this
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/mqtt_flow.PNG" width="400px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/mqtt_flow.PNG">  
 
 From left to right we have:  
 
