@@ -4,11 +4,11 @@ Unfortunatly the echo needs an internet connection to process any command. But t
 
 ## Install & Setup Node-Red
 The first thing we need to do is install node-red.  
-Node-red is an addon availiable in the supervisor section. (previously called Hass.io)  
+Node-red is an addon available in the supervisor section. (previously called Hass.io)  
 * Make your way to the add-on store page, search and install the node-red addon.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/node_red_addon.PNG">   
 
-* Follow the instalation instructions and start the node-red addon.  
+* Follow the installation instructions and start the node-red addon.  
 
 ## Setup Node-Red
 Firstly we are going to install the amazon alexa pallet.  
@@ -140,7 +140,7 @@ copy and paste the node id from the amazon-device node into the function
 As this is all local, all you need to do is ask alexa to "Discover my devices"   
 It will scan your local network and find all of the alexa devises you have added.  
 
-# Acknowledgments
+# Acknowledgements
 I would like to thank the following people for their help in helping me figure out how to do this in the most effective way.
 * [The Hookup](http://www.thesmarthomehookup.com/) Here is a link to Robs website He helped me to figure out how to sync the alexa and Homeassistant app.  
 * [3ATIVE VFX Studio](https://www.youtube.com/channel/UCuDjPZFSQKFNPwPypJlgZeg) Here is a link to his youtube channel, he helped me with the service function.  

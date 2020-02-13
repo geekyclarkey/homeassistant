@@ -49,7 +49,7 @@ Using them in Homeassistant and day to day life. If you are looking for a specif
 ## Port forwarding in routers I have used
 [Click Here](port_forwarding_in_routers/) For port forwarding examples
 
-## Acknowledgments
+## Acknowledgements
 I would like to thank the following people for providing videos, help and tips regarding Homeassistant.  
 Everything i know and learned was from these guys and many more.
 
