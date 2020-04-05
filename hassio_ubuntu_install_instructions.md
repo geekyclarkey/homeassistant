@@ -33,7 +33,7 @@ then:
 
 `curl sL https://goo.gl/1bcBsW | bash -`  
 or  
-`curl sL https://raw.githubusercontent.com/savvytv/Repo/master/HASSIO/install.sh | bash -`
+`curl sL https://raw.githubusercontent.com/geekyclarkey/homeassistant/master/install.sh | bash -`
 
 Once the script has ran you should have hassio installed and be able to start setting up hass.
 
