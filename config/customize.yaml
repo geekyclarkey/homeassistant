@@ -1,0 +1,80 @@
+
+### Scripts ###
+
+script.open_garage_door:
+  friendly_name: Open
+  icon: mdi:garage
+script.close_garage_door:
+  friendly_name: Close
+  icon: mdi:garage
+script.stop_garage_door:
+  friendly_name: Stop!
+  icon: mdi:cancel
+
+script.exit:
+  friendly_name: Exit
+  icon: mdi:door
+
+script.bbc1:
+  friendly_name: BBC 1
+  icon: mdi:television
+script.itv1:
+  friendly_name: ITV 1
+  icon: mdi:television
+script.channel4:
+  friendly_name: Channel 4
+  icon: mdi:television
+script.itv2:
+  friendly_name: ITV 2
+  icon: mdi:television
+
+
+### Switches ###
+
+switch.charlie_tv_power:
+  assumed_state: false
+  icon: mdi:television
+switch.samsung_tv_power:
+  assumed_state: false
+
+switch.momentary_garagecam_snapshot:
+  icon: mdi:camera
+switch.momentary_garagecam_record:
+  icon: mdi:record-rec
+switch.momentary_hallcam_snapshot:
+  icon: mdi:camera
+switch.momentary_hallcam_record:
+  icon: mdi:record-rec
+switch.momentary_frontyardcam_snapshot:
+  icon: mdi:camera
+switch.momentary_frontyardcam_record:
+  icon: mdi:record-rec
+switch.momentary_workbenchcam_snapshot:
+  icon: mdi:camera
+switch.momentary_workbenchcam_record:
+  icon: mdi:record-rec
+
+
+### Lights ###
+
+light.salt_lamp:
+  icon: mdi:lava-lamp
+
+
+### Sensors ###
+
+sensor.washing_machine_state:
+  icon: 'mdi:washing-machine'
+sensor.tumble_dryer_state:
+  icon: 'mdi:tumble-dryer'
+sensor.boiler_state:
+  icon: 'mdi:water-boiler'
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,1225 @@
+
+
+##### Garage Automations #####
+
+- alias: Garage wall light - Switch on
+  initial_state: true
+  trigger:
+  - entity_id: light.garage_wall_switch
+    platform: state
+    to: 'on'
+  action:
+  - entity_id: light.garage_light
+    service: light.turn_on
+  - entity_id: automation.no_motion_in_garage_for_5_min_light_off
+    service: automation.turn_off
+- alias: Garage wall light - Switch off
+  initial_state: true
+  trigger:
+  - entity_id: light.garage_wall_switch
+    platform: state
+    to: 'off'
+  action:
+  - entity_id: light.garage_light
+    service: light.turn_off
+  - entity_id: automation.no_motion_in_garage_light_off
+    service: automation.turn_on
+
+- alias: Lock the garage door at 8pm
+  initial_state: true
+  trigger:
+  - at: '20:00:00'
+    platform: time
+  action:
+  - data:
+      entity_id: lock.garage_door
+    service: lock.lock
+- alias: Unlock the garage door at 8am
+  initial_state: true
+  trigger:
+  - at: 08:00:00
+    platform: time
+  action:
+  - data:
+      entity_id: lock.garage_door
+    service: lock.unlock
+
+- alias: Garage door opens - Turn on light
+  initial_state: true
+  trigger:
+  - entity_id: script.open_garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.garage_lux
+    below: 7
+  action:
+  - data:
+      entity_id: light.garage_light
+    service: light.turn_on
+
+- alias: Garage door opens - Unlock door
+  initial_state: true
+  trigger:
+  - entity_id: script.open_garage_door
+    from: 'off'
+    platform: state
+    to: 'on'
+  action:
+  - data:
+      entity_id: lock.garage_door
+    service: lock.unlock
+
+- alias: Motion in garage - Light on
+  trigger:
+  - entity_id: binary_sensor.garage
+    from: 'off'
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.garage_2
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.garage_lux
+    below: 7
+  action:
+  - data:
+      entity_id: light.garage_light
+    service: light.turn_on
+- alias: No motion in garage for 5 min - Light off
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garage
+    to: 'off'
+    for: 00:05:00
+  condition:
+    condition: state
+    entity_id: binary_sensor.garage_2
+    state: 'off'
+    for: 00:05:00
+  action:
+  - data:
+      entity_id: light.garage_light
+    service: light.turn_off
+
+- alias: Car Presence Auto Open
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.CarPresence
+      to: 'on'
+    - platform: state
+      entity_id: binary_sensor.CarPresenceHayley
+      to: 'on'
+  condition:
+  - condition: state
+    entity_id: binary_sensor.garage_door
+    state: 'off'
+  action:
+  - service: script.open_garage_door
+- alias: Car Presence Auto Close 1
+  trigger:
+    platform: state
+    entity_id: binary_sensor.CarPresence
+    to: 'off'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.garage_door
+        state: 'on'
+      - condition: state
+        entity_id: script.close_garage_door
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.CarPresenceHayley
+        state: 'off'
+  action:
+  - service: script.close_garage_door
+- alias: Car Presence Auto Close 2
+  trigger:
+    platform: state
+    entity_id: binary_sensor.CarPresenceHayley
+    to: 'off'
+  condition:
+    condition: and
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.garage_door
+        state: 'on'
+      - condition: state
+        entity_id: script.close_garage_door
+        state: 'off'
+      - condition: state
+        entity_id: binary_sensor.CarPresence
+        state: 'off'
+  action:
+  - service: script.close_garage_door
+- alias: Notify - Garage is closed
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.garage_door
+    from: 'on'
+    to: 'off'
+  action:
+    - service: notify.mobile_app_seans_iphone
+      data:
+        title: Sean
+        message: The garage door is now closed
+        data:
+          attachment:
+            content-type: jpeg
+          push:
+            category: camera
+          entity_id: camera.garage_camera
+    - service: notify.mobile_app_hayleys_iphone
+      data:
+        title: Hayley
+        message: The garage door is now closed
+        data:
+          attachment:
+            content-type: jpeg
+          push:
+            category: camera
+          entity_id: camera.garage_camera
+
+- alias: Garage door blocked - Dont close
+  initial_state: true
+  trigger:
+  - entity_id: switch.close
+    platform: state
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: binary_sensor.garage_door_trip_sensor
+    state: 'on'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.close
+    - data:
+        message: Garage could not close. The sensor detected something blocking its path.
+      service: notify.mobile_app_seans_iphone
+    - data:
+        message: Garage could not close. The sensor detected something blocking its path.
+      service: notify.mobile_app_hayleys_iphone
+
+- alias: Garage Trip sensor - Stop door
+  initial_state: true
+  trigger:
+  - entity_id: binary_sensor.garage_door_trip_sensor
+    platform: state
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: switch.close
+    state: 'on'
+  action:
+    - service: switch.turn_off
+      entity_id: switch.close
+    - data:
+        message: The garage trip sensor detected something blocking its path and stopped the door from closing. Your garage is still open.
+        title: Sean
+      service: notify.mobile_app_seans_iphone
+    - data:
+        message: The garage trip sensor detected something blocking its path and stopped the door from closing. Your garage is still open.
+        title: Hayley
+      service: notify.mobile_app_hayleys_iphone
+    - delay:
+        seconds: 0.5
+    - service: script.turn_on
+      entity_id: script.open_garage_door
+
+### Notification Automations ###
+
+- alias: Notify - Garage is closing
+  trigger:
+    platform: state
+    entity_id: switch.close
+    to: 'on'
+    for: 00:00:01
+  action:
+    - data:
+        message: The garage has started to close
+        title: Sean
+      service: notify.mobile_app_seans_iphone
+
+- alias: Notify - Motion in the yard while door is open
+  trigger:
+  - entity_id: binary_sensor.front_yard
+    platform: state
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: binary_sensor.front_door
+    state: 'on'
+  action:
+    - service: notify.mobile_app_hayleys_iphone
+      data:
+        title: Hayley
+        message: Someone is in the front yard
+    - service: notify.mobile_app_seans_iphone
+      data:
+        title: Sean
+        message: Someone is in the front yard
+    - service: automation.turn_off
+      data:
+        entity_id: automation.notify_someone_in_the_yard_while_door_is_open
+    - delay:
+        minutes: 2
+    - service: automation.turn_on
+      data:
+        entity_id: automation.notify_someone_in_the_yard_while_door_is_open
+
+- alias: Notify - Smoke alarm triggered
+  initial_state: true
+  trigger:
+    - entity_id: binary_sensor.smoke_alarm
+      from: 'off'
+      platform: state
+      to: 'on'
+  action:
+    - service: notify.notify
+      data:
+        message: Your smoke alarm has been set off. Please investigate.
+    - data:
+        entity_id: switch.garage_door_lock
+      service: switch.turn_off
+
+- alias: Notify - Radarr download completed
+  trigger:
+    platform: event
+    event_type: transmission_downloaded_torrent
+  action:
+    service: notify.mobile_app_seans_iphone
+    data_template:
+      title: "Plex Update!"
+      message: "{{trigger.event.data.name}} will be available in your Plex library in the next few minutes"
+
+- alias: Notify - Washing machine has finnished
+  trigger:
+  - entity_id: sensor.washing_machine_state
+    platform: state
+    from: 'Washing'
+    to: 'Idle'
+    for: 
+      minutes: 10
+  action:
+    - service: notify.mobile_app_hayleys_iphone
+      data:
+        title: Washing Machine
+        message: The washing is done. Your clothes now smell like roses!
+    - service: notify.mobile_app_seans_iphone
+      data:
+        title: Washing Machine
+        message: The washing is done. Your clothes now smell like roses!
+
+- alias: Notify - Tumble dryer has finnished
+  trigger:
+  - entity_id: sensor.tumble_dryer_state
+    platform: state
+    from: 'Drying'
+    to: 'Idle'
+    for: 
+      minutes: 3
+  action:
+    - service: notify.mobile_app_hayleys_iphone
+      data:
+        title: Tumble Dryer
+        message: The tumble dryer has stopped. Your clothes are fluffy and warm!
+    - service: notify.mobile_app_seans_iphone
+      data:
+        title: Tumble Dryer
+        message: The tumble dryer has stopped. Your clothes are fluffy and warm!
+
+
+##### Aircon Automations #####
+
+- alias: Living room aircon on at 7pm
+#  initial_state: true
+  trigger:
+  - at: '19:00:00'
+    platform: time
+  action:
+  - data:
+      entity_id: climate.livingroom_aircon
+    service: climate.turn_on
+- alias: Living room aircon off at 9pm
+  trigger:
+  - at: '21:00:00'
+    platform: time
+  action:
+  - data:
+      entity_id: climate.livingroom_aircon
+    service: climate.turn_off
+
+- alias: Lias aircon on at 7pm
+  trigger:
+  - at: '19:00:00'
+    platform: time
+  action:
+  - data:
+      entity_id: climate.lias_aircon
+    service: climate.turn_on
+- alias: Lias aircon off at 9pm
+  trigger:
+  - at: '21:00:00'
+    platform: time
+  action:
+  - data:
+      entity_id: climate.lias_aircon
+    service: climate.turn_off
+
+- alias: Charlies aircon on at 7pm
+  trigger:
+  - at: '19:00:00'
+    platform: time
+  action:
+  - data:
+      entity_id: climate.charlies_aircon
+    service: climate.turn_on
+- alias: Charlies aircon off at 9pm
+  trigger:
+  - at: '21:00:00'
+    platform: time
+  action:
+  - data:
+      entity_id: climate.charlies_aircon
+    service: climate.turn_off
+
+- alias: Bedroom aircon auto off after 2 hours
+  trigger:
+    - platform: state
+      entity_id: climate.bedroom_aircon
+      to: 'cool'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.bedroom_aircon
+      to: 'heat'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.bedroom_aircon
+      to: 'dry'
+      for:
+        hours: 2
+  action:
+    - service: climate.turn_off
+      entity_id: climate.bedroom_aircon
+
+- alias: Lias aircon auto off after 2 hours
+  trigger:
+    - platform: state
+      entity_id: climate.lias_aircon
+      to: 'cool'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.lias_aircon
+      to: 'heat'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.lias_aircon
+      to: 'dry'
+      for:
+        hours: 2
+  action:
+    - service: climate.turn_off
+      entity_id: climate.lias_aircon
+
+- alias: Charlies aircon auto off after 2 hours
+  trigger:
+    - platform: state
+      entity_id: climate.charlies_aircon
+      to: 'cool'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.charlies_aircon
+      to: 'heat'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.charlies_aircon
+      to: 'dry'
+      for:
+        hours: 2
+  action:
+    - service: climate.turn_off
+      entity_id: climate.charlies_aircon
+
+
+##### Camera Automations #####
+
+- alias: hallcam capture
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_hallcam_snapshot
+    platform: state
+    to: 'on'
+  action:
+    - service: script.hallcam_snapshot
+- alias: hallcam record
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_hallcam_record
+    platform: state
+    to: 'on'
+  action:
+    - service: script.hallcam_record
+- alias: garagecam capture
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_garagecam_snapshot
+    platform: state
+    to: 'on'
+  action:
+    - service: script.garagecam_snapshot
+- alias: garagecam record
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_garagecam_record
+    platform: state
+    to: 'on'
+  action:
+    - service: script.garagecam_record
+- alias: frontyardcam capture
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_frontyardcam_snapshot
+    platform: state
+    to: 'on'
+  action:
+    - service: script.frontyardcam_snapshot
+- alias: frontyardcam record
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_frontyardcam_record
+    platform: state
+    to: 'on'
+  action:
+    - service: script.frontyardcam_record
+- alias: workbenchcam capture
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_workbenchcam_snapshot
+    platform: state
+    to: 'on'
+  action:
+    - service: script.workbenchcam_snapshot
+- alias: workbenchcam record
+  initial_state: true
+  trigger:
+  - entity_id: switch.momentary_workbenchcam_record
+    platform: state
+    to: 'on'
+  action:
+    - service: script.workbenchcam_record
+
+- alias: Record clip of front if motion detected while away
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.front_yard
+    to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: time
+        after: '23:00:00'
+        before: '07:00:00'
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: 'device_tracker.sean'
+            state: 'not_home'
+          - condition: state
+            entity_id: 'device_tracker.hayley'
+            state: 'not_home'
+  action:
+    - service: light.turn_on
+      entity_id: light.front_yard
+    - service: script.frontyardcam_record
+    - service: notify.notify
+      data:
+        message: Motion was just detected in your front yard, a clip has been recorded.
+    - service: automation.turn_off
+      entity_id: automation.record_clip_of_front_yard_if_motion_detected_while_we_are_away
+    - delay:
+        seconds: 30
+    - service: automation.turn_on
+      entity_id: automation.record_clip_of_front_yard_if_motion_detected_while_we_are_away
+
+
+##### Living room automations #####
+
+- alias: Dark in livingroom - Turn on lamp part 1
+  initial_state: true
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.living_room_brightness
+    below: 20
+  action:
+  - data:
+      entity_id: input_boolean.lamp_lux
+    service: input_boolean.turn_on
+- alias: Dark in livingroom - Turn on lamp part 2
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: input_boolean.lamp_lux
+      to: 'on'
+  action:
+  - data:
+      entity_id: light.lamp
+    service: light.turn_on
+- alias: Dark in livingroom - Turn on lamp part 3
+  initial_state: true
+  trigger:
+  - platform: time
+    at: '12:00:00'
+  action:
+  - data:
+      entity_id: input_boolean.lamp_lux
+    service: input_boolean.turn_off
+- alias: Bright in livingroom - Turn off lamp
+  initial_state: true
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.living_room_brightness
+    above: 30
+  action:
+  - data:
+      entity_id: light.lamp
+    service: light.turn_off
+
+- alias: Auto switch off blind relays
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: switch.open_left_blind
+      to: 'on'
+      for: 00:00:45
+    - platform: state
+      entity_id: switch.close_left_blind
+      to: 'on'
+      for: 00:00:45
+    - platform: state
+      entity_id: switch.open_right_blind
+      to: 'on'
+      for: 00:00:45
+    - platform: state
+      entity_id: switch.close_right_blind
+      to: 'on'
+      for: 00:00:45
+  action:
+  - service: script.stop_blinds
+
+- alias: No motion in living room for 1 hour - Turn lights off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.living_room
+    to: 'off'
+    for: 01:00:00
+  action:
+  - data:
+      entity_id: light.lamp
+    service: light.turn_off
+  - data:
+      entity_id: light.dining_room
+    service: light.turn_off
+  - data:
+      entity_id: light.living_room
+    service: light.turn_off
+
+- alias: Motion in living room - Turn lamp on
+  initial_state: true
+  trigger:
+  - entity_id: binary_sensor.living_room
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.living_room_brightness
+    below: 20
+  - condition: state
+    entity_id: light.lamp
+    state: 'off'
+    for:
+      seconds: 5
+  action:
+  - data:
+      entity_id: light.lamp
+    service: light.turn_on
+
+
+##### Kitchen Automations #####
+
+- alias: No motion in kitchen for 10 min - Turn lights off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.kitchen
+    to: 'off'
+    for: 00:10:00
+  action:
+  - data:
+      entity_id: light.kitchen
+    service: light.turn_off
+
+- alias: Motion in kitchen - Turn lights on
+  initial_state: true
+  trigger:
+  - entity_id: binary_sensor.kitchen
+    from: 'off'
+    platform: state
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.kitchen
+    state: 'off'
+    for:
+      seconds: 5
+  action:
+  - data:
+      entity_id: light.kitchen
+    service: light.turn_on
+
+
+##### Toilet Automations #####
+
+- alias: No motion in toilet for 10 min - Turn light off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.toilet
+    to: 'off'
+    for: 00:10:00
+  action:
+  - data:
+      entity_id: light.downstairs_toilet
+    service: light.turn_off
+
+- alias: Motion in toilet - Turn light on
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.toilet
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.downstairs_toilet
+    state: 'off'
+    for:
+      seconds: 5
+  action:
+  - data:
+      entity_id: light.downstairs_toilet
+    service: light.turn_on
+
+
+##### Kids Bathroom Automations #####
+
+- alias: No motion in kids bathroom for 10 min - Turn light off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.kids_bathroom
+    to: 'off'
+    for: 00:10:00
+  action:
+  - data:
+      entity_id: light.kids_bathroom_wall
+    service: light.turn_off
+  - data:
+      entity_id: light.kids_bathroom
+    service: light.turn_off
+
+- alias: Motion in kids bathroom - Turn light on
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.kids_bathroom
+    to: 'on'
+  condition:
+  - condition: numeric_state
+    entity_id: 'sensor.kids_bathroom_brightness'
+    below: 20
+  - condition: state
+    entity_id: light.kids_bathroom_wall
+    state: 'off'
+    for:
+      seconds: 5
+  action:
+  - data:
+      entity_id: light.kids_bathroom_wall
+    service: light.turn_on
+
+
+##### Front Yard Automations #####
+
+- alias: No motion in front yard for 5 min - Turn light off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.front_yard
+    to: 'off'
+    for: 00:05:00
+  action:
+  - data:
+      entity_id: light.front_yard
+    service: light.turn_off
+
+
+##### Hallway Automations #####
+
+- alias: No motion in hall for 10 min - Turn lights off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.downstairs_hall
+    to: 'off'
+    for: 00:10:00
+  action:
+  - data:
+      entity_id: light.hall_1
+    service: light.turn_off
+  - data:
+      entity_id: light.hall_2
+    service: light.turn_off
+  - data:
+      entity_id: light.garage_stairs
+    service: light.turn_off
+
+- alias: No motion on landing for 10 min - Turn lights off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.landing
+    to: 'off'
+    for: 00:10:00
+  action:
+  - data:
+      entity_id: light.landing
+    service: light.turn_off
+  - data:
+      entity_id: light.stairs
+    service: light.turn_off
+
+
+##### Charlies room Automations #####
+
+- alias: No motion in Charlies room for 1 hour - Turn light off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.charlies_room
+    to: 'off'
+    for: 01:00:00
+  action:
+  - data:
+      entity_id: light.charlies_bedroom
+    service: light.turn_off
+
+
+##### Lias room Automations #####
+
+- alias: No motion in Lias room for 1 hour - Turn light off
+  initial_state: true
+  trigger:
+    platform: state
+    entity_id: binary_sensor.lias_room
+    to: 'off'
+    for: 01:00:00
+  action:
+  - data:
+      entity_id: light.lias_bedroom
+    service: light.turn_off
+
+### Bedroom Automations ###
+
+- alias: Turn on heated blanket at 11:15pm
+  initial_state: true
+  trigger:
+  - at: '23:15:00'
+    platform: time
+  condition: []
+  action:
+  - data:
+      entity_id: switch.heated_blanket
+    service: switch.turn_on
+- alias: Turn off heated blanket after 1 hour
+  trigger:
+    platform: state
+    entity_id: switch.heated_blanket
+    to: 'on'
+    for: 01:00:00
+  action:
+  - data:
+      entity_id: switch.heated_blanket
+    service: switch.turn_off
+
+- alias: Salt Lamp on when TV turned on
+  trigger:
+    - entity_id: media_player.bedroom_tv
+      from: 'off'
+      platform: state
+  condition:
+    condition: time
+    after: '20:00:00'
+    before: 05:00:00
+  action:
+    - entity_id: light.salt_lamp
+      service: light.turn_on
+- alias: Salt Lamp off at 5am
+  trigger:
+  - at: '05:00:00'
+    platform: time
+  condition:
+    condition: state
+    entity_id: light.salt_lamp
+    state: 'on'
+  action:
+    - entity_id: light.salt_lamp
+      service: light.turn_off
+
+
+### Alarm Automations###
+
+- alias: RFID Alarm
+  initial_state: true
+  trigger:
+  - platform: mqtt
+    topic: home/esprfid
+    payload: 'Hayley'
+  - platform: mqtt
+    topic: home/esprfid
+    payload: 'Sean'
+  action:
+  - data: {}
+    service: script.rfid_scan
+
+- alias: Trigger alarm while armed away
+  initial_state: true
+  trigger:
+  - entity_id: binary_sensor.living_room
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.downstairs_hall
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.landing
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.front_door
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.garage_house_door
+    platform: state
+    to: 'on'
+#  - entity_id: binary_sensor.garage
+#    platform: state
+#    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_away
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm
+
+- alias: Trigger alarm while armed home
+  initial_state: true
+  trigger:
+  - entity_id: binary_sensor.living_room
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.downstairs_hall
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.front_door
+    platform: state
+    to: 'on'
+  - entity_id: binary_sensor.garage_house_door
+    platform: state
+    to: 'on'
+#  - entity_id: binary_sensor.garage
+#    platform: state
+#    to: 'on'
+  - entity_id: binary_sensor.garage_door
+    platform: state
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_home
+  action:
+    service: alarm_control_panel.alarm_trigger
+    entity_id: alarm_control_panel.alarm
+
+- alias: Alarm triggered - pending
+  initial_state: true
+  trigger:
+    - platform: state
+      from: 'armed_away'
+      entity_id: alarm_control_panel.alarm
+      to: 'pending'
+    - platform: state
+      from: 'armed_home'
+      entity_id: alarm_control_panel.alarm
+      to: 'pending'
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2
+      volume_level: 0.3
+  - service: notify.alexa_media
+    data:
+      target: 
+        - media_player.living_room_echo_dot
+        - media_player.kitchen_echo_dot_2
+      data: 
+        type: tts
+      message: "Please input the alarm code"
+
+- alias: Sound the alarms
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: 'triggered'
+  action:
+  - data:
+      message: The alarm has been triggered
+    service: notify.mobile_app_seans_iphone
+  - service: sonos.snapshot
+    entity_id: media_player.living_room
+  - data:
+      volume_level: 0.9
+    entity_id: media_player.living_room
+    service: media_player.volume_set
+  - data:
+      entity_id: media_player.living_room
+      media_content_id:  http://192.168.100.53:8123/local/audio/Retro-Alarm.mp3
+      media_content_type: music
+    service: media_player.play_media
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot, media_player.sean_s_5th_echo_dot
+      volume_level: 0.4
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.intruder_alert
+
+- alias: Alarm arming
+  initial_state: true
+  trigger:
+  - entity_id: alarm_control_panel.alarm
+    from: 'disarmed'
+    platform: state
+    to: 'pending'
+  action:
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot, media_player.sean_s_5th_echo_dot
+      volume_level: 0.3
+  - service: notify.alexa_media
+    data:
+      target: media_player.everywhere
+      data:
+        type: announce
+      message: "Arming Alarm"
+
+- alias: Alarm armed away
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: alarm_control_panel.alarm
+      to: 'armed_away'
+  action:
+  - service: script.exit
+
+# - alias: Alarm armed home
+#   initial_state: true
+#   trigger:
+#     - platform: state
+#       entity_id: alarm_control_panel.alarm
+#       to: 'armed_home'
+#   action:
+
+- alias: Alarm disarmed
+  initial_state: true
+  trigger:
+  - entity_id: alarm_control_panel.alarm
+    platform: state
+    to: 'disarmed'
+  action:
+  - service: media_player.media_pause
+    entity_id: media_player.living_room
+  - service: sonos.restore
+    entity_id: media_player.living_room
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.intruder_alert
+  - data:
+      entity_id: switch.garage_door_lock
+    service: switch.turn_off
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot, media_player.sean_s_5th_echo_dot
+      volume_level: 0.3
+  - delay:
+      seconds: 1
+  - service: notify.alexa_media
+    data:
+      target: media_player.everywhere
+      data:
+        type: announce
+      message: "Alarm Disarmed"
+
+- alias: intruder alert alexa speakers on
+  initial_state: true
+  trigger:
+  - entity_id: input_boolean.intruder_alert
+    platform: state
+    from: 'off'
+    to: 'on'
+  action:
+  - service: script.intruder_alert
+
+- alias: intruder alert alexa speakers off
+  initial_state: true
+  trigger:
+  - entity_id: input_boolean.intruder_alert
+    platform: state
+    from: 'on'
+    to: 'off'
+  action:
+  - service: script.turn_off
+    entity_id: script.intruder_alert
+  - service: script.turn_off
+    entity_id: script.intruder_alert2
+  - delay:
+      seconds: 0.2
+  - service: script.turn_off
+    entity_id: script.intruder_alert
+  - service: script.turn_off
+    entity_id: script.intruder_alert2
+  - delay:
+      seconds: 0.2
+  - service: script.turn_off
+    entity_id: script.intruder_alert
+  - service: script.turn_off
+    entity_id: script.intruder_alert2
+  - delay:
+      seconds: 0.2
+  - service: script.turn_off
+    entity_id: script.intruder_alert
+  - service: script.turn_off
+    entity_id: script.intruder_alert2
+  - delay:
+      seconds: 0.2
+  - service: script.turn_off
+    entity_id: script.intruder_alert
+  - service: script.turn_off
+    entity_id: script.intruder_alert2
+
+
+### Random automations ###
+
+- alias: Free electric reminder
+  initial_state: true
+  trigger:
+  - at: '19:00:00'
+    platform: time
+  action:
+  - service: script.free_electric_tts
+
+- id: bedtime_announcement
+  alias: Bedtime Announcement
+  trigger:
+  - at: '20:00:00'
+    platform: time
+  condition:
+  - condition: time
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
+  action:
+  - service: script.bedtime_tts
+      
+- id: TTS-clear-cache
+  alias: Clear TTS Cache
+  initial_state: true
+  trigger:
+    platform: time
+    at: '2:35:00'
+  action:
+    service: tts.clear_cache
+
+- alias: Water Plant Reminder
+  trigger:
+  - at: '18:00:00'
+    platform: time
+  action:
+  - service: script.water_plants_tts
+
+- alias: PlayStation turned on by playstation controler
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id: media_player.playstation
+      from: 'off'
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.tv_power
+    - delay:
+        seconds: 5
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.living_room_tv
+        source: HDMI 3
+
+- alias: Operation try not to trip the elrctric, phase one
+  initial_state: true
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.shelly_em_power
+    above: 6000
+  action:
+    - entity_id: switch.boiler_plug
+      service: switch.turn_off
+
+- alias: Operation try not to trip the elrctric, phase two
+  initial_state: true
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.shelly_em_power
+    below: 4000
+    for:
+      minutes: 10
+  action:
+    - entity_id: switch.boiler_plug
+      service: switch.turn_on
+
+
+
+
+
+
+
+
+
+
+
+
+
+

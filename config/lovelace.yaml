@@ -1,0 +1,2379 @@
+title: Clarke Household
+views:
+  - badges: []
+    cards:
+      - entities:
+          - text: Clarke AI Interface
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Welcome to your smart home nerve center. Here you can control
+                  everything from your lights to your climate control. See
+                  fascinating information like light switch history, device
+                  activity & more. Using smart sensors and automations, you can
+                  control your smart home more efficiently and economically.
+                  This is the home of the future. Take a look around and amaze
+                  yourself with technology.
+                type: markdown
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - cards:
+          - aspect_ratio: 125%
+            entity: person.sean
+            image: local/images/sean.jpg
+            name: Sean is at
+            theme: Backend-selected
+            type: picture-entity
+          - aspect_ratio: 125%
+            entity: person.hayley
+            image: local/images/hayley.jpg
+            name: Hayley is at
+            theme: Backend-selected
+            type: picture-entity
+        type: horizontal-stack
+      - entities:
+          - entity: alarm_control_panel.alarm
+          - type: divider
+          - entity: binary_sensor.smoke_alarm
+          - entity: binary_sensor.gas_alarm
+          - type: divider
+          - entity: automation.bedtime_announcement
+          - entity: automation.water_plant_reminder
+        show_header_toggle: false
+        type: entities
+      - color_thresholds:
+          - color: '#c0392b'
+            value: 28
+          - color: '#7cfc00'
+            value: 20
+          - color: '#0000ff'
+            value: 15
+        entities:
+          - entity: sensor.outside_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 10
+        show:
+          extrema: true
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - cards:
+          - entities:
+              - entity: input_select.alexa
+              - entity: input_text.alexa_tts
+            show_header_toggle: false
+            title: Alexa TTS
+            type: entities
+          - entity: script.alexa_tts
+            hold_action:
+              action: more-info
+            icon: 'mdi:send'
+            icon_height: 30px
+            name: Send to alexa
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: entity-button
+        type: 'custom:vertical-stack-in-card'
+      - current: true
+        details: true
+        entity: weather.dark_sky
+        type: 'custom:weather-card'
+    icon: 'mdi:home'
+    panel: false
+    path: home
+    title: Main
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 6efd4f3bc6e54d93baac065c5e50c929
+      - user: 47369ba779634422ad9a21fcd8a3e416
+  - badges: []
+    cards:
+      - entity: alarm_control_panel.alarm
+        states:
+          - arm_home
+          - arm_away
+        type: alarm-panel
+      - entities:
+          - text: Motion Sensors
+            type: 'custom:text-divider-row'
+          - cards:
+              - entities:
+                  - entity: binary_sensor.living_room
+                    name: Living Room
+                    state_color: true
+                  - entity: binary_sensor.kitchen
+                    name: Kitchen
+                    state_color: true
+                  - entity: binary_sensor.downstairs_hall
+                    name: Hall
+                    state_color: true
+                  - entity: binary_sensor.toilet
+                    name: Toilet
+                    state_color: true
+                  - entity: binary_sensor.front_yard
+                    name: Front Yard
+                    state_color: true
+                  - type: divider
+                  - entity: binary_sensor.landing
+                    name: Landing
+                    state_color: true
+                  - entity: binary_sensor.bedroom
+                    name: Bedroom
+                    state_color: true
+                  - entity: binary_sensor.lias_room
+                    name: Lia Room
+                    state_color: true
+                  - entity: binary_sensor.charlies_room
+                    name: Charlie Room
+                    state_color: true
+                  - entity: binary_sensor.kids_bathroom
+                    name: Kids Bathroom
+                    state_color: true
+                  - type: divider
+                  - entity: binary_sensor.garage
+                    name: Garage (PIR)
+                    state_color: true
+                  - entity: binary_sensor.garage_2
+                    name: Garage (433)
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - text: Door Sensors
+            type: 'custom:text-divider-row'
+          - cards:
+              - entities:
+                  - entity: binary_sensor.front_door
+                    name: Front Door
+                    state_color: true
+                  - entity: binary_sensor.garage_stairs_door
+                    name: Garage Stairs
+                    state_color: true
+                  - entity: binary_sensor.garage_door
+                    name: Garage Door
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - text: Light Sensors
+            type: 'custom:text-divider-row'
+          - cards:
+              - entities:
+                  - entity: sensor.living_room_brightness
+                    icon: 'mdi:sofa'
+                    name: Living Room
+                  - entity: sensor.kitchen_brightness
+                    icon: 'mdi:fridge'
+                    name: Kitchen
+                  - type: divider
+                  - entity: sensor.bedroom_brightness
+                    icon: 'mdi:hotel'
+                    name: Master Bedroom
+                  - entity: sensor.lias_room_brightness
+                    icon: 'mdi:alpha-l-circle'
+                    name: Lias Bedroom
+                  - entity: sensor.charlies_room_brightness
+                    icon: 'mdi:alpha-c-circle'
+                    name: Charlies Bedroom
+                  - entity: sensor.kids_bathroom_brightness
+                    icon: 'mdi:toilet'
+                    name: Kids Bathroom
+                  - type: divider
+                  - entity: sensor.garage_lux
+                    icon: 'mdi:garage'
+                    name: Garage
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+    icon: 'mdi:shield-home'
+    path: security
+    title: Security
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - entity: light.living_room
+          - entity: light.dining_room
+          - entity: light.lamp
+          - entity: light.desk_lamp
+          - entity: light.kitchen
+          - entity: light.laundry_room
+          - entity: light.stairs
+          - entity: light.garage_stairs
+          - entity: light.downstairs_toilet
+          - entity: light.kids_bathroom
+          - entity: light.kids_bathroom_wall
+          - entity: light.landing
+          - entity: light.bedroom
+          - entity: light.bedroom_hall
+          - entity: light.our_bathroom
+          - entity: light.our_bathroom_wall
+          - entity: light.lias_bedroom
+          - entity: light.lias_lamp
+          - entity: light.lias_leds
+          - entity: light.charlies_bedroom
+          - entity: light.charlies_lamp
+          - entity: light.charlies_bed
+          - entity: light.garage_light
+          - entity: light.garage_wall_light
+          - entity: switch.workbench_light
+            state_color: true
+          - entity: light.hall_1
+          - entity: light.hall_2
+          - entity: light.terrace
+          - entity: light.front_yard
+        header:
+          image: >-
+            https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBgmk9RUFILrFjUp3kdly4qcxKtpbFZ-aKyItVlnjLydEnPLZn
+          type: picture
+        show_header_toggle: true
+        title: House Lights
+        type: entities
+    icon: 'mdi:lightbulb'
+    panel: false
+    path: lights
+    title: House Lights
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Kitchen
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control devices and get information from your kitchen. Switch
+                  on the lights or check out the temparture data. Have a go!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.kitchen
+                    name: Kitchen Motion Sensor
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.kitchen
+        show_header_toggle: false
+        title: Lights
+        type: entities
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 25
+          - color: '#1db954'
+            value: 20
+          - color: '#3498db'
+            value: 15
+        entities:
+          - sensor.kitchen_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          color_thresholds_transition: hard
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 60
+          - color: '#1db954'
+            value: 40
+          - color: '#3498db'
+            value: 0
+        entities:
+          - sensor.kitchen_humidity
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#01a2ff'
+            value: 8
+          - color: '#ff9501'
+            value: 0
+        entities:
+          - sensor.kitchen_brightness
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          color_thresholds_transition: hard
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - entity: media_player.kitchen_echo_dot
+        type: media-control
+    icon: 'mdi:fridge'
+    path: kitchen
+    title: Kitchen
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Living Room
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control devices and get information from your living room.
+                  From this tab you can do things like check out the temperature
+                  history, switch on the TV or open the blinds. Have a go!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.living_room
+                    name: Living Room Motion Sensor
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.lamp
+          - entity: light.living_room
+          - entity: light.dining_room
+          - entity: light.desk_lamp
+            name: Desk Lamp
+        show_header_toggle: true
+        theme: Backend-selected
+        title: Living room Lights
+        type: entities
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 27
+          - color: '#1db954'
+            value: 22
+          - color: '#3498db'
+            value: 19
+        entities:
+          - sensor.living_room_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 65
+          - color: '#1db954'
+            value: 40
+          - color: '#3498db'
+            value: 0
+        entities:
+          - sensor.living_room_humidity
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#01a2ff'
+            value: 300
+          - color: '#ff9501'
+            value: 0
+        entities:
+          - sensor.living_room_brightness
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - entity: climate.livingroom_aircon
+        theme: Backend-selected
+        type: thermostat
+      - entity: media_player.playstation_4
+        type: media-control
+      - entity: media_player.sonos
+        type: media-control
+      - entity: media_player.living_room_echo_dot
+        type: media-control
+      - entities:
+          - text: Living Room Blinds
+            type: 'custom:text-divider-row'
+          - cards:
+              - cards:
+                  - entity: switch.open_left_blind
+                    icon: 'mdi:arrow-up-circle-outline'
+                    name: Left Up
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: switch.close_left_blind
+                    icon: 'mdi:arrow-down-circle-outline'
+                    name: Left Down
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: script.stop_blinds
+                    icon: 'mdi:stop-circle-outline'
+                    name: Stop
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: switch.close_right_blind
+                    icon: 'mdi:arrow-down-circle-outline'
+                    name: Right Down
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: switch.open_right_blind
+                    icon: 'mdi:arrow-up-circle-outline'
+                    name: Right Up
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                type: horizontal-stack
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - cards:
+          - cards:
+              - cards:
+                  - entity: script.livingroom_hdmi1
+                    icon: 'mdi:video-input-hdmi'
+                    name: HDMI 1
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                type: horizontal-stack
+              - cards:
+                  - entity: script.livingroom_hdmi2
+                    icon: 'mdi:video-input-hdmi'
+                    name: HDMI 2
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                type: horizontal-stack
+              - cards:
+                  - entity: script.livingroom_hdmi3
+                    icon: 'mdi:video-input-hdmi'
+                    name: HDMI 3
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                type: horizontal-stack
+            type: horizontal-stack
+          - entity: script.livingroom_power_toggle
+            hold_action:
+              action: more-info
+            icon: 'mdi:power'
+            icon_height: 30px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: entity-button
+        type: vertical-stack
+      - entities:
+          - text: Pre-Configured Channels
+            type: 'custom:text-divider-row'
+          - cards:
+              - cards:
+                  - entity: script.livingroom_mag_bbc1
+                    icon: 'mdi:remote'
+                    name: BBC 1
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: script.livingroom_mag_bbc2
+                    icon: 'mdi:remote'
+                    name: BBC 2
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: script.livingroom_mag_itv1
+                    icon: 'mdi:remote'
+                    name: ITV 1
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: script.livingroom_mag_itv2
+                    icon: 'mdi:remote'
+                    name: ITV 2
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                type: horizontal-stack
+              - cards:
+                  - entity: script.livingroom_mag_itvbe
+                    icon: 'mdi:remote'
+                    name: ITV Be
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: script.livingroom_mag_e4
+                    icon: 'mdi:remote'
+                    name: E4
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: script.livingroom_mag_e
+                    icon: 'mdi:remote'
+                    name: E
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                  - entity: script.livingroom_mag_cartoon_network
+                    icon: 'mdi:remote'
+                    name: Cartoon Net
+                    tap_action:
+                      action: toggle
+                    type: entity-button
+                type: horizontal-stack
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+    icon: 'mdi:sofa'
+    panel: false
+    path: livingroom
+    title: Living room
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Master Bedroom
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control devices and get information from the master bedroom.
+                  From this tab you can do things like, control the ceiling fan,
+                  turn on the TV or  switch on the heated blanket. Check it out
+                  for yourself!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.bedroom
+                    name: Bedroom Motion Sensor
+                    state_color: true
+                  - entity: switch.heated_blanket
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.bedroom
+          - entity: light.bedroom_hall
+          - entity: light.our_bathroom
+            name: Bathroom
+          - entity: light.our_bathroom_wall
+            name: Bathroom Wall
+          - entity: light.salt_lamp
+        title: Lights
+        type: entities
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 25
+          - color: '#1db954'
+            value: 20
+          - color: '#3498db'
+            value: 15
+        entities:
+          - sensor.bedroom_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 65
+          - color: '#1db954'
+            value: 40
+          - color: '#3498db'
+            value: 0
+        entities:
+          - sensor.bedroom_humidity
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#01a2ff'
+            value: 12
+          - color: '#ff9501'
+            value: 0
+        entities:
+          - sensor.bedroom_brightness
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - entity: media_player.bedroom_tv
+        type: media-control
+      - entity: climate.bedroom_aircon
+        type: thermostat
+      - entities:
+          - text: Celing Fan
+            type: 'custom:text-divider-row'
+          - cards:
+              - default_dismiss: false
+                default_open: false
+                icon: 'mdi:fan'
+                items:
+                  - entity: script.bedroom_fan_medium
+                    haptic: true
+                    icon: 'mdi:alpha-m-circle'
+                    tap_action:
+                      action: toggle
+                  - entity: script.bedroom_fan_high
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:alpha-h-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.bedroom_fan_light_off
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:lightbulb'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.bedroom_fan_off
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:power'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.bedroom_fan_light_on
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:lightbulb-on'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.bedroom_fan_low
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:alpha-l-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                type: 'custom:radial-menu'
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entity: media_player.bedroom_echo_dot
+        type: media-control
+    icon: 'mdi:hotel'
+    panel: false
+    path: bedroom
+    title: Bedroom
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Lia's Bedroom
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control devices and get information from Lia's bedroom. From
+                  this tab you can do things like, control her LEDs, turn on the
+                  TV or control the aircon. Try it out for yourself!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.lias_room
+                    name: Lias Bedroom Motion Sensor
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.lias_bedroom
+          - entity: light.lias_lamp
+          - entity: light.lias_leds
+        show_header_toggle: false
+        title: Lights
+        type: entities
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 25
+          - color: '#1db954'
+            value: 20
+          - color: '#3498db'
+            value: 15
+        entities:
+          - sensor.lias_room_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 65
+          - color: '#1db954'
+            value: 40
+          - color: '#3498db'
+            value: 0
+        entities:
+          - sensor.lias_room_humidity
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#01a2ff'
+            value: 12
+          - color: '#ff9501'
+            value: 0
+        entities:
+          - sensor.lias_room_brightness
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - entity: media_player.lias_tv
+        type: media-control
+      - entity: climate.lias_aircon
+        type: thermostat
+      - entity: media_player.lias_echo_dot
+        type: media-control
+    icon: 'mdi:alpha-l-circle'
+    path: liasroom
+    title: Lias Room
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 47369ba779634422ad9a21fcd8a3e416
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Charlie's Bedroom
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control devices and get information from Charlie's bedroom.
+                  From this tab you can do things like change the brightness of
+                  his lamp, turn his TV off or even change the temperature of
+                  the aircon. Why not take a look!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.charlies_room
+                    name: Charlies Bedroom Motion Sensor
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.charlies_bedroom
+          - entity: light.charlies_lamp
+          - entity: light.charlies_bed
+        show_header_toggle: false
+        title: Lights
+        type: entities
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 25
+          - color: '#1db954'
+            value: 20
+          - color: '#3498db'
+            value: 15
+        entities:
+          - sensor.charlies_room_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 65
+          - color: '#1db954'
+            value: 40
+          - color: '#3498db'
+            value: 0
+        entities:
+          - sensor.charlies_room_humidity
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#01a2ff'
+            value: 12
+          - color: '#ff9501'
+            value: 0
+        entities:
+          - sensor.charlies_room_brightness
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - entity: script.charlie_tv_power
+        hold_action:
+          action: more-info
+        icon: 'mdi:power'
+        icon_height: 30px
+        name: TV Power
+        show_icon: true
+        show_name: true
+        tap_action:
+          action: toggle
+        type: entity-button
+      - entity: media_player.charlies_plex
+        type: media-control
+      - entity: climate.charlies_aircon
+        type: thermostat
+      - entity: media_player.charlies_echo_dot
+        type: media-control
+    icon: 'mdi:alpha-c-circle'
+    path: charliesroom
+    title: Charlies Room
+    visible:
+      - user: 6efd4f3bc6e54d93baac065c5e50c929
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Garage
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control devices and get information from the garage. From this
+                  tab you can do things like, open the garage door, turn off the
+                  PC and lock the door. Check it out!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.garage
+                    name: Garage Motion Sensor (PIR)
+                    state_color: true
+                  - entity: binary_sensor.garage_2
+                    name: Garage Motion Sensor (433)
+                    state_color: true
+                  - entity: binary_sensor.garage_door
+                    state_color: true
+                  - entity: binary_sensor.garage_door_trip_sensor
+                    icon: 'mdi:garage-alert'
+                    state_color: true
+                  - entity: switch.computer_plug
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.garage_light
+          - entity: light.garage_wall_light
+          - entity: switch.workbench_light
+            state_color: true
+        title: Garage lights
+        type: entities
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 27
+          - color: '#1db954'
+            value: 22
+          - color: '#3498db'
+            value: 19
+        entities:
+          - sensor.garage_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 65
+          - color: '#1db954'
+            value: 40
+          - color: '#3498db'
+            value: 0
+        entities:
+          - sensor.garage_humidity
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#01a2ff'
+            value: 50
+          - color: '#ff9501'
+            value: 0
+        entities:
+          - sensor.garage_lux
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        name: Garage Brightness
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - aspect_ratio: 0%
+        camera_image: camera.garage_camera
+        entities:
+          - entity: switch.momentary_garagecam_snapshot
+          - entity: switch.momentary_garagecam_record
+        title: Garage Camera
+        type: picture-glance
+      - cards:
+          - entity: lock.garage_door
+            hold_action:
+              action: more-info
+            icon_height: 30px
+            name: Garage Stairs Door Lock
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: entity-button
+          - cards:
+              - entity: script.open_garage_door
+                icon: 'mdi:garage-open'
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.stop_garage_door
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.close_garage_door
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+        type: vertical-stack
+      - card:
+          entities:
+            - entity: sensor.carpresence_signal
+              name: Signal
+          entity: binary_sensor.carpresence
+          icon: 'mdi:car-connected'
+          name: Seans Car Presence Module
+          state_color: true
+          type: 'custom:multiple-entity-row'
+        conditions:
+          - entity: binary_sensor.carpresence
+            state: 'on'
+        type: conditional
+      - card:
+          entities:
+            - entity: sensor.carpresencehayley_signal
+              name: Signal
+          entity: binary_sensor.carpresencehayley
+          icon: 'mdi:car-connected'
+          name: Hayleys Car Presence Module
+          state_color: true
+          type: 'custom:multiple-entity-row'
+        conditions:
+          - entity: binary_sensor.carpresencehayley
+            state: 'on'
+        type: conditional
+    icon: 'mdi:garage'
+    panel: false
+    path: garage
+    title: Garage
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Stairs / Hallways
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control lights and get information from the hallways. From
+                  this tab you can do things like, check out the cameras or turn
+                  on stairs light.  Check it out!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.downstairs_hall
+                    name: Downstairs Hall Motion Sensor
+                    state_color: true
+                  - entity: binary_sensor.landing
+                    name: Landing Motion Sensor
+                    state_color: true
+                  - entity: binary_sensor.front_door
+                    name: Front Door Sensor
+                    state_color: true
+                  - entity: binary_sensor.garage_stairs_door
+                    name: Garage Stairs Door Sensor
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.hall_1
+          - entity: light.hall_2
+          - entity: light.stairs
+          - entity: light.landing
+          - entity: light.garage_stairs
+        title: Lights
+        type: entities
+      - aspect_ratio: 75%
+        camera_image: camera.hall_camera
+        entities:
+          - entity: switch.momentary_hallcam_snapshot
+          - entity: switch.momentary_hallcam_record
+        title: Hall Camera
+        type: picture-glance
+    icon: 'mdi:stairs'
+    path: stairs
+    title: Halls
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: CCTV Cameras
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Monitor, record and take pictures from your cameras. Also you
+                  can see sensor states like motion sensors. Also you can turn
+                  on lights that each camera would use.
+                type: markdown
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - aspect_ratio: 0%
+        camera_image: camera.garage_camera
+        entities:
+          - entity: light.garage_light
+          - entity: switch.momentary_garagecam_snapshot
+          - entity: switch.momentary_garagecam_record
+          - entity: binary_sensor.garage_door
+          - entity: binary_sensor.garage
+          - entity: binary_sensor.garage_2
+          - entity: binary_sensor.garage_door_trip_sensor
+            icon: 'mdi:garage-alert'
+        title: Garage Camera
+        type: picture-glance
+      - aspect_ratio: 0%
+        camera_image: camera.front_yard_camera
+        entities:
+          - entity: light.front_yard
+          - entity: switch.momentary_frontyardcam_snapshot
+          - entity: switch.momentary_frontyardcam_record
+          - entity: binary_sensor.front_yard
+        title: Front Yard Camera
+        type: picture-glance
+      - aspect_ratio: 75%
+        camera_image: camera.hall_camera
+        entities:
+          - entity: light.hall_1
+          - entity: light.hall_2
+          - entity: switch.momentary_hallcam_snapshot
+          - entity: switch.momentary_hallcam_record
+          - entity: binary_sensor.downstairs_hall
+        title: Hall Camera
+        type: picture-glance
+      - aspect_ratio: 0%
+        camera_image: camera.workbench_camera
+        entities:
+          - entity: switch.workbench_light
+          - entity: switch.momentary_workbenchcam_snapshot
+          - entity: switch.momentary_workbenchcam_record
+        title: Workbench Camera
+        type: picture-glance
+    icon: 'mdi:cctv'
+    path: cctv
+    title: CCTV
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Automations
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  From here you can enable and disable automations we have set
+                  up for you. You can trigger an automation manually, by
+                  clicking on the automation name and clicking on **TRIGGER**
+                type: markdown
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: automation.notify_garage_is_closing
+          - entity: automation.notify_garage_is_closed
+          - entity: automation.notify_motion_in_the_yard_while_door_is_open
+          - entity: automation.notify_smoke_alarm_triggered
+          - entity: automation.notify_radarr_download_completed
+          - entity: automation.notify_washing_machine_has_finnished
+          - entity: automation.notify_tumble_dryer_has_finnished
+        show_header_toggle: false
+        title: Notification Automations
+        type: entities
+      - entities:
+          - entity: automation.living_room_aircon_on_at_7pm
+          - entity: automation.living_room_aircon_off_at_9pm
+          - entity: automation.lias_aircon_auto_off_after_2_hours
+        show_header_toggle: false
+        title: Living Room Automations
+        type: entities
+      - entities:
+          - entity: automation.bedroom_aircon_auto_off_after_2_hours
+          - entity: automation.turn_on_heated_blanket_at_11_15pm
+          - entity: automation.turn_off_heated_blanket_after_1_hour
+          - entity: automation.salt_lamp_on_when_tv_turned_on
+          - entity: automation.salt_lamp_off_at_5am
+        show_header_toggle: false
+        title: Bedroom automations
+        type: entities
+      - entities:
+          - entity: automation.lias_aircon_on_at_7pm
+          - entity: automation.lias_aircon_off_at_9pm
+          - entity: automation.lias_aircon_auto_off_after_2_hours
+        show_header_toggle: false
+        title: Lias Automations
+        type: entities
+      - entities:
+          - entity: automation.charlies_aircon_on_at_7pm
+          - entity: automation.charlies_aircon_off_at_9pm
+          - entity: automation.charlies_aircon_auto_off_after_2_hours
+        show_header_toggle: false
+        title: Charlies Automations
+        type: entities
+      - entities:
+          - entity: automation.car_presence_auto_open
+          - entity: automation.car_presence_auto_close_1
+          - entity: automation.car_presence_auto_close_2
+        show_header_toggle: false
+        title: Garage Automations
+        type: entities
+      - entities:
+          - entity: automation.motion_in_garage_light_on
+          - entity: automation.no_motion_in_garage_for_5_min_light_off
+          - type: divider
+          - entity: automation.motion_in_kids_bathroom_turn_light_on
+          - entity: automation.no_motion_in_kids_bathroom_for_10_min_turn_light_off
+          - type: divider
+          - entity: automation.motion_in_kitchen_turn_lights_on
+          - entity: automation.no_motion_in_kitchen_for_10_min_turn_lights_off
+          - type: divider
+          - entity: automation.motion_in_living_room_turn_lamp_on
+          - entity: automation.no_motion_in_living_room_for_1_hour_turn_lights_off
+          - type: divider
+          - entity: automation.motion_in_toilet_turn_light_on
+          - entity: automation.no_motion_in_toilet_for_10_min_turn_light_off
+          - type: divider
+          - entity: automation.no_motion_in_hall_for_10_min_turn_lights_off
+          - entity: automation.no_motion_on_landing_for_10_min_turn_lights_off
+          - type: divider
+          - entity: automation.no_motion_in_charlies_room_for_1_hour_turn_light_off
+          - type: divider
+          - entity: automation.no_motion_in_lias_room_for_1_hour_turn_light_off
+          - type: divider
+          - entity: automation.no_motion_in_front_yard_for_5_min_turn_light_off
+        show_header_toggle: false
+        title: Light Automations
+        type: entities
+    icon: 'mdi:auto-fix'
+    path: automations
+    title: Automations
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - sensor.speedtest_ping
+        font_size: 70
+        height: 30
+        hours_to_show: 24
+        line_width: 2
+        name: Ping
+        points_per_hour: 3
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - cards:
+          - entities:
+              - sensor.speedtest_download
+            font_size: 70
+            height: 50
+            hours_to_show: 24
+            line_width: 2
+            name: Download
+            points_per_hour: 3
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+          - entities:
+              - sensor.speedtest_upload
+            font_size: 70
+            height: 50
+            hours_to_show: 24
+            line_width: 2
+            name: Upload
+            points_per_hour: 3
+            show:
+              extrema: true
+              fill: true
+            type: 'custom:mini-graph-card'
+        type: horizontal-stack
+      - cards:
+          - entities:
+              - text: Ubuntu Server Stats
+                type: 'custom:text-divider-row'
+              - align: split
+                entities:
+                  - color: '#454647'
+                    entity: sensor.ubuntu_cpu_used
+                    name: CPU =
+                  - color: '#454647'
+                    entity: sensor.ubuntu_data_used_percent
+                    name: Disk =
+                  - color: '#454647'
+                    entity: sensor.ubuntu_ram_used_percent
+                    name: RAM =
+                max: 100
+                positions:
+                  indicator: 'off'
+                  title: outside
+                type: 'custom:bar-card'
+            show_header_toggle: false
+            type: entities
+        type: vertical-stack
+      - entities:
+          - text: Machine Stats
+            type: 'custom:text-divider-row'
+          - cards:
+              - columns: 3
+                entities:
+                  - entity: binary_sensor.ping_pc
+                    name: PC
+                  - entity: binary_sensor.ping_mac
+                    name: Mac
+                  - entity: binary_sensor.ping_plex
+                    name: Plex
+                  - entity: sensor.sonarr_upcoming_media
+                    name: Sonarr
+                  - entity: sensor.radarr_upcoming_media
+                    name: Radarr
+                type: glance
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - text: Hassio Stats
+            type: 'custom:text-divider-row'
+          - cards:
+              - cards:
+                  - entities:
+                      - entity: sensor.count_lights
+                        icon: 'mdi:lightbulb'
+                        name: Lights
+                      - entity: sensor.count_binary_sensors
+                        icon: 'mdi:electric-switch'
+                        name: Binary Sensors
+                      - entity: sensor.count_cameras
+                        icon: 'mdi:cctv'
+                        name: Cameras
+                      - entity: sensor.count_switches
+                        icon: 'mdi:toggle-switch'
+                        name: Switches
+                      - entity: sensor.count_media_players
+                        icon: 'mdi:youtube'
+                        name: Media Players
+                    show_header_toggle: false
+                    type: entities
+                  - entities:
+                      - entity: sensor.count_scripts
+                        icon: 'mdi:script'
+                        name: Scripts
+                      - entity: sensor.count_sensorss
+                        icon: 'mdi:leak'
+                        name: Sensors
+                      - entity: sensor.count_automations
+                        icon: 'mdi:robot'
+                        name: Automations
+                      - entity: sensor.count_air_conditioners
+                        icon: 'mdi:air-conditioner'
+                        name: Air Cons
+                    show_header_toggle: false
+                    type: entities
+                type: horizontal-stack
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - text: Plex Server Stats
+            type: 'custom:text-divider-row'
+          - cards:
+              - entities:
+                  - entity: sensor.plex
+                    name: People Watching Plex
+                type: entities
+              - filter:
+                  include:
+                    - key: sensor.plex.uscclarkey*
+                      name: Sean
+                    - key: sensor.plex.seanclarke*
+                      name: Sean
+                    - key: sensor.plex.mjclarke*
+                      name: Mum/Dad
+                    - key: sensor.plex.aaronclarke*
+                      name: Aaron
+                    - key: sensor.plex.cfclarke*
+                      name: Craig
+                    - key: sensor.plex.Charlie*
+                      name: Charlie
+                    - key: sensor.plex.cjinspain*
+                      name: CJ
+                    - key: sensor.plex.curtisclaire*
+                      name: Claire
+                    - key: sensor.plex.hayleytawse*
+                      name: Nina
+                    - key: sensor.plex.hsoodharry*
+                      name: H
+                    - key: sensor.plex.Lias*
+                      name: Lia
+                    - key: sensor.plex.ljc*
+                      name: Lewis
+                    - key: sensor.plex.natasha*
+                      name: Natasha
+                    - key: sensor.plex.lynne*
+                      name: Lynne
+                    - key: sensor.plex.rachel*
+                      name: Rachel
+                    - key: sensor.plex.Richardsraymond*
+                      name: Richard
+                    - key: sensor.plex.RICHBROWN*
+                      name: Rich
+                    - key: sensor.plex.Rowanheath*
+                      name: Rowan
+                    - key: sensor.plex.voltageservices*
+                      name: Pat
+                heading_name: Who?
+                heading_state: Watching...
+                title: More Info
+                type: 'custom:entity-attributes-card'
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entity: sensor.plex_recently_added
+        title: Recently Added To Plex
+        type: 'custom:upcoming-media-card'
+      - entity: sensor.radarr_upcoming_media
+        title: Upcoming Movies
+        type: 'custom:upcoming-media-card'
+    icon: 'mdi:server'
+    path: server
+    title: Server Info
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Home Energy Monitoring
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  From this tab you can monitor all of your power monitoring
+                  plugs as well as see history graph data. Monitor your whole
+                  home using your smart energy monitor installed in your fuse
+                  box.
+                type: markdown
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - color_thresholds:
+          - color: '#c0392b'
+            value: 2500
+          - color: '#7cfc00'
+            value: 1500
+          - color: '#0000ff'
+            value: 500
+        entities:
+          - entity: sensor.shelly_em_power
+        font_size: 70
+        height: 100
+        hours_to_show: 24
+        icon: 'mdi:flash'
+        line_width: 2
+        name: Whole Home Power
+        points_per_hour: 15
+        show:
+          extrema: true
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - cards:
+          - entity: sensor.washing_machine_state
+            name: The washing machine is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 500
+              - color: '#7cfc00'
+                value: 100
+              - color: '#0000ff'
+                value: 1
+            entities:
+              - entity: sensor.washing_machine_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 15
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
+      - cards:
+          - entity: sensor.tumble_dryer_state
+            name: The tumble dryer is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 300
+              - color: '#7cfc00'
+                value: 100
+              - color: '#0000ff'
+                value: 1
+            entities:
+              - entity: sensor.tumble_dryer_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 2
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
+      - cards:
+          - entity: sensor.boiler_state
+            name: The boiler is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 100
+              - color: '#7cfc00'
+                value: 30
+              - color: '#0000ff'
+                value: 1
+            entities:
+              - entity: sensor.boiler_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 15
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
+      - entities:
+          - text: Cost & Usages
+            type: 'custom:text-divider-row'
+          - cards:
+              - entities:
+                  - entity: sensor.todays_energy_cost
+                    icon: 'mdi:currency-eur'
+                    name: Todays energy cost so far
+                  - entity: sensor.this_weeks_energy_cost
+                    icon: 'mdi:currency-eur'
+                    name: This weeks energy cost so far
+                  - entity: sensor.this_months_energy_cost
+                    icon: 'mdi:currency-eur'
+                    name: This months energy cost so far
+                type: entities
+              - cards:
+                  - entity: sensor.home_energy_meter_daily
+                    fill: '#454647'
+                    font_style:
+                      color: '#d5dee6'
+                      font-size: 1.3em
+                      text-shadow: 1px 1px black
+                    max: 22
+                    name: Today
+                    show_card: true
+                    stroke_color: '#d5dee6'
+                    stroke_width: 10
+                    type: 'custom:circle-sensor-card'
+                  - entity: sensor.home_energy_meter_weekly
+                    fill: '#454647'
+                    font_style:
+                      color: '#d5dee6'
+                      font-size: 1.3em
+                      text-shadow: 1px 1px black
+                    max: 170
+                    name: This Week
+                    show_card: true
+                    stroke_color: '#d5dee6'
+                    stroke_width: 10
+                    type: 'custom:circle-sensor-card'
+                  - entity: sensor.home_energy_meter_monthly
+                    fill: '#454647'
+                    font_style:
+                      color: '#d5dee6'
+                      font-size: 1.3em
+                      text-shadow: 1px 1px black
+                    max: 700
+                    name: This Month
+                    show_card: true
+                    stroke_color: '#d5dee6'
+                    stroke_width: 10
+                    type: 'custom:circle-sensor-card'
+                type: horizontal-stack
+              - cards:
+                  - direction: up
+                    entities:
+                      - entity: sensor.yesterdays_energy
+                        unit_of_measurement: kW/h
+                    height: 80px
+                    icon: 'mdi:alpha-w-box'
+                    max: 1
+                    positions:
+                      icon: 'off'
+                      indicator: 'off'
+                      title: inside
+                      value: inside
+                    severity:
+                      - color: '#454647'
+                        from: 0
+                        to: 2000
+                    type: 'custom:bar-card'
+                    width: 120px
+                  - direction: up
+                    entities:
+                      - entity: sensor.last_weeks_energy
+                        unit_of_measurement: kW/h
+                    height: 80px
+                    icon: 'mdi:alpha-w-box'
+                    max: 1
+                    positions:
+                      icon: 'off'
+                      indicator: 'off'
+                      title: inside
+                      value: inside
+                    severity:
+                      - color: '#454647'
+                        from: 0
+                        to: 2000
+                    type: 'custom:bar-card'
+                    width: 120px
+                  - direction: up
+                    entities:
+                      - entity: sensor.last_months_energy
+                        unit_of_measurement: kW/h
+                    height: 80px
+                    icon: 'mdi:alpha-m-box'
+                    max: 1
+                    positions:
+                      icon: 'off'
+                      indicator: 'off'
+                      title: inside
+                      value: inside
+                    severity:
+                      - color: '#454647'
+                        from: 0
+                        to: 2000
+                    type: 'custom:bar-card'
+                    width: 120px
+                type: horizontal-stack
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+    icon: 'mdi:flash-alert'
+    path: energymonitoring
+    title: Energy Monitoring
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - cards:
+          - text: Mag Box Remote
+            type: 'custom:text-divider-row'
+          - cards:
+              - entity: script.mag_mute
+                icon: 'mdi:volume-off'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_setup
+                icon: 'mdi:settings'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_keyboard
+                icon: 'mdi:keyboard'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_power
+                icon: 'mdi:power'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_f1
+                icon: 'mdi:alpha-r'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_f2
+                icon: 'mdi:alpha-g'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_f3
+                icon: 'mdi:alpha-y'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_f4
+                icon: 'mdi:alpha-b'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_skip_back
+                icon: 'mdi:skip-backward'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_skip_forward
+                icon: 'mdi:skip-forward'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_rewind
+                icon: 'mdi:rewind'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_fast_forward
+                icon: 'mdi:fast-forward'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_home
+                icon: 'mdi:home'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_up
+                icon: 'mdi:arrow-up'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_back
+                icon: 'mdi:backspace'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_left
+                icon: 'mdi:arrow-left'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_ok
+                icon: 'mdi:checkbox-blank-circle'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_right
+                icon: 'mdi:arrow-right'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_menu
+                icon: 'mdi:menu'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_down
+                icon: 'mdi:arrow-down'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_info
+                icon: 'mdi:information-variant'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_vol_up
+                icon: 'mdi:volume-plus'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_play_pause
+                icon: 'mdi:play-pause'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_ch_up
+                icon: 'mdi:plus-box'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_vol_down
+                icon: 'mdi:volume-minus'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_stop
+                icon: 'mdi:stop'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_ch_down
+                icon: 'mdi:minus-box'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_1
+                icon: 'mdi:numeric-1'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_2
+                icon: 'mdi:numeric-2'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_3
+                icon: 'mdi:numeric-3'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_4
+                icon: 'mdi:numeric-4'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_5
+                icon: 'mdi:numeric-5'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_6
+                icon: 'mdi:numeric-6'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_7
+                icon: 'mdi:numeric-7'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_8
+                icon: 'mdi:numeric-8'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_9
+                icon: 'mdi:numeric-9'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.mag_aspect
+                icon: 'mdi:aspect-ratio'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_0
+                icon: 'mdi:numeric-0'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.mag_reload
+                icon: 'mdi:reload'
+                show_name: false
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+        type: vertical-stack
+      - cards:
+          - text: Pre-Configured Channels
+            type: 'custom:text-divider-row'
+          - cards:
+              - entity: script.livingroom_mag_bbc1
+                icon: 'mdi:remote'
+                name: BBC 1
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.livingroom_mag_bbc2
+                icon: 'mdi:remote'
+                name: BBC 2
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.livingroom_mag_itv1
+                icon: 'mdi:remote'
+                name: ITV 1
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.livingroom_mag_itv2
+                icon: 'mdi:remote'
+                name: ITV 2
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+          - cards:
+              - entity: script.livingroom_mag_itvbe
+                icon: 'mdi:remote'
+                name: ITV Be
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.livingroom_mag_e4
+                icon: 'mdi:remote'
+                name: E4
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.livingroom_mag_e
+                icon: 'mdi:remote'
+                name: E!
+                tap_action:
+                  action: toggle
+                type: entity-button
+              - entity: script.livingroom_mag_cartoon_network
+                icon: 'mdi:remote'
+                name: Cartoon Net
+                tap_action:
+                  action: toggle
+                type: entity-button
+            type: horizontal-stack
+        type: vertical-stack
+    icon: 'mdi:remote'
+    path: remote
+    title: Remote
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Covid-19 Stats
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  I have made this page to show you the stats and percentages
+                  regarding the virus.
+                type: markdown
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: sensor.worldwide_coronavirus_confirmed
+            name: Worldwide
+          - entity: sensor.spain_coronavirus_confirmed
+            name: Spain
+          - entity: sensor.united_kingdom_coronavirus_confirmed
+            name: UK
+          - entity: sensor.china_coronavirus_confirmed
+            name: China
+          - entity: sensor.italy_coronavirus_confirmed
+            name: Italy
+          - entity: sensor.us_coronavirus_confirmed
+            name: USA
+        hours_to_show: 168
+        refresh_interval: 0
+        title: Confirmed Cases
+        type: history-graph
+      - entities:
+          - entity: sensor.worldwide_coronavirus_current
+            name: Worldwide
+          - entity: sensor.spain_coronavirus_current
+            name: Spain
+          - entity: sensor.united_kingdom_coronavirus_current
+            name: UK
+          - entity: sensor.china_coronavirus_current
+            name: China
+          - entity: sensor.italy_coronavirus_current
+            name: Italy
+          - entity: sensor.us_coronavirus_current
+            name: USA
+        hours_to_show: 168
+        refresh_interval: 0
+        title: Still Infected
+        type: history-graph
+      - entities:
+          - entity: sensor.worldwide_coronavirus_recovered
+            name: Worldwide
+          - entity: sensor.spain_coronavirus_recovered
+            name: Spain
+          - entity: sensor.united_kingdom_coronavirus_recovered
+            name: UK
+          - entity: sensor.china_coronavirus_recovered
+            name: China
+          - entity: sensor.italy_coronavirus_recovered
+            name: Italy
+          - entity: sensor.us_coronavirus_recovered
+            name: USA
+        hours_to_show: 168
+        refresh_interval: 0
+        title: Recovered Cases
+        type: history-graph
+      - entities:
+          - entity: sensor.worldwide_coronavirus_deaths
+            name: Worldwide
+          - entity: sensor.spain_coronavirus_deaths
+            name: Spain
+          - entity: sensor.united_kingdom_coronavirus_deaths
+            name: UK
+          - entity: sensor.china_coronavirus_deaths
+            name: China
+          - entity: sensor.italy_coronavirus_deaths
+            name: Italy
+          - entity: sensor.us_coronavirus_deaths
+            name: USA
+        hours_to_show: 168
+        refresh_interval: 0
+        title: Confirmed Deaths
+        type: history-graph
+      - entities:
+          - entity: sensor.worldwide_coronavirus_current
+            name: Currently Infected
+          - entity: sensor.worldwide_coronavirus_recovered
+            name: Recovered
+          - entity: sensor.worldwide_coronavirus_deaths
+            name: Died
+        title: Coronavirus Stats - Worldwide
+        total_amount: sensor.worldwide_coronavirus_confirmed
+        type: 'custom:pie-chart-card'
+      - entities:
+          - entity: sensor.spain_coronavirus_current
+            name: Currently Infected
+          - entity: sensor.spain_coronavirus_recovered
+            name: Recovered
+          - entity: sensor.spain_coronavirus_deaths
+            name: Died
+        title: Coronavirus Stats - Spain
+        total_amount: sensor.spain_coronavirus_confirmed
+        type: 'custom:pie-chart-card'
+      - entities:
+          - entity: sensor.united_kingdom_coronavirus_current
+            name: Currently Infected
+          - entity: sensor.united_kingdom_coronavirus_recovered
+            name: Recovered
+          - entity: sensor.united_kingdom_coronavirus_deaths
+            name: Died
+        title: Coronavirus Stats - UK
+        total_amount: sensor.united_kingdom_coronavirus_confirmed
+        type: 'custom:pie-chart-card'
+      - entities:
+          - entity: sensor.china_coronavirus_current
+            name: Currently Infected
+          - entity: sensor.china_coronavirus_recovered
+            name: Recovered
+          - entity: sensor.china_coronavirus_deaths
+            name: Died
+        title: Coronavirus Stats - China
+        total_amount: sensor.china_coronavirus_confirmed
+        type: 'custom:pie-chart-card'
+      - entities:
+          - entity: sensor.italy_coronavirus_current
+            name: Currently Infected
+          - entity: sensor.italy_coronavirus_recovered
+            name: Recovered
+          - entity: sensor.italy_coronavirus_deaths
+            name: Died
+        title: Coronavirus Stats - Italy
+        total_amount: sensor.italy_coronavirus_confirmed
+        type: 'custom:pie-chart-card'
+      - entities:
+          - entity: sensor.us_coronavirus_current
+            name: Currently Infected
+          - entity: sensor.us_coronavirus_recovered
+            name: Recovered
+          - entity: sensor.us_coronavirus_deaths
+            name: Died
+        title: Coronavirus Stats - USA
+        total_amount: sensor.us_coronavirus_confirmed
+        type: 'custom:pie-chart-card'
+      - animate: true
+        entities:
+          - entity: sensor.spain_coronavirus_confirmed
+        group_by: day
+        hours_to_show: 168
+        name: Confirmed Cases In Spain
+        points_per_hour: 0.5
+        show:
+          labels: false
+        type: 'custom:mini-graph-card'
+      - animate: true
+        entities:
+          - color: orange
+            entity: sensor.spain_coronavirus_current
+        group_by: day
+        hours_to_show: 168
+        name: Still Infected In Spain
+        points_per_hour: 0.5
+        show:
+          labels: false
+        type: 'custom:mini-graph-card'
+      - animate: true
+        entities:
+          - color: green
+            entity: sensor.spain_coronavirus_recovered
+        group_by: day
+        hours_to_show: 168
+        name: Recovered In Spain
+        points_per_hour: 0.5
+        show:
+          labels: false
+        type: 'custom:mini-graph-card'
+      - animate: true
+        entities:
+          - color: red
+            entity: sensor.worldwide_coronavirus_confirmed
+        group_by: day
+        hours_to_show: 168
+        name: Confirmed Worldwide
+        points_per_hour: 0.5
+        show:
+          labels: false
+        type: 'custom:mini-graph-card'
+      - animate: true
+        entities:
+          - color: purple
+            entity: sensor.worldwide_coronavirus_current
+        group_by: day
+        hours_to_show: 168
+        name: Still Infected Worldwide
+        points_per_hour: 0.5
+        show:
+          labels: false
+        type: 'custom:mini-graph-card'
+      - animate: true
+        entities:
+          - color: lightgreen
+            entity: sensor.worldwide_coronavirus_recovered
+        group_by: day
+        hours_to_show: 168
+        name: Recovered Worldwide
+        points_per_hour: 0.5
+        show:
+          labels: false
+        type: 'custom:mini-graph-card'
+    icon: 'mdi:allergy'
+    path: covid-19
+    title: covid-19
+    visible:
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - entity: input_boolean.intruder_alert
+          - entity: script.intruder_alert
+          - entity: script.intruder_alert2
+          - entity: automation.intruder_alert_alexa_speakers_on
+          - entity: automation.intruder_alert_alexa_speakers_off
+        type: entities
+      - entities:
+          - sensor.d1difference
+          - sensor.average_diffenence
+        type: history-graph
+      - cards:
+          - cards:
+              - entities:
+                  - person.sean
+                  - type: divider
+                  - sensor.battery_james
+                show_header_toggle: false
+                type: entities
+              - entities:
+                  - person.hayley
+                  - type: divider
+                  - person.hayley
+                show_header_toggle: false
+                type: entities
+            type: horizontal-stack
+        type: vertical-stack
+      - entities:
+          - label: ddasdasdasdcasc
+            type: section
+          - light.garage_wall_switch
+          - light.hallcam_light
+          - light.shelly_dimmer
+        title: Section
+        type: entities
+      - cards:
+          - content: >
+              Welcome to the home of the future. Where dreams become wet and
+              shit gets real. Take a look around and amaze yourself with
+              technology.
+            title: The Clarke AI Interface
+            type: markdown
+          - entities:
+              - entity: sensor.living_room_brightness
+                icon: 'mdi:sofa'
+                name: Living Room
+              - entity: sensor.kitchen_brightness
+                icon: 'mdi:fridge'
+                name: Kitchen
+              - type: divider
+              - entity: sensor.bedroom_brightness
+                icon: 'mdi:hotel'
+                name: Master Bedroom
+              - entity: sensor.lias_room_brightness
+                icon: 'mdi:alpha-l-circle'
+                name: Lias Bedroom
+              - entity: sensor.charlies_room_brightness
+                icon: 'mdi:alpha-c-circle'
+                name: Charlies Bedroom
+              - entity: sensor.kids_bathroom_brightness
+                icon: 'mdi:toilet'
+                name: Kids Bathroom
+              - type: divider
+              - entity: sensor.garage_lux
+                icon: 'mdi:garage'
+                name: Garage
+            type: entities
+        type: 'custom:vertical-stack-in-card'
+      - entities:
+          - entity: input_select.alexa
+          - entity: input_text.alexa_tts
+        show_header_toggle: false
+        title: Alexa
+        type: entities
+      - autosave: false
+        buttons:
+          clear: false
+          paste: false
+          save: false
+        entity: input_text.alexa_tts
+        max_length: 50
+        title: Alexa Say...
+        type: 'custom:lovelace-multiline-text-input-card'
+      - entity: switch.heated_blanket
+        type: entity
+      - cards:
+          - elements:
+              - entity: sensor.boiler_energy_today
+                style:
+                  left: 13%
+                  top: 40%
+                type: state-badge
+              - entity: sensor.boiler_current
+                style:
+                  left: 13%
+                  top: 70%
+                type: state-label
+              - entity: sensor.boiler_power
+                style:
+                  left: 13%
+                  top: 79%
+                type: state-label
+            image: local/images/boiler2.jpeg
+            type: picture-elements
+          - entities:
+              - entity: switch.boiler_plug
+                state_color: true
+            type: entities
+        type: 'custom:vertical-stack-in-card'
+      - entity: sensor.washing_machine_power
+        title: Default
+        type: 'custom:bar-card'
+      - entities:
+          - entity: sensor.test_washing_machine_state
+          - entity: input_number.test
+        title: My Title
+        type: entities
+      - entity: sensor.home_energy_meter_daily
+        fill: '#454647'
+        font_style:
+          color: '#d5dee6'
+          font-size: 4em
+          text-shadow: 1px 1px black
+        max: 33
+        name: Today
+        stroke_color: '#d5dee6'
+        stroke_width: 10
+        type: 'custom:circle-sensor-card'
+    path: test
+    title: Test
+    visible:
+      - user: 129ac4fd676d4ce8a964d58173d73d97

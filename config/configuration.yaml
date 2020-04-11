@@ -1,0 +1,342 @@
+homeassistant:
+  customize: !include customize.yaml
+
+frontend:
+  themes: !include_dir_merge_named themes
+  javascript_version: latest
+
+default_config:
+config:
+conversation:
+history:
+logbook:
+map:
+sun:
+smartir:
+system_health:
+wake_on_lan:
+stream:
+ffmpeg:
+momentary:
+mobile_app:
+glances:
+http:
+updater:
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+sensor: !include sensors.yaml
+binary_sensor: !include binary_sensors.yaml
+light: !include lights.yaml
+switch: !include switches.yaml
+
+notify:
+  - platform: alexa_media
+    name: alexa_media
+
+recorder:
+  purge_keep_days: 7
+
+hacs:
+  token: !secret hacs_token
+  sidepanel_title: HACS
+  sidepanel_icon: "mdi:alpha-h-box"
+  python_script: true
+  appdaemon: true
+  theme: true
+
+weather:
+  - platform: darksky
+    api_key: !secret darksky_api
+    mode: daily
+
+tts:
+  - platform: google_translate
+    service_name: google_say
+
+transmission:
+  name: Radarr
+  host: !secret radarr_transmission_ip
+
+cloud:
+  alexa:
+    entity_config:
+      light.lamp:
+        display_categories: SWITCH
+      light.desk_lamp:
+        display_categories: SWITCH
+      light.bedroom_hall:
+        display_categories: SWITCH
+      light.salt_lamp:
+        display_categories: SWITCH
+    filter:
+      include_domains:
+      - light
+      - climate
+      - lock
+      exclude_entities:
+      - light.hallcam_light
+      - light.spycam_light
+      - light.garage_wall_switch
+      include_entities:
+      - switch.samsung_tv_power
+      - switch.charlie_tv_power
+      - switch.open_left_blind
+      - switch.close_left_blind
+      - switch.open_right_blind
+      - switch.close_right_blind
+      - switch.workbench_light
+
+      - media_player.bedroom_tv
+      - media_player.playstation_4
+      - media_player.lias_tv
+
+      - script.bedroom_netflix
+      - script.bedroom_plex
+      - script.lias_tv_plex
+      - script.livingroom_hdmi1
+      - script.livingroom_hdmi2
+      - script.livingroom_hdmi3
+      - script.livingroom_mag_bbc1
+      - script.livingroom_mag_bbc2
+      - script.livingroom_mag_itv1
+      - script.livingroom_mag_itv2
+      - script.livingroom_mag_e4
+      - script.livingroom_mag_itvbe
+      - script.livingroom_mag_cartoon_network
+      - script.livingroom_mag_e
+      - script.stop_blinds
+      - script.open_blinds
+      - script.close_blinds
+
+      - binary_sensor.front_door
+      - binary_sensor.garage_door
+      - binary_sensor.garage_stairs_door
+
+      - sensor.kitchen_temperature
+      - sensor.bedroom_temperature
+      - sensor.charlies_room_temperature
+      - sensor.lias_room_temperature
+      - sensor.living_room_temperature
+      - sensor.outside_temperature
+      - sensor.garage_temperature
+
+homekit:
+#  pincode: 123-45-678
+  filter:
+    include_domains:
+      - light
+      - climate
+    exclude_entities:
+      - light.hallcam_light
+      - light.spycam_light
+
+ios:
+  push:
+    categories:
+      - name: Alarm
+        identifier: 'alarm'
+        actions:
+          - identifier: 'TTS_MESSAGE'
+            title: 'Alexa TTS Message'
+            behavior: 'textInput'
+            textInputButtonTitle: 'Send TTS'
+            textInputPlaceholder: 'What do you want to say?'
+      - name: cameras
+        identifier: 'camera'
+        actions:
+          - identifier: 'TTS_MESSAGE'
+            title: 'Alexa TTS Message'
+            behavior: 'textInput'
+            textInputButtonTitle: 'Send TTS'
+            textInputPlaceholder: 'What do you want to say?'
+
+speedtestdotnet:
+  scan_interval:
+    minutes: 60
+  monitored_conditions:
+    - ping
+    - download
+    - upload
+  server_id: !secret speedtest_server_id
+
+webostv:
+  - host: !secret bedroom_tv_ip
+    name: Bedroom TV
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret bedroom_tv_mac
+  - host: !secret lias_tv_ip
+    name: Lias TV
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret lias_tv_mac
+
+media_player:
+  - platform: plex
+
+zone:
+  - name: Home
+    latitude: !secret home_latitude
+    longitude: !secret home_longitude
+    radius: 100
+    icon: mdi:home
+
+input_select:
+  alexa:
+    name: Alexa Device
+    options:
+      - Kitchen
+      - Living Room
+      - Bedroom
+      - Lias Room
+      - Charlies Room
+      - Garage
+      - Downstairs
+      - Upstairs
+      - All
+      - None
+    icon: mdi:amazon-alexa
+    initial: None
+
+input_boolean:
+  lamp_lux:
+  bedroom_light:
+    name: Bedroom Light
+  intruder_alert:
+    name: Intruder Alert
+
+input_text:
+  alexa_tts:
+    name: Alexa, Say...
+    initial: ''
+    icon: mdi:amazon-alexa
+
+input_datetime:
+  test:
+    name: test time
+    has_date: false
+    has_time: true
+
+alarm_control_panel:
+  - platform: manual
+    name: Alarm
+    code: !secret alarm_code
+    trigger_time: 300
+    disarmed:
+      trigger_time: 0
+    armed_home:
+      delay_time: 20
+      pending_time: 20
+    armed_away:
+      delay_time: 20
+      pending_time: 20
+    triggered:
+      pending_time: 0
+
+lock:
+  - platform: template
+    name: Garage door
+    value_template: "{{ is_state('switch.garage_door_lock', 'on') }}"
+    lock:
+      service: switch.turn_on
+      data:
+        entity_id: switch.garage_door_lock
+    unlock:
+      service: switch.turn_off
+      data:
+        entity_id: switch.garage_door_lock
+
+tuya:
+  username: !secret tuyausername
+  password: !secret tuyapassword
+  country_code: 34
+
+climate:
+  - platform: smartir
+    name: Livingroom Aircon
+    unique_id: livingroom_ac
+    device_code: 1001
+    controller_data: !secret livingroom_broadlink_ip
+    temperature_sensor: sensor.living_room_temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+  - platform: smartir
+    name: Bedroom Aircon
+    unique_id: bedroom_ac
+    device_code: 1001
+    controller_data: !secret bedroom_broadlink_ip
+    temperature_sensor: sensor.bedroom_temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+  - platform: smartir
+    name: Charlies Aircon
+    unique_id: charlies_ac
+    device_code: 1001
+    controller_data: !secret charlies_broadlink_ip
+    temperature_sensor: sensor.charlies_room_temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+  - platform: smartir
+    name: Lias Aircon
+    unique_id: lias_ac
+    device_code: 1001
+    controller_data: !secret lias_broadlink_ip
+    temperature_sensor: sensor.lias_room_temperature
+    humidity_sensor: sensor.humidity
+    power_sensor: binary_sensor.ac_power
+
+utility_meter:
+  home_energy_meter_monthly:
+    source: sensor.shelly_em_energy
+    cycle: monthly
+  home_energy_meter_weekly:
+    source: sensor.shelly_em_energy
+    cycle: weekly
+  home_energy_meter_daily:
+    source: sensor.shelly_em_energy
+    cycle: daily
+
+camera:
+  - platform: generic
+    name: Garage Camera
+    still_image_url: !secret garage_camera_still_image_url
+    stream_source: !secret garage_camera_stream_source
+  - platform: generic
+    name: Front Yard Camera
+    still_image_url: !secret front_yard_camera_still_image_url
+    stream_source: !secret front_yard_stream_source
+  - platform: generic
+    name: Hall Camera
+    still_image_url: !secret hall_camera_still_image_url
+    stream_source: !secret hall_camera_stream_source
+  - platform: generic
+    name: Workbench Camera
+    still_image_url: !secret workbench_camera_still_image_url
+    stream_source: !secret workbench_camera_stream_source
+
+#   - platform: generic
+#     name: SP105 Camera
+#     still_image_url: "http://192.168.100.176/cgi-bin/camera"
+#     stream_source: "rtsp://admin:Admin12345@192.168.100.176/Src/MediaInput/h264/stream_1/ch_"
+#     username: 'admin'
+#     password: 'Admin12345'
+#     authentication: digest
+
+#  - platform: generic
+#    name: Old Hall Camera
+#    still_image_url: "http://192.168.100.177/cgi-bin/camera"
+#    stream_source: "rtsp://admin:Admin12345@192.168.100.177/Src/MediaInput/h264/stream_1/ch_"
+#    username: 'admin'
+#    password: 'Admin12345'
+#    authentication: digest
+
+
+
+
+
+
+

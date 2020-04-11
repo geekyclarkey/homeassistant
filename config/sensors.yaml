@@ -1,0 +1,357 @@
+
+#sensor:
+
+### Random Sensors ###
+
+  - platform: sonarr_upcoming_media
+    api_key: !secret sonarr_api
+    host: !secret sonarr_ip
+    port: 8989
+    days: 2
+    ssl: false
+    max: 10
+  - platform: radarr_upcoming_media
+    api_key: !secret radarr_api
+    host: !secret radarr_ip
+    port: 7878
+    days: 31
+    ssl: false
+    theaters: false
+    max: 10
+  - platform: plex_recently_added
+    token: !secret plex_token
+    host: !secret plex_ip
+    port: 32400
+    ssl: false
+    ssl_cert: false
+    download_images: true
+    max: 5
+    section_types:
+    - movie
+    - show
+  - platform: plex
+    host: !secret plex_ip
+    port: 32400
+    username: !secret plex_username
+    password: !secret plex_password
+
+
+### Temperature Sensors ###
+
+  - platform: mqtt
+    name: "Living Room Temperature"
+    state_topic: "tele/livingroommultisensor/SENSOR"
+    value_template: "{{ (value_json['HTU21'].Temperature - 2.4)|float|round(2) }}"
+    unit_of_measurement: '°C'
+  - platform: mqtt
+    name: "Outside Temperature"
+    state_topic: "tele/terraced1mini/SENSOR"
+    value_template: "{{ value_json['DS18B20'].Temperature }}"
+    unit_of_measurement: '°C'
+  - platform: mqtt
+    name: "Charlies Room Temperature"
+    state_topic: "tele/charliesmultisensor/SENSOR"
+    value_template: "{{ (value_json['SHT3X-0x44'].Temperature - 2.5)|float|round(2) }}"
+    unit_of_measurement: '°C'
+  - platform: mqtt
+    name: "Lias Room Temperature"
+    state_topic: "tele/liasmultisensor/SENSOR"
+    value_template: "{{ value_json['SHT3X-0x44'].Temperature }}"
+    unit_of_measurement: '°C'
+  - platform: mqtt
+    name: "Kitchen Temperature"
+    state_topic: "tele/kitchenmultisensor/SENSOR"
+    value_template: "{{ value_json['HTU21'].Temperature }}"
+    unit_of_measurement: '°C'
+  - platform: mqtt
+    name: "Bedroom Temperature"
+    state_topic: "tele/bedroommultisensor/SENSOR"
+    value_template: "{{ (value_json['HTU21'].Temperature - 3.3)|float|round(2) }}"
+    unit_of_measurement: '°C'
+
+
+### Humidity Sensors ###
+
+  - platform: mqtt
+    name: "Living Room Humidity"
+    state_topic: "tele/livingroommultisensor/SENSOR"
+    value_template: "{{ value_json['HTU21'].Humidity }}"
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+  - platform: mqtt
+    name: "Charlies Room Humidity"
+    state_topic: "tele/charliesmultisensor/SENSOR"
+    value_template: "{{ value_json['SHT3X-0x44'].Humidity }}"
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+  - platform: mqtt
+    name: "Lias Room Humidity"
+    state_topic: "tele/liasmultisensor/SENSOR"
+    value_template: "{{ value_json['SHT3X-0x44'].Humidity }}"
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+  - platform: mqtt
+    name: "Kitchen Humidity"
+    state_topic: "tele/kitchenmultisensor/SENSOR"
+    value_template: "{{ value_json['HTU21'].Humidity }}"
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+  - platform: mqtt
+    name: "Bedroom Humidity"
+    state_topic: "tele/bedroommultisensor/SENSOR"
+    value_template: "{{ value_json['HTU21'].Humidity }}"
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+
+
+### Brightness Sensors ###
+
+  - platform: mqtt
+    name: "Living Room Brightness"
+    state_topic: "tele/livingroommultisensor/SENSOR"
+    value_template: "{{ value_json['BH1750'].Illuminance }}"
+    unit_of_measurement: 'lx'
+    icon: mdi:brightness-5
+  - platform: mqtt
+    name: "Charlies Room Brightness"
+    state_topic: "tele/charliesmultisensor/SENSOR"
+    value_template: "{{ value_json['BH1750'].Illuminance }}"
+    unit_of_measurement: 'lx'
+    icon: mdi:brightness-5
+  - platform: mqtt
+    name: "Lias Room Brightness"
+    state_topic: "tele/liasmultisensor/SENSOR"
+    value_template: "{{ value_json['BH1750'].Illuminance }}"
+    unit_of_measurement: 'lx'
+    icon: mdi:brightness-5
+  - platform: mqtt
+    name: "Kitchen Brightness"
+    state_topic: "tele/kitchenmultisensor/SENSOR"
+    value_template: "{{ value_json['BH1750'].Illuminance }}"
+    unit_of_measurement: 'lx'
+    icon: mdi:brightness-5
+  - platform: mqtt
+    name: "Bedroom Brightness"
+    state_topic: "tele/bedroommultisensor/SENSOR"
+    value_template: "{{ value_json['BH1750'].Illuminance }}"
+    unit_of_measurement: 'lx'
+    icon: mdi:brightness-5
+  - platform: mqtt
+    name: "Kids Bathroom Brightness"
+    state_topic: "tele/kidsbathroomsensor/SENSOR"
+    value_template: "{{ value_json['ANALOG'].Illuminance }}"
+    unit_of_measurement: 'lx'
+    icon: mdi:brightness-5
+
+
+### Hassio Stats Sensors ###
+
+  - platform: template
+    sensors:
+      count_switches:
+        friendly_name: "Switches"
+        value_template: "{{ states.switch | count }}"
+  - platform: template
+    sensors:
+      count_lights:
+        friendly_name: "Lights"
+        value_template: "{{ states.light | count }}"
+  - platform: template
+    sensors:
+      count_automations:
+        friendly_name: "Automations"
+        value_template: "{{ states.automation | count }}"
+  - platform: template
+    sensors:
+      count_sensorss:
+        friendly_name: "sensors"
+        value_template: "{{ states.sensor | count }}"
+  - platform: template
+    sensors:
+      count_binary_sensors:
+        friendly_name: "Binary Sensors"
+        value_template: "{{ states.binary_sensor | count }}"
+  - platform: template
+    sensors:
+      count_media_players:
+        friendly_name: "Media Players"
+        value_template: "{{ states.media_player | count }}"
+  - platform: template
+    sensors:
+      count_cameras:
+        friendly_name: "Cameras"
+        value_template: "{{ states.camera | count }}"
+  - platform: template
+    sensors:
+      count_air_conditioners:
+        friendly_name: "Air Cons"
+        value_template: "{{ states.climate | count }}"
+  - platform: template
+    sensors:
+      count_scripts:
+        friendly_name: "Scripts"
+        value_template: "{{ states.script | count }}"
+
+
+### Energy Monitoring Plugs ###
+
+  - platform: mqtt
+    name: "Boiler Power"
+    state_topic: "tele/boilerplug/SENSOR"
+    value_template: "{{ value_json.ENERGY.Power }}"
+    unit_of_measurement: 'Watts'
+  - platform: mqtt
+    name: "Boiler Current"
+    state_topic: "tele/boilerplug/SENSOR"
+    value_template: "{{ value_json.ENERGY.Current }}"
+    unit_of_measurement: 'Amps'
+  - platform: mqtt
+    name: "Boiler Energy Today"
+    state_topic: "tele/boilerplug/SENSOR"
+    value_template: "{{ value_json.ENERGY.Today }}"
+    unit_of_measurement: 'Kwh'
+  - platform: mqtt
+    name: "Washing Machine Power"
+    state_topic: "tele/washingmachine/SENSOR"
+    value_template: "{{ value_json.ENERGY.Power }}"
+    unit_of_measurement: 'Watts'
+  - platform: mqtt
+    name: "Washing Machine Current"
+    state_topic: "tele/washingmachine/SENSOR"
+    value_template: "{{ value_json.ENERGY.Current }}"
+    unit_of_measurement: 'Amps'
+  - platform: mqtt
+    name: "Washing Machine Energy Today"
+    state_topic: "tele/washingmachine/SENSOR"
+    value_template: "{{ value_json.ENERGY.Today }}"
+    unit_of_measurement: 'Kwh'
+
+  - platform: mqtt
+    name: "Tumble Dryer Power"
+    state_topic: "shellies/shellyplug-s-50DADA/relay/0/power"
+    unit_of_measurement: "Watts"
+  - platform: template
+    sensors:
+      tumble_dryer_current:
+        friendly_name: Tumble Dryer Current
+        value_template: '{{ ((states.sensor.tumble_dryer_power.state | float / 235)) | round(2) }}'
+        unit_of_measurement: 'Amps'
+
+
+### Home Power Monitoring ###
+
+  - platform: mqtt
+    name: "Shelly EM Power"
+    state_topic: "shellies/shellyem-B9F079/emeter/0/power"
+    unit_of_measurement: "W"    
+  - platform: integration
+    source: sensor.shelly_em_power
+    name: "Shelly EM Energy"
+    unit_prefix: k
+    round: 2
+  - platform: template
+    sensors:
+      current_energy_cost:
+        friendly_name: Current Energy Cost
+        value_template: '{{ ((states.sensor.shelly_em_power.state | float * 1 / 1000 * 0.158)) | round(2) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      todays_energy_cost:
+        friendly_name: Todays Energy Cost
+        value_template: '{{ ((states.sensor.home_energy_meter_daily.state | float * 0.158)) | round(2) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      this_weeks_energy_cost:
+        friendly_name: This Weeks Energy Cost
+        value_template: '{{ ((states.sensor.home_energy_meter_weekly.state | float * 0.158)) | round(2) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      this_months_energy_cost:
+        friendly_name: This Months Energy Cost
+        value_template: '{{ ((states.sensor.home_energy_meter_monthly.state | float * 0.158)) | round(2) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      yesterdays_energy:
+        friendly_name: Yesterdays Energy
+        value_template: "{{ state_attr('sensor.home_energy_meter_daily', 'last_period') }}"
+        unit_of_measurement: 'Kw/h'
+  - platform: template
+    sensors:
+      last_weeks_energy:
+        friendly_name: Last Weeks Energy
+        value_template: "{{ state_attr('sensor.home_energy_meter_weekly', 'last_period') }}"
+        unit_of_measurement: 'Kw/h'
+  - platform: template
+    sensors:
+      last_months_energy:
+        friendly_name: Last Months Energy
+        value_template: "{{ state_attr('sensor.home_energy_meter_monthly', 'last_period') }}"
+        unit_of_measurement: 'Kw/h'
+
+
+### Custom Sensors ###
+
+  - platform: template
+    sensors:
+      washing_machine_state:
+        friendly_name: "Washing Machine State"
+        value_template: >-
+          {% if is_state('switch.washing_machine_plug', 'off') %}
+            Off
+          {% elif states('sensor.washing_machine_power')|float > 40 %}
+            Washing
+          {% else %}
+            Idle
+          {% endif %}
+  - platform: template
+    sensors:
+      tumble_dryer_state:
+        friendly_name: "Tumble Dryer State"
+        value_template: >-
+          {% if is_state('switch.tumble_dryer_plug', 'off') %}
+            Off
+          {% elif states('sensor.tumble_dryer_power')|float > 50 %}
+            Drying
+          {% else %}
+            Idle
+          {% endif %}
+  - platform: template
+    sensors:
+      boiler_state:
+        friendly_name: "Boiler State"
+        value_template: >-
+          {% if is_state('switch.boiler_plug', 'off') %}
+            Off
+          {% elif states('sensor.boiler_power')|float > 50 %}
+            Heating
+          {% else %}
+            Idle
+          {% endif %}
+
+
+### Test Sensors ###
+
+  - platform: mqtt
+    name: "D1Relay Temperature"
+    state_topic: "tele/d1relay/SENSOR"
+    value_template: "{{ value_json['SI7021'].Temperature }}"
+    unit_of_measurement: '°C'
+
+  - platform: template
+    sensors:
+      d1difference:
+        friendly_name: "D1 Difference"
+        unit_of_measurement: '°C'
+        value_template: "{{ (states.sensor.charlies_room_temperature.state | float) - (states.sensor.d1relay_temperature.state | float) | float(2) }}"
+
+  - platform: average
+    name: 'Average Diffenence'
+    duration:
+      days: 1
+    entities:
+      - sensor.d1difference
+

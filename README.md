@@ -33,18 +33,10 @@ Below is a list of sensors, components, devices and tools that i have personally
 Using them in Homeassistant and day to day life. If you are looking for a specific component or tool, have a look at what makes and models i would recommend.  
 [Click Here to access the list](approved_components.md)  
 
-## Homeassistant config file examples
-[Configoration.yaml](hass_config_file_examples/config.yaml)  
-[Automations.yaml](hass_config_file_examples/automation.yaml)  
-[Scripts.yaml](hass_config_file_examples/script.yaml)  
-[Themes.yaml](hass_config_file_examples/themes.yaml)  
-
-## Homeassistant lovelace card examples
-[2 Horizontal Rows Of Vertical Buttons](lovelace_card_examples/2_horizontal_rows_of_vertical_buttons.md)  
-[3 Gauges In A Horizontal Stack](lovelace_card_examples/3_gauges_in_a_horizontal_stack.md)  
-[Camera Card With Entities](lovelace_card_examples/camera_card_with_entities.md)  
-[Entity Card With Custom Separator](lovelace_card_examples/entity_card_with_custom_separator.md)  
-[Round Pop Out Card](lovelace_card_examples/round_pop_out_card.md)   
+## My Homeassistant config files
+### Updated 11/4/20
+[/config](config)  
+[Lovelace Raw File](config/lovelace.yaml)  
 
 ## Port forwarding in routers I have used
 [Click Here](port_forwarding_in_routers/) For port forwarding examples

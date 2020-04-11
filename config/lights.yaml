@@ -1,0 +1,249 @@
+
+#light:
+
+### Dimmers ###
+
+  - platform: mqtt
+    schema: template
+    name:  "Shelly Dimmer"
+    state_topic: "shellies/shellydimmer-F39C56/light/0/status"
+    state_template: '{% if value_json.ison %} on {% else %} off {% endif %}'
+    command_topic: "shellies/shellydimmer-F39C56/light/0/set"
+    command_on_template: '{"turn": "on"{% if brightness is defined %}, "brightness": {{(brightness | float * 0.3882 + 1) | round(0)}}{% endif %}}'
+    command_off_template: '{"turn": "off"}'
+    brightness_template: '{{ (value_json.brightness | float * 2.55) | round(0) }}'
+  - platform: mqtt
+    name: "Lias Lamp"
+    state_topic: "stat/liasnewlamp/POWER"
+    command_topic: "cmnd/liasnewlamp/power"
+    brightness_state_topic: "stat/liasnewlamp/RESULT"
+    brightness_command_topic: "cmnd/liasnewlamp/Dimmer"
+    brightness_scale: 100
+    brightness_value_template: "{{ value_json.Dimmer }}"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+
+
+### Shelly Firmware ###
+
+  - platform: mqtt
+    name: "Kitchen"
+    state_topic: "shellies/shelly1-058874/relay/0"
+    command_topic: "shellies/shelly1-058874/relay/0/command"
+    qos: 1
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    name: "Lias Bedroom"
+    state_topic: "shellies/shelly1-5B2E28/relay/0"
+    command_topic: "shellies/shelly1-5B2E28/relay/0/command"
+    payload_on: "on"
+    payload_off: "off"
+  - platform: mqtt
+    name: "Hall 1"
+    state_topic: "shellies/shellyswitch-55A059/relay/0"
+    command_topic: "shellies/shellyswitch-55A059/relay/0/command"
+    qos: 1
+    payload_on: "on"
+    payload_off: "off"
+    retain: false
+  - platform: mqtt
+    name: "Hall 2"
+    state_topic: "shellies/shellyswitch-55A059/relay/1"
+    command_topic: "shellies/shellyswitch-55A059/relay/1/command"
+    qos: 1
+    payload_on: "on"
+    payload_off: "off"
+    retain: false
+
+
+### Tasmota Firmware ###
+
+  - platform: mqtt
+    name: "Downstairs Toilet"
+    command_topic: "cmnd/downstairstoilet/power"
+    state_topic: "stat/downstairstoilet/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Garage Light"
+    command_topic: "cmnd/garage/power3"
+    state_topic: "stat/garage/POWER3"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Garage Wall Light"
+    command_topic: "cmnd/garage/power4"
+    state_topic: "stat/garage/POWER4"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Lamp"
+    command_topic: "cmnd/lamp/power"
+    state_topic: "stat/lamp/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Charlies Bedroom"
+    command_topic: "cmnd/charlielight/power"
+    state_topic: "stat/charlielight/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Kids Bathroom"
+    command_topic: "cmnd/kidsbathroom/power"
+    state_topic: "stat/kidsbathroom/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Kids Bathroom Wall"
+    command_topic: "cmnd/kidsbathroomwall/power"
+    state_topic: "stat/kidsbathroomwall/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Landing"
+    command_topic: "cmnd/landing/power"
+    state_topic: "stat/landing/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Garage wall switch"
+    command_topic: "cmnd/garaged1mini/POWER"
+    state_topic: "stat/garaged1mini/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Laundry Room"
+    command_topic: "cmnd/laundry/power"
+    state_topic: "stat/laundry/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Living Room"
+    command_topic: "cmnd/livingroom/power1"
+    state_topic: "stat/livingroom/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Dining Room"
+    command_topic: "cmnd/livingroom/power2"
+    state_topic: "stat/livingroom/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Garage Stairs"
+    command_topic: "cmnd/garagestairs/power"
+    state_topic: "stat/garagestairs/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Our Bathroom"
+    command_topic: "cmnd/ourbathroomlight/power"
+    state_topic: "stat/ourbathroomlight/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Our Bathroom Wall"
+    command_topic: "cmnd/ourbathroomwall/power"
+    state_topic: "stat/ourbathroomwall/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Stairs"
+    command_topic: "cmnd/stairs/power"
+    state_topic: "stat/stairs/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Terrace"
+    command_topic: "cmnd/terrace/power"
+    state_topic: "stat/terrace/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Bedroom"
+    command_topic: "cmnd/bedroom/power2"
+    state_topic: "stat/bedroom/POWER2"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Bedroom Hall"
+    command_topic: "cmnd/bedroom/power1"
+    state_topic: "stat/bedroom/POWER1"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Front Yard"
+    command_topic: "cmnd/frontyard/power"
+    state_topic: "stat/frontyard/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    retain: false
+  - platform: mqtt
+    name: "Salt Lamp"
+    command_topic: "cmnd/saltlamp/power"
+    state_topic: "stat/saltlamp/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Desk Lamp"
+    command_topic: "cmnd/desklamp/power"
+    state_topic: "stat/desklamp/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

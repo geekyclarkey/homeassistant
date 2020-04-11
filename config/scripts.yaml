@@ -1,0 +1,1090 @@
+
+
+
+#####Garage Scripts#####
+
+open_garage_door:
+  sequence:
+    - service: switch.turn_off
+      entity_id: switch.close
+    - delay:
+        seconds: 1
+    - service: homeassistant.turn_on
+      entity_id: switch.open
+    - delay:
+        seconds: 18
+    - service: switch.turn_off
+      entity_id: switch.open
+
+close_garage_door:
+  sequence:
+    - service: switch.turn_off
+      entity_id: switch.open
+    - delay:
+        seconds: 1
+    - service: homeassistant.turn_on
+      entity_id: switch.close
+    - delay:
+        seconds: 18
+    - service: switch.turn_off
+      entity_id: switch.close
+
+stop_garage_door:
+  sequence:
+    - service: switch.turn_off
+      entity_id: switch.open
+    - service: switch.turn_off
+      entity_id: switch.close
+    - service: homeassistant.turn_off
+      entity_id: script.open_garage_door
+    - service: homeassistant.turn_off
+      entity_id: script.close_garage_door
+
+
+##### Living room channel scripts #####
+
+livingroom_power_toggle:
+  alias: "TV Power"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVDzsQOhA6EBUQFRAVERQRFBE5EDoSOBEUERQRFBAVEBURFBE5ERQRFBAVERQRFBEUETkRFBE5ETkRORE5EToQOg8ADQUAAA==" #Samsung power toggle
+
+livingroom_hdmi1:
+  alias: "HDMI 1"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+livingroom_hdmi2:
+  alias: "HDMI 2"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJOUETkRORA6ERQQFRAVERQRFBA6ETkROhAVDxYQFQ8WEBUQFQ87EDoRORA6DzsQFRA6DzsPFhAVDxYQFRAVEDoQFRAADQUAAA==" #Samsung hdmi2
+livingroom_hdmi3:
+  alias: "HDMI 3"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJOUEDoRORE5ERQRFRAUERQRFBE5EDsQOhAVEBUPFg8WDxYPFhA6EBUPFg8WEBUROQ87EDoQFQ87EDoQOhA6EBUPFhAADQUAAA==" #Samsung hdmi3
+
+livingroom_mag_bbc1:
+  alias: "BBC 1"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgA0AB4dPB0dOh4eHR47HR4dHhweHR0dHjoeAAubHh47HR46Hh0eHTwdHhweHR4cHh0dOh4ADQUAAAAA" #1
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+livingroom_mag_bbc2:
+  alias: "BBC 2"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgAwAB4eHh08Oh4dHh08HR4cHh0eHB46OwALuR4eHh08Oh4dHh08HR4cHhweHR46OwANBQAAAAAAAAAA" #2
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+livingroom_mag_itv1:
+  alias: "ITV 1"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgA0ABwfOh8cPBsgHB86HxsfHB8bHxw8HB8cAAufHB86Hh07HR4dHzkfHR4bHx0eGzwcIBwADQUAAAAA" #3
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+livingroom_mag_itv2:
+  alias: "ITV 2"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgA0AB4dPB0dOh4eHR47HR4dHhweHR0dHjoeAAubHh47HR46Hh0eHTwdHhweHR4cHh0dOh4ADQUAAAAA" #1
+           - "JgAaAB4dPB0eOh0eHh08HR0dHh0dHR4dHR0eAA0FAAAAAAAAAAAAAAAAAAA=" #0
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+livingroom_mag_e4:
+  alias: "E4"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgA0AB4dPB0dOh4eHR47HR4dHhweHR0dHjoeAAubHh47HR46Hh0eHTwdHhweHR4cHh0dOh4ADQUAAAAA" #1
+           - "JgAYAB0fHR46PB0eHR47HhweHTs6Hh07HAANBQ==" #9
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+livingroom_mag_itvbe:
+  alias: "ITV Be"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgA0AB4dPB0dOh4eHR47HR4dHhweHR0dHjoeAAubHh47HR46Hh0eHTwdHhweHR4cHh0dOh4ADQUAAAAA" #1
+           - "JgA0ABwfOh8cPBsgHB86HxsfHB8bHxw8HB8cAAufHB86Hh07HR4dHzkfHR4bHx0eGzwcIBwADQUAAAAA" #3
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+livingroom_mag_cartoon_network:
+  alias: "Cartoon Network"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgA0AB4dPB0dOh4eHR47HR4dHhweHR0dHjoeAAubHh47HR46Hh0eHTwdHhweHR4cHh0dOh4ADQUAAAAA" #1
+           - "JgAaAB4dPB0eOh0eHh08HR0dHh0dHR4dHR0eAA0FAAAAAAAAAAAAAAAAAAA=" #0
+           - "JgA0ABwfOh8cPBsgHB86HxsfHB8bHxw8HB8cAAufHB86Hh07HR4dHzkfHR4bHx0eGzwcIBwADQUAAAAA" #3
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+livingroom_mag_e:
+  alias: "E"
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOh4dHh08Oh4dPDo8Oh4AC54eHTwdHToeHh4dPDoeHTw6OzseAA0FAAAAAAAAAAAAAAAA" #tv
+           - "JgAYAB0fHR46PB0eHR47HhweHTs6Hh07HAANBQ==" #9
+           - "JgAYAB4dOx0eOh4dHh47HR4dHjk8HR4cHgANBQ==" #8
+           - "JgAWAB4eHh08Oh4dHh08Ojw6Hh08HB4ADQUAAA==" #ok
+     - service: switch.turn_on
+       entity_id: switch.samsung_tv_power
+     - delay:
+         seconds: 6
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgBGAJKVETkRORE5ERQQFRAVERQQFRE5ETkROREUERQRFBEUERQRORAVERUPOxAVDzsQOhA6EBUQOhA6EBUQOhAVEBUPFhAADQUAAA==" #Samsung hdmi1
+
+
+### Lia TV Scripts ###
+
+lias_tv_plex:
+  alias: "Lias TV Plex"
+  sequence:
+    - service: media_player.turn_on
+      entity_id: media_player.lias_tv
+    - wait_template: "{{ is_state('media_player.lias_tv', 'on') }}"
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.lias_tv
+        source: Plex
+
+lias_tv_power_toggle:
+  sequence:
+    - service: media_player.toggle
+      entity_id: media_player.lias_tv
+
+
+### Charlie TV Scripts ###
+
+charlie_tv_power:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret charlies_broadlink_ip
+         packet:
+           - "JgBUAE8UJxUSFigUExQoFBMVExQoFBQUExQUFBMAA7BNFigUExUpFBMUKBQUFBMUKBQUFBMVExQTAAOTTRYpExQUKBQTFSgTFBQTFSgUExQTFRMUFAANBQAAAAA="
+
+
+
+
+##### Bedrom TV Scripts #####
+
+bedroom_netflix:
+  alias: "Bedroom Netflix"
+  sequence:
+    - service: media_player.turn_on
+      entity_id: media_player.bedroom_tv
+    - wait_template: "{{ is_state('media_player.bedroom_tv', 'on') }}"
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.bedroom_tv
+        source: Netflix
+
+bedroom_plex:
+  alias: "Bedroom Plex"
+  sequence:
+    - service: media_player.turn_on
+      entity_id: media_player.bedroom_tv
+    - wait_template: "{{ is_state('media_player.bedroom_tv', 'on') }}"
+    - service: media_player.select_source
+      data:
+        entity_id: media_player.bedroom_tv
+        source: Plex
+
+
+
+
+##### Bedroom fan scripts #####
+
+bedroom_fan_low:
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/sonoffrf/rfcode"
+        payload: '#D1F3F3'
+
+bedroom_fan_medium:
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/sonoffrf/rfcode"
+        payload: '#D1F333'
+
+bedroom_fan_high:
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/sonoffrf/rfcode"
+        payload: '#D1F3CC'
+
+bedroom_fan_off:
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/sonoffrf/rfcode"
+        payload: '#D1F330'
+
+bedroom_fan_light_on:
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/sonoffrf/rfcode"
+        payload: '#D1F30C'
+
+bedroom_fan_light_off:
+  sequence:
+    - service: mqtt.publish
+      data:
+        topic: "cmnd/sonoffrf/rfcode"
+        payload: '#D1F303'
+
+
+
+##### Camera Sctipts #####
+
+garagecam_record:
+  sequence:
+    - service: camera.record
+      data_template:
+        entity_id: camera.garage_camera
+        filename: '/config/www/recordings/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        duration: 30
+
+garagecam_snapshot:
+  sequence:
+    - service: camera.snapshot
+      data_template:
+        entity_id: camera.garage_camera
+        filename: '/config/www/snapshots/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+
+hallcam_record:
+  sequence:
+    - service: camera.record
+      data_template:
+        entity_id: camera.hall_camera
+        filename: '/config/www/recordings/hall_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        duration: 30
+
+hallcam_snapshot:
+  sequence:
+    - service: camera.snapshot
+      data_template:
+        entity_id: camera.hall_camera
+        filename: '/config/www/snapshots/hall_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+
+
+frontyardcam_record:
+  sequence:
+    - service: camera.record
+      data_template:
+        entity_id: camera.front_yard_camera
+        filename: '/config/www/recordings/frontyard_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        duration: 30
+
+frontyardcam_snapshot:
+  sequence:
+    - service: camera.snapshot
+      data_template:
+        entity_id: camera.front_yard_camera
+        filename: '/config/www/snapshots/frontyard_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+
+workbenchcam_record:
+  sequence:
+    - service: camera.record
+      data_template:
+        entity_id: camera.landing_camera
+        filename: '/config/www/recordings/landing_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        duration: 30
+
+workbenchcam_snapshot:
+  sequence:
+    - service: camera.snapshot
+      data_template:
+        entity_id: camera.landing_camera
+        filename: '/config/www/snapshots/landing_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+
+
+
+
+
+##### Alarm Scripts #####
+
+rfid_scan:
+  sequence:
+    - data_template:
+        entity_id: alarm_control_panel.alarm
+        code: 1234
+      service_template: "{% if is_state(\"alarm_control_panel.alarm\", \"armed_away\")\
+        \ %}\n  alarm_control_panel.alarm_disarm\n{%-elif is_state(\"alarm_control_panel.alarm\"\
+        , \"armed_home\") %}\n  alarm_control_panel.alarm_disarm\n{%-elif is_state(\"alarm_control_panel.alarm\"\
+        , \"pending\") %}\n  alarm_control_panel.alarm_disarm\n{%-elif is_state(\"alarm_control_panel.alarm\"\
+        , \"disarmed\") %}\n  alarm_control_panel.alarm_arm_away\n{% else %}\n  none\n{% endif %}\n"
+    - service: mqtt.publish
+      data:
+        topic: "home/esprfid"
+        payload: 'CardReadOver'
+        retain: true
+
+
+arm_alarm_voiced_sequence:
+  sequence:
+    - entity_id: media_player.living_room
+      service: media_player.sonos_snapshot
+    - entity_id: media_player.living_room
+      service: media_player.volume_set
+      data:
+        volume_level: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: Arming alarm. You have 60 seconds to vacate the building
+    - delay:
+        seconds: 13
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: 45 seconds
+    - delay:
+        seconds: 14
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: 30 seconds
+    - delay:
+        seconds: 14
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: 15 seconds
+    - delay:
+        seconds: 4
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: 10 seconds
+    - delay:
+        seconds: 1
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "9"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "8"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "7"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "6"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "5"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "4"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "3"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "2"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: "1"
+    - delay:
+        seconds: 0.6
+    - entity_id: media_player.living_room
+      service: tts.google_say
+      data:
+        message: Alarm armed
+    - delay:
+        seconds: 5
+    - entity_id: media_player.living_room
+      service: media_player.sonos_restore
+
+
+
+
+##### Mag Remote #####
+
+mag_skip_back:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOR4eHh08HB46PDo7HR4AC7keHTwdHjodHh4dPB0dOjw6PBweAA0FAAAAAAAAAAAAAAAA"
+mag_skip_forward:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4eHh08Oh4dHh08HR45PDo8Oh4AC5weHh4dOzofHR4dPB0eOTw6PDoeAA0FAAAAAAAAAAAAAAAA"
+mag_rewind:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4eOx0eOh4dHh08HR46OzoeHjsAC7keHTwdHToeHh0eOx0eOjs7HR47AA0FAAAAAAAAAAAAAAAA"
+mag_fast_forward:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB8dHh08Oh4dHh08HR46Ox0eHR4cHgALuB4dHh47Oh4eHh08HB46PB0eHB4cHgANBQAAAAAAAAAA"
+mag_home:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4dPB0eOh0eHh08HR0dHjoeHTs7HgALnB4dPB0eOh0eHh08HR0dHjodHjs7HQANBQAAAAAAAAAA"
+mag_back:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4dPB0eOh0eHh08HR0dHjoeHTs7HgALnB4dPB0eOh0eHh08HR0dHjodHjs7HQANBQAAAAAAAAAA"
+mag_menu:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOR4eHh08HB4dHjo7OjwAC7keHTwdHjkeHh4dPBweHR46Ozo8AA0FAAAAAAAAAAAAAAAA"
+mag_info:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4eHh08Oh4dHh08HR45Hh4eHTw6HgALmx4dHh47Oh4eHR47HR46Hh0eHjs6HgANBQAAAAAAAAAA"
+mag_up:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4dPB0eOh4dHh08Oh4dHh0eHjs6HgALnB4eOx0eOh4dHh08Oh4dHh4dHjs7HQANBQAAAAAAAAAA"
+mag_down:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4eHR47Ox0eHh08Oh4dHh0eHh0eOwANBQ=="
+mag_left:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAaAB4eHh08Oh4dHh08Oh4dHh4eHR4dHh0eAA0FAAAAAAAAAAAAAAAAAAA="
+mag_right:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAWAB4dPB0eOR4eHh08Ojs6PDoeHR4ADQUAAA=="
+mag_ok:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAWAB4eOx0eOh4dHh08Ojw6Hh08HR4ADQUAAA=="
+mag_vol_up:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAWABwdHB04ORwcHB04HRw4OhwcODkADQUAAA=="
+mag_vol_down:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwABwdOB4dNxsdHB05HBw4OR0cOBwcHAALCBwdOhwbORsdHB04HRw4OR0cOBwdGwANBQAAAAAAAAAA"
+mag_ch_up:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4dHh08Oh4dHh46Ox0fHB8dHjofGwALux4dHh47Oh4eHR46PBwfHR4dHzkfHQANBQAAAAAAAAAA"
+mag_ch_down:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4eOx0eOh4dHh08HR46Ox0eHB46HgALnB4dPBweOh4dHh47HR46Ox0eHR45HgANBQAAAAAAAAAA"
+mag_play_pause:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4dHh47Oh4eHR47HR4dHTo8Oh4dHgANBQ=="
+mag_stop:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB0eOx0eOh4dHh47HR46Hh07Hh06HgANBQ=="
+mag_1:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAaAB4dHh47Oh4eHR47HR4dHhweHR0dHjoeAA0FAAAAAAAAAAAAAAAAAAA="
+mag_2:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4dPB0dOh4eHh07HR4dHhweHR06PAALuR4dOx0eOh4dHh47HR4dHR0eHB46PAANBQAAAAAAAAAA"
+mag_3:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAaAB4dHh08Oh4dHh47HR4dHR0eHB46Hh0eAA0FAAAAAAAAAAAAAAAAAAA="
+mag_4:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4dPB0dOh4eHR47HR4dHR0eOjsdHgANBQ=="
+mag_5:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4eHR47Oh4eHh08HB4dHhweOjw6HgANBQ=="
+mag_6:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4dPB0eOR4eHh08HB4dHhweOh4dPAANBQ=="
+mag_7:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgA0AB4dHh47Oh4eHR47HR4dHhweOh4dHh4dAAucHx0eHTw6Hh0eHTwdHhweHR45Hh4eHR4ADQUAAAAA"
+mag_8:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4dPBweOh4eHR47HR4dHjk8HR4cHgANBQ=="
+mag_9:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB8dHh08Oh4dHh08HR4cHjo7HR46HgANBQ=="
+mag_0:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAaAB4dPB0eOR4eHh08HB4dHhweHR4cHh0eAA0FAAAAAAAAAAAAAAAAAAA="
+mag_aspect:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4eHh08Oh4dHh08HR45PDoeHh4dHgANBQ=="
+mag_reload:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4eOx0eOh4dHh08Ojw6Hh0eHTwAC7geHTwdHjkeHh4dOzo8Oh4dHh47AA0FAAAAAAAAAAAAAAAA"
+mag_f1:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAWAB8dHh08Oh4dHh08Oh4dPB0eOTwADQUAAA=="
+mag_f2:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB4eOx0eOh4dHh08Oh4dPB0dHR46HgANBQ=="
+mag_f3:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwABwfHCA5PBwgGyA5PRsgHB85Hxw8HAALnh4dHR46PB8cHR86Ox8cHh47HR46HgANBQAAAAAAAAAA"
+mag_f4:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsAB4dPB0eOR4eHh08Oh4dHh08OjwAC7geHTwdHjoeHR4dPDoeHR4dPDo8AA0FAAAAAAAAAAAAAAAA"
+mag_power:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4dHh47Oh4eHh07HR4dHjkeHjsdHgALuB4dHh08Oh4dHh47HR4cHjoeHTwdHgANBQAAAAAAAAAA"
+mag_keyboard:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4dPB0eOR8dHh08HB46Hh08HR4cHgALuB4dPBwfOR4eHh07HR46Hh08HR4cHgANBQAAAAAAAAAA"
+mag_mute:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4bOhwdNx0bHRw6Nx0cORwdHB0bHgALIh4bOhwdNx0bHhs6Nx0bOhwdHB0bHgANBQAAAAAAAAAA"
+mag_setup:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAYAB0cOhwdNx0bHRw5OB0bOhwdNx0cHQANBQ=="
+mag_app:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAwAB4bHRw4OR0bHhs4OR0bHhs5HR0bHgALIR0bHhs5OB4bHRs5OB4bHRs5HR0cHQANBQAAAAAAAAAA"
+mag_tv:
+  sequence:
+     - service: broadlink.send
+       data:
+         host: !secret livingroom_broadlink_ip
+         packet:
+           - "JgAsABwdOB0cOBwdHBw5OBwdODk4ORwACwgcHDkdHDgcHRwcOTgcHTg5OTgcAA0FAAAAAAAAAAAAAAAA"
+
+
+
+
+
+### Blind Scripts ###
+
+open_blinds:
+  alias: "Open the blinds"
+  sequence:
+    - service: switch.turn_on
+      entity_id: switch.open_left_blind, switch.open_right_blind
+
+close_blinds:
+  alias: "Close the blinds"
+  sequence:
+    - service: switch.turn_on
+      entity_id: switch.close_left_blind, switch.close_right_blind
+
+stop_blinds:
+  alias: "Stop the blinds"
+  sequence:
+    - service: switch.turn_off
+      entity_id: switch.open_left_blind, switch.open_right_blind, switch.close_left_blind, switch.close_right_blind
+
+
+
+
+
+### TTS Scripts ###
+
+water_plants_tts:
+  alias: Water the Plants TTS
+  sequence:
+    - service: notify.alexa_media
+      data:
+        target: media_player.everywhere
+        data:
+          type: announce
+        message: '{{
+          [
+          "Lia, Charlie... ",
+          "Sprogs... ",
+          "Kiddywinks... ",
+          "Little humans... ",
+          "Hay peeps... ",
+          ]|random +[
+
+          "its time to ",
+          "the time is upon us to ",
+          "you need to ",
+          "go outside and ",
+          "move your butts and ",
+          ]|random +[
+
+          "water the plants.",
+          "give the plants a drink.",
+          "poor water over the green stuff.",
+          "attend to the foliage",
+          "sprinkle H2O over the shrubbery",
+          ]|random}}'
+
+bedtime_tts:
+  alias: Bedtime TTS
+  sequence:
+    - service: notify.alexa_media
+      data:
+        target: media_player.everywhere
+        data:
+          type: announce
+        message: '{{
+          [
+          "Lia, Charlie... ",
+          "Sprogywogs... ",
+          "Kiddywinkles... ",
+          "Little humans... ",
+          "Smelly butts... ",
+          ]|random +[
+
+          "Its time for bed. ",
+          "Guess what? Bedtime! ",
+          "Its 8pm. You know what that means. ",
+          "The time has come my little friends. ",
+          "knock knock, whos there? bedtime, bedtime who? just bedtime! HAHA! ",
+          ]|random +[
+
+          "Get ready and give us a kiss.",
+          "Have a wash and brush your teeth.",
+          "Wash your Hands Bums and teeth.",
+          "Washy washy, teethy brushy, kissy kissy",
+          "Get sorted, and remember, we love you!",
+          ]|random}}'
+
+free_electric_tts:
+  alias: Free Electric TTS
+  sequence:
+    - service: sonos.snapshot
+      entity_id: media_player.sonos
+    - data:
+        volume_level: 0.5
+      entity_id: media_player.sonos
+      service: media_player.volume_set
+    - delay:
+        seconds: 0.5
+    - service: tts.google_say
+      data_template:
+        entity_id: media_player.sonos
+        message: '{{
+          [
+          "Humans... ",
+          "Yo!... ",
+          "Hay! Clarke family... ",
+          "You lot!... ",
+          ]|random +[
+
+          "Its 7 oclock. ",
+          "Guess what? ",
+          "7pm is upon us. ",
+          "That time has come. ",
+          ]|random +[
+
+          "Time to make use of the free electric.",
+          "Put all the expensive stuff on.",
+          "The power is free. Starting NOW!.",
+          "The power is in your hands",
+          "Why is the dishwasher not on yet?",
+          ]|random}}'
+    - delay:
+        seconds: 10
+    - service: sonos.restore
+      entity_id: media_player.sonos
+
+
+
+
+
+#####Other Scripts#####
+
+exit:
+  sequence:
+    - service: media_player.media_pause
+      entity_id: media_player.living_room
+    - service: switch.turn_on
+      entity_id: switch.garage_door_lock
+    - service: light.turn_off
+      entity_id: light.living_room
+    - service: light.turn_off
+      entity_id: light.dining_room
+    - service: light.turn_off
+      entity_id: light.lamp
+    - service: light.turn_off
+      entity_id: light.desk_lamp
+    - service: light.turn_off
+      entity_id: light.kitchen
+    - service: light.turn_off
+      entity_id: light.laundry_room
+    - service: light.turn_off
+      entity_id: light.stairs
+    - service: light.turn_off
+      entity_id: light.garage_stairs
+    - service: light.turn_off
+      entity_id: light.downstairs_toilet
+    - service: light.turn_off
+      entity_id: light.kids_bathroom
+    - service: light.turn_off
+      entity_id: light.kids_bathroom_wall
+    - service: light.turn_off
+      entity_id: light.landing
+    - service: light.turn_off
+      entity_id: light.our_bathroom
+    - service: light.turn_off
+      entity_id: light.our_bathroom_wall
+    - service: light.turn_off
+      entity_id: light.lias_bedroom
+    - service: light.turn_off
+      entity_id: light.charlies_bedroom
+    - service: light.turn_off
+      entity_id: light.garage_wall_light
+    - service: light.turn_off
+      entity_id: light.hall_1
+    - service: light.turn_off
+      entity_id: light.hall_2
+    - service: light.turn_off
+      entity_id: light.terrace
+
+
+# intruder_alert:
+#   sequence:
+#     - service: media_player.alexa_tts
+#       data:
+#         entity_id: media_player.kitchen_echo_dot_2, media_player.living_room_echo_dot, media_player.lias_echo_dot, media_player.charlies_echo_dot
+#         message: "Intruder Alert! "
+#     - entity_id: input_boolean.intruder_alert
+#       service: input_boolean.turn_off
+#     - delay:
+#         seconds: 0.5
+#     - entity_id: input_boolean.intruder_alert
+#       service: input_boolean.turn_on
+
+intruder_alert:
+  sequence:
+    - service: media_player.alexa_tts
+      data:
+        entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot
+        message: "Intruder Alert! "
+    - delay:
+        seconds: 2
+    - service: script.intruder_alert2
+
+intruder_alert2:
+  sequence:
+    - service: media_player.alexa_tts
+      data:
+        entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot
+        message: "Intruder Alert! "
+    - delay:
+        seconds: 2
+    - service: script.intruder_alert
+
+
+alexa_tts:
+  alias: "Send to alexa"
+  sequence:
+    - service: notify.alexa_media
+      data_template:
+        target: >
+         {% if is_state('input_select.alexa', 'Living Room') %}
+             media_player.living_room_echo_dot
+          {% elif is_state('input_select.alexa', 'Kitchen') %}
+            media_player.kitchen_echo_dot
+          {% elif is_state('input_select.alexa', 'Charlies Room') %}
+            media_player.charlies_echo_dot
+          {% elif is_state('input_select.alexa', 'Lias Room') %}
+            media_player.lias_echo_dot
+          {% elif is_state('input_select.alexa', 'Bedroom') %}
+            media_player.bedroom_echo_dot
+          {% elif is_state('input_select.alexa', 'Garage') %}
+            media_player.garage_echo_dot
+          {% elif is_state('input_select.alexa', 'Downstairs') %}
+            media_player.downstairs
+          {% elif is_state('input_select.alexa', 'Upstairs') %}
+            media_player.upstairs
+          {% elif is_state('input_select.alexa', 'All') %}
+            media_player.everywhere
+          {% elif is_state('input_select.alexa', 'None') %}
+            false
+          {% endif %}
+        data:
+          type: announce
+        message: "{{  states.input_text.alexa_tts.state }}"
+    - delay: '00:00:02'
+    - service: input_select.select_option
+      data:
+        entity_id: input_select.alexa
+        option: None
+
+
+      
+
+
