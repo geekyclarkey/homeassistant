@@ -13,6 +13,14 @@ I am trying to keep it up to date as much as possible and adding any new feature
 ## Tasmota Tips and rules
 [Click Here](tasmota_info_and_help.md) For tasmota help
 
+## My Homeassistant config files
+**Last Updated: 11/4/20**
+Here are my personal [config files.](config) Hopefully something in here will help someone do what they are trying to do.  
+Here is my [Lovelace Raw File.](lovelace.yaml)  
+### Custom cards I use
+
+
+
 ## How To Guides
 [How to set up Broadlink RM Mini in Homeassistant](howto_guides/broadlink_rm_mini3_and_homeassistant/README.md)  
 [How to add a low pass filter to sonoff basic and other devices](howto_guides/sonoff_low_pass_filter/README.md)  
@@ -32,11 +40,6 @@ Including step by step instruction how i accomplished the end result.
 Below is a list of sensors, components, devices and tools that i have personally used.  
 Using them in Homeassistant and day to day life. If you are looking for a specific component or tool, have a look at what makes and models i would recommend.  
 [Click Here to access the list](approved_components.md)  
-
-## My Homeassistant config files
-### Updated 11/4/20
-[/config](config)  
-[Lovelace Raw File](config/lovelace.yaml)  
 
 ## Port forwarding in routers I have used
 [Click Here](port_forwarding_in_routers/) For port forwarding examples
