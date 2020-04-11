@@ -1,6 +1,6 @@
 # Entity card with custom separator
 
-![](images/custom_seporator.png)  
+![](images/custom_separator.png)  
 
 To accomplish this you need to have the following custom plugins installed and added to you're lovelace resources:  
 [text divider row](https://github.com/custom-cards/text-divider-row)  
