@@ -19,8 +19,7 @@ Here are my personal [config files.](config) Hopefully something in here will he
 Here is my [Lovelace Raw File.](lovelace.yaml)  
 ### Custom cards I use  
 [Entity card with custom separator](lovelace_cards/entity_card_with_custom_separator.md)
-
-
+[Mini Graph Card](lovelace_cards/mini_graph_card.md)
 
 ## How To Guides
 [How to set up Broadlink RM Mini in Homeassistant](howto_guides/broadlink_rm_mini3_and_homeassistant/README.md)  
