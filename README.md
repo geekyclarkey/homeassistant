@@ -17,7 +17,8 @@ I am trying to keep it up to date as much as possible and adding any new feature
 **Last Updated: 11/4/20**  
 Here are my personal [config files.](config) Hopefully something in here will help someone do what they are trying to do.  
 Here is my [Lovelace Raw File.](lovelace.yaml)  
-### Custom cards I use
+### Custom cards I use  
+[Entity card with custom separator](lovelace_cards/entity_card_with_custom_separator.md)
 
 
 

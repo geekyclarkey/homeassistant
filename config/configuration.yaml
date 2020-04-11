@@ -317,26 +317,3 @@ camera:
     name: Workbench Camera
     still_image_url: !secret workbench_camera_still_image_url
     stream_source: !secret workbench_camera_stream_source
-
-#   - platform: generic
-#     name: SP105 Camera
-#     still_image_url: "http://192.168.100.176/cgi-bin/camera"
-#     stream_source: "rtsp://admin:Admin12345@192.168.100.176/Src/MediaInput/h264/stream_1/ch_"
-#     username: 'admin'
-#     password: 'Admin12345'
-#     authentication: digest
-
-#  - platform: generic
-#    name: Old Hall Camera
-#    still_image_url: "http://192.168.100.177/cgi-bin/camera"
-#    stream_source: "rtsp://admin:Admin12345@192.168.100.177/Src/MediaInput/h264/stream_1/ch_"
-#    username: 'admin'
-#    password: 'Admin12345'
-#    authentication: digest
-
-
-
-
-
-
-
