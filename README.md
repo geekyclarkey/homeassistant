@@ -36,6 +36,9 @@ Including step by step instruction how i accomplished the end result.
 [CCTV With Recording In Homeassistant](hass_projects/cctv_with_recording_in_homeassistant/README.md)  
 [Christmas Tree Lights In Homeassistant](hass_projects/homeassistant_christmas_tree_lights/README.md)  
 
+## CCTV Camera URLs
+[Here](cameras.md) is a list of IP cameras stream and still image URLs that i have managed to get working in Homeasistant.  
+
 ## Links to sensors, components and devices
 Below is a list of sensors, components, devices and tools that i have personally used.  
 Using them in Homeassistant and day to day life. If you are looking for a specific component or tool, have a look at what makes and models i would recommend.  
