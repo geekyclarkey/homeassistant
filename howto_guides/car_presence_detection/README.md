@@ -7,9 +7,10 @@ Below are links to the device i used.
 
 ## Here is a link to the how to guide  
 
-This guide is perfectly written with links to all alternative setups you will need to do. I don't think there is any need for me to make another one.  
-[Click Here](https://community.home-assistant.io/t/wifi-mqtt-car-presence-sensor-for-garage-door-automation/32886) to go to the guide.  
-He uses the D1 mini pro because it has an external antenna. I have an access point in my garage so the wifi of the origional D1 is more than enough. Its up to you.  
+This guide is perfectly written with links to all alternative setups you will need to do.  
+I don't think there is any need for me to make another one. [Click Here](https://community.home-assistant.io/t/wifi-mqtt-car-presence-sensor-for-garage-door-automation/32886) to go to the guide.  
+
+He uses the D1 mini pro because it has an external antenna. I have an access point in my garage so the wifi of the original D1 is more than enough. Its up to you.  
 
 ## Setting up the automation
 ### Here i will show you how i have my car presence automation set up. I know Luma also shows you in his how-to but why not?  
@@ -84,7 +85,8 @@ This will close the garage door (Run the `script.close_garage_door`) when `binar
 ```
 This will close the garage door (Run the `script.close_garage_door`) when `binary_sensor.CarPresenceHayley` becomes `off` in Homeasistant. There is a condition that checks to see if `binary_sensor.CarPresence` is also off and if `binary_sensor.garage_door`(the reed sensor on the garage door) is open.  
 
-I hope this helps someone. **I have to say, I use this device and automation every day. I would like to give a huge thanks to Luma for showing us how its done.**  
+I hope this helps someone.  
+**I have to say, I use this device and automation every day. I would like to give a huge thanks to Luma for showing us how its done.**  
 
 ## All credit has to go to Luma
 [Here](https://github.com/aderusha) is a link to his GitHub page. Consider buying him a coffee.
