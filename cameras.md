@@ -2,6 +2,7 @@
 # Camera Models and URLs
 
 Here is a list of IP cameras with their stream and still image URLs that I have managed to get working in Homeasistant.  
+[Here](https://www.ispyconnect.com/sources.aspx) is an amazing website with a huge database of stream and still image urls for thousands of cameras.  
 
 
 ```
