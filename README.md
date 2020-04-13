@@ -28,6 +28,7 @@ Here is my [Lovelace Raw File.](lovelace.yaml)
 [How to backup Homeassistant to Google Drive](howto_guides/hassio_google_backup/README.md)  
 [How to chnage Tv channels with Alexa](howto_guides/changing_tv_channels_with_alexa/README.md)  
 [How to control Homeassistant with Alexa. No cloud or subscription](howto_guides/control_homeassistant_using_alexa/README.md)  
+[How to set up car presence detection](howto_guides/car_presence_detection/README.md)  
 
 ## Projects I have been Working on
 Including step by step instruction how i accomplished the end result.  
