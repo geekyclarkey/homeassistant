@@ -36,4 +36,33 @@ Here is a list of IP cameras with their stream and still image URLs that I have 
     password: 'admin'
     authentication: digest
 
+  - platform: generic
+    name: Panasonic PTZ SW-395
+    still_image_url: "http://"
+    stream_source: "rtsp://192.168.0.10/ONVIF/MediaInput?profile=3_def_profile6"
+
+  - platform: generic
+    name: Panasonic SW-152
+    still_image_url: "http://192.168.0.24/cgi-bin/camera"
+    stream_source: "rtsp://admin:admin@192.168.0.24/ONVIF/MediaInput?profile=1_def_profile6"
+    username: 'admin'
+    password: 'admin'
+
+  - platform: generic
+    name: Panasonic SFV-311
+    still_image_url: "http://192.168.0.13/cgi-bin/camera"
+    stream_source: "rtsp://admin:admin@192.168.0.13/MediaInput/h264"
+    username: 'admin'
+    password: 'admin'
+
+  - platform: generic
+    name: Panasonic SF-336
+    still_image_url: "http://admin:admin@192.168.0.50/SnapshotJPEG?Resolution=1280x960"
+    tream_source: "rtsp://admin:admin@192.168.0.50/ONVIF/MediaInput?profile=1_def_profile6"
+
+  - platform: generic
+    name: Panasonic SF-438
+    still_image_url:  "http://admin:admin@192.168.0.11/SnapshotJPEG?Resolution=1280x960"
+    stream_source: "rtsp://admin:admin@192.168.0.11/ONVIF/MediaInput?profile=1_def_profile6"
+
 ```
