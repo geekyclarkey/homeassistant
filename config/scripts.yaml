@@ -356,7 +356,7 @@ garagecam_record:
     - service: camera.record
       data_template:
         entity_id: camera.garage_camera
-        filename: '/config/www/recordings/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        filename: '/config/www/cameras/recordings/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
         duration: 30
 
 garagecam_snapshot:
@@ -364,14 +364,14 @@ garagecam_snapshot:
     - service: camera.snapshot
       data_template:
         entity_id: camera.garage_camera
-        filename: '/config/www/snapshots/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+        filename: '/config/www/cameras/snapshots/garage_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
 
 hallcam_record:
   sequence:
     - service: camera.record
       data_template:
         entity_id: camera.hall_camera
-        filename: '/config/www/recordings/hall_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        filename: '/config/www/cameras/recordings/hall_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
         duration: 30
 
 hallcam_snapshot:
@@ -379,7 +379,7 @@ hallcam_snapshot:
     - service: camera.snapshot
       data_template:
         entity_id: camera.hall_camera
-        filename: '/config/www/snapshots/hall_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+        filename: '/config/www/cameras/snapshots/hall_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
 
 
 frontyardcam_record:
@@ -387,7 +387,7 @@ frontyardcam_record:
     - service: camera.record
       data_template:
         entity_id: camera.front_yard_camera
-        filename: '/config/www/recordings/frontyard_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        filename: '/config/www/cameras/recordings/frontyard_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
         duration: 30
 
 frontyardcam_snapshot:
@@ -395,14 +395,14 @@ frontyardcam_snapshot:
     - service: camera.snapshot
       data_template:
         entity_id: camera.front_yard_camera
-        filename: '/config/www/snapshots/frontyard_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+        filename: '/config/www/cameras/snapshots/frontyard_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
 
 workbenchcam_record:
   sequence:
     - service: camera.record
       data_template:
         entity_id: camera.landing_camera
-        filename: '/config/www/recordings/landing_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
+        filename: '/config/www/cameras/recordings/landing_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.mp4'
         duration: 30
 
 workbenchcam_snapshot:
@@ -410,7 +410,7 @@ workbenchcam_snapshot:
     - service: camera.snapshot
       data_template:
         entity_id: camera.landing_camera
-        filename: '/config/www/snapshots/landing_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
+        filename: '/config/www/cameras/snapshots/landing_{{ now ().day }}{{ now ().month }}{{ now ().year }}_{{ now ().hour }}{{ now ().minute }}.jpg'
 
 
 
@@ -860,7 +860,6 @@ stop_blinds:
 ### TTS Scripts ###
 
 water_plants_tts:
-  alias: Water the Plants TTS
   sequence:
     - service: notify.alexa_media
       data:
@@ -891,7 +890,6 @@ water_plants_tts:
           ]|random}}'
 
 bedtime_tts:
-  alias: Bedtime TTS
   sequence:
     - service: notify.alexa_media
       data:
@@ -909,7 +907,7 @@ bedtime_tts:
 
           "Its time for bed. ",
           "Guess what? Bedtime! ",
-          "Its 8pm. You know what that means. ",
+          "Its 9pm. You know what that means. ",
           "The time has come my little friends. ",
           "knock knock, whos there? bedtime, bedtime who? just bedtime! HAHA! ",
           ]|random +[
@@ -921,46 +919,45 @@ bedtime_tts:
           "Get sorted, and remember, we love you!",
           ]|random}}'
 
-free_electric_tts:
-  alias: Free Electric TTS
+peak_tariff_tts:
   sequence:
-    - service: sonos.snapshot
-      entity_id: media_player.sonos
-    - data:
-        volume_level: 0.5
-      entity_id: media_player.sonos
-      service: media_player.volume_set
-    - delay:
-        seconds: 0.5
-    - service: tts.google_say
-      data_template:
-        entity_id: media_player.sonos
+    - service: notify.alexa_media
+      data:
+        target: media_player.everywhere
+        data:
+          type: announce
         message: '{{
           [
-          "Humans... ",
-          "Yo!... ",
-          "Hay! Clarke family... ",
-          "You lot!... ",
+          "Clarkes!... ",
+          "Human people!... ",
+          "Oi!... ",
+          "Hay peeps!... ",
           ]|random +[
 
-          "Its 7 oclock. ",
-          "Guess what? ",
-          "7pm is upon us. ",
-          "That time has come. ",
-          ]|random +[
-
-          "Time to make use of the free electric.",
-          "Put all the expensive stuff on.",
-          "The power is free. Starting NOW!.",
-          "The power is in your hands",
-          "Why is the dishwasher not on yet?",
+          "The electricity is now more expensive.",
+          "The electricity tariff has changed to peak.",
+          "Bear in mind, energy costs more, starting now!.",
           ]|random}}'
-    - delay:
-        seconds: 10
-    - service: sonos.restore
-      entity_id: media_player.sonos
 
+offpeak_tariff_tts:
+  sequence:
+    - service: notify.alexa_media
+      data:
+        target: media_player.downstairs
+        data:
+          type: announce
+        message: '{{
+          [
+          "Clarkes!... ",
+          "Human people!... ",
+          "Oi!... ",
+          "Hay peeps!... ",
+          ]|random +[
 
+          "The electricity is cheap again!!",
+          "The electricity tariff has changed to off peak.",
+          "Energy costs less, starting now!.",
+          ]|random}}'
 
 
 

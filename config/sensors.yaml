@@ -159,22 +159,22 @@
   - platform: template
     sensors:
       count_automations:
-        friendly_name: "Automations"
+        friendly_name: "Automate"
         value_template: "{{ states.automation | count }}"
   - platform: template
     sensors:
-      count_sensorss:
+      count_sensors:
         friendly_name: "sensors"
         value_template: "{{ states.sensor | count }}"
   - platform: template
     sensors:
       count_binary_sensors:
-        friendly_name: "Binary Sensors"
+        friendly_name: "Binary"
         value_template: "{{ states.binary_sensor | count }}"
   - platform: template
     sensors:
       count_media_players:
-        friendly_name: "Media Players"
+        friendly_name: "Media"
         value_template: "{{ states.media_player | count }}"
   - platform: template
     sensors:
@@ -249,47 +249,126 @@
     name: "Shelly EM Energy"
     unit_prefix: k
     round: 2
+
   - platform: template
     sensors:
-      current_energy_cost:
-        friendly_name: Current Energy Cost
-        value_template: '{{ ((states.sensor.shelly_em_power.state | float * 1 / 1000 * 0.158)) | round(2) }}'
+      todays_energy_cost_peak:
+        value_template: '{{ ((states.sensor.home_energy_meter_daily_peak.state|float)*(states.input_number.peak_price.state|float)) |round(2) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      todays_energy_cost_offpeak:
+        value_template: '{{ ((states.sensor.home_energy_meter_daily_offpeak.state|float)*(states.input_number.offpeak_price.state|float)) |round(2) }}'
         unit_of_measurement: '€'
   - platform: template
     sensors:
       todays_energy_cost:
         friendly_name: Todays Energy Cost
-        value_template: '{{ ((states.sensor.home_energy_meter_daily.state | float * 0.158)) | round(2) }}'
+        value_template: '{{ (((((states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float))/100*21)+(states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float))+0.16) |round(2) }}'
+        unit_of_measurement: '€'
+
+  - platform: template
+    sensors:
+      this_weeks_energy_cost_peak:
+        value_template: '{{ ((states.sensor.home_energy_meter_weekly_peak.state|float)*(states.input_number.peak_price.state|float)) |round(2) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      this_weeks_energy_cost_offpeak:
+        value_template: '{{ ((states.sensor.home_energy_meter_weekly_offpeak.state|float)*(states.input_number.offpeak_price.state|float)) |round(2) }}'
         unit_of_measurement: '€'
   - platform: template
     sensors:
       this_weeks_energy_cost:
         friendly_name: This Weeks Energy Cost
-        value_template: '{{ ((states.sensor.home_energy_meter_weekly.state | float * 0.158)) | round(2) }}'
+        value_template: '{{ (((((states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float))/100*21)+(states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float))+1.25) |round(2) }}'
+        unit_of_measurement: '€'
+
+  - platform: template
+    sensors:
+      this_months_energy_cost_peak:
+        value_template: '{{ ((states.sensor.home_energy_meter_monthly_peak.state|float)*(states.input_number.peak_price.state|float)) |round(2) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      this_months_energy_cost_offpeak:
+        value_template: '{{ ((states.sensor.home_energy_meter_monthly_offpeak.state|float)*(states.input_number.offpeak_price.state|float)) |round(2) }}'
         unit_of_measurement: '€'
   - platform: template
     sensors:
       this_months_energy_cost:
         friendly_name: This Months Energy Cost
-        value_template: '{{ ((states.sensor.home_energy_meter_monthly.state | float * 0.158)) | round(2) }}'
+        value_template: '{{ (((((states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float))/100*21)+(states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float))+5) |round(2) }}'
         unit_of_measurement: '€'
+
+  - platform: template
+    sensors:
+      yesterdays_energy_peak:
+        value_template: "{{ state_attr('sensor.home_energy_meter_daily_peak', 'last_period') }}"
+        unit_of_measurement: 'Kw/h'
+  - platform: template
+    sensors:
+      yesterdays_energy_offpeak:
+        value_template: "{{ state_attr('sensor.home_energy_meter_daily_offpeak', 'last_period') }}"
+        unit_of_measurement: 'Kw/h'
   - platform: template
     sensors:
       yesterdays_energy:
         friendly_name: Yesterdays Energy
-        value_template: "{{ state_attr('sensor.home_energy_meter_daily', 'last_period') }}"
+        value_template: '{{ ((states.sensor.yesterdays_energy_peak.state|float)+(states.sensor.yesterdays_energy_offpeak.state|float))|round(2) }}'
+        unit_of_measurement: 'Kw/h'
+
+  - platform: template
+    sensors:
+      last_weeks_energy_peak:
+        value_template: "{{ state_attr('sensor.home_energy_meter_weekly_peak', 'last_period') }}"
+        unit_of_measurement: 'Kw/h'
+  - platform: template
+    sensors:
+      last_weeks_energy_offpeak:
+        value_template: "{{ state_attr('sensor.home_energy_meter_weekly_offpeak', 'last_period') }}"
         unit_of_measurement: 'Kw/h'
   - platform: template
     sensors:
       last_weeks_energy:
         friendly_name: Last Weeks Energy
-        value_template: "{{ state_attr('sensor.home_energy_meter_weekly', 'last_period') }}"
+        value_template: '{{ ((states.sensor.last_weeks_energy_peak.state|float)+(states.sensor.last_weeks_energy_offpeak.state|float))|round(2) }}'
+        unit_of_measurement: 'Kw/h'
+
+  - platform: template
+    sensors:
+      last_months_energy_peak:
+        value_template: "{{ state_attr('sensor.home_energy_meter_monthly_peak', 'last_period') }}"
+        unit_of_measurement: 'Kw/h'
+  - platform: template
+    sensors:
+      last_months_energy_offpeak:
+        value_template: "{{ state_attr('sensor.home_energy_meter_monthly_offpeak', 'last_period') }}"
         unit_of_measurement: 'Kw/h'
   - platform: template
     sensors:
       last_months_energy:
         friendly_name: Last Months Energy
-        value_template: "{{ state_attr('sensor.home_energy_meter_monthly', 'last_period') }}"
+        value_template: '{{ ((states.sensor.last_months_energy_peak.state|float)+(states.sensor.last_months_energy_offpeak.state|float))|round(2) }}'
+        unit_of_measurement: 'Kw/h'
+
+  - platform: template
+    sensors:
+      todays_energy:
+        friendly_name: Todays Energy
+        value_template: '{{ ((states.sensor.home_energy_meter_daily_peak.state|float)+(states.sensor.home_energy_meter_daily_offpeak.state|float))|round(2) }}'
+        unit_of_measurement: 'Kw/h'
+  - platform: template
+    sensors:
+      this_weeks_energy:
+        friendly_name: This Weeks Energy
+        value_template: '{{ ((states.sensor.home_energy_meter_weekly_peak.state|float)+(states.sensor.home_energy_meter_weekly_offpeak.state|float))|round(2) }}'
+        unit_of_measurement: 'Kw/h'
+  - platform: template
+    sensors:
+      this_months_energy:
+        friendly_name: This Months Energy
+        value_template: '{{ ((states.sensor.home_energy_meter_monthly_peak.state|float)+(states.sensor.home_energy_meter_monthly_offpeak.state|float))|round(2) }}'
         unit_of_measurement: 'Kw/h'
 
 
@@ -302,7 +381,7 @@
         value_template: >-
           {% if is_state('switch.washing_machine_plug', 'off') %}
             Off
-          {% elif states('sensor.washing_machine_power')|float > 40 %}
+          {% elif states('sensor.washing_machine_power')|float > 80 %}
             Washing
           {% else %}
             Idle
@@ -330,6 +409,19 @@
             Heating
           {% else %}
             Idle
+          {% endif %}
+
+  - platform: template
+    sensors:
+      printer:
+        friendly_name: "Printer"
+        value_template: >-
+          {% if is_state('sensor.dcp_j315w_status', 'por favor espere') %}
+            Printing
+          {% elif is_state('sensor.dcp_j315w_status', 'comprobar papel') %}
+            Check Paper Tray
+          {% else %}
+            In Standby
           {% endif %}
 
 

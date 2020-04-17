@@ -14,7 +14,7 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [Click Here](tasmota_info_and_help.md) For tasmota help
 
 ## My Homeassistant config files
-**Last Updated: 11/4/20**  
+**Last Updated: 17/4/20**  
 Here are my personal [config files.](config) Hopefully something in here will help someone do what they are trying to do.  
 Here is my [Lovelace Raw File.](lovelace.yaml)  
 ### Custom cards I use  
@@ -28,7 +28,7 @@ Here is my [Lovelace Raw File.](lovelace.yaml)
 [How to backup Homeassistant to Google Drive](howto_guides/hassio_google_backup/README.md)  
 [How to chnage Tv channels with Alexa](howto_guides/changing_tv_channels_with_alexa/README.md)  
 [How to control Homeassistant with Alexa. No cloud or subscription](howto_guides/control_homeassistant_using_alexa/README.md)  
-[How to set up car presence detection](howto_guides/car_presence_detection/README.md)  
+[How to set up car presence detection](howto_guides/car_presence_detection/README.md)  s
 
 ## Projects I have been Working on
 Including step by step instruction how i accomplished the end result.  

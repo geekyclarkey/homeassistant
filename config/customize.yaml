@@ -64,12 +64,31 @@ light.salt_lamp:
 ### Sensors ###
 
 sensor.washing_machine_state:
-  icon: 'mdi:washing-machine'
+  icon: mdi:washing-machine
 sensor.tumble_dryer_state:
-  icon: 'mdi:tumble-dryer'
+  icon: mdi:tumble-dryer
 sensor.boiler_state:
-  icon: 'mdi:water-boiler'
-
+  icon: mdi:water-boiler
+sensor.count_lights:
+  icon: mdi:lightbulb
+sensor.count_binary_sensors:
+  icon: mdi:electric-switch
+sensor.count_cameras:
+  icon: mdi:cctv
+sensor.count_switches:
+  icon: mdi:toggle-switch
+sensor.count_media_players:
+  icon: mdi:youtube
+sensor.count_scripts:
+  icon: mdi:script
+sensor.count_sensorss:
+  icon: mdi:leak
+sensor.count_automations:
+  icon: mdi:robot
+sensor.count_air_conditioners:
+  icon: mdi:air-conditioner
+sensor.printer:
+  icon: mdi:printer
 
 
 

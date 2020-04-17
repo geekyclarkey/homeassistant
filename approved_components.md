@@ -40,6 +40,7 @@
 [ADS1115 Analogue to Digital Converter](https://www.banggood.com/custlink/33GGBmlNDG)  
 [Wired Door/Window Magnetic Reed Switch](https://www.banggood.com/custlink/KKmKeDOsKw)  
 [TTP223 Capacitive Touch Module](https://www.banggood.com/custlink/vKD3emasoN)  
+[Capacitive Soil Moisture Sensor](https://www.banggood.com/custlink/D3GmqQcD4V)  
 
 
 ## Accessories & Components
@@ -50,6 +51,7 @@
 [Prototype Boards](https://www.banggood.com/custlink/GKvDBmLBqM)  
 [Plug In Screw Terminals](https://www.banggood.com/custlink/3vv3gvO475)  
 [12v Magnetic Door Lock](https://www.banggood.com/custlink/m3330mjbCr)  
+[50 RGB Common Cathode 4-Pin F5 5MM LEDs](https://www.banggood.com/custlink/vmDmksr3UO)
 
 
 ## Smart Devices
@@ -65,5 +67,6 @@
 [Shelly EM](https://shelly.cloud/product/wifi-smart-home-automation-shelly-em-energy-meter/)  
 ### Smart Plugs
 [Blitzwolf BW-SHP6 10A Smart Plug](https://www.banggood.com/custlink/vmv3emaAjc)  
+[Blitzwolf BW-SHP6 Pro 15A Smart Plug](https://www.banggood.com/custlink/mDDm2QrKBh)  
 ### Other Devices
 [Broadlink RM Mini3](https://www.banggood.com/custlink/KD3GBKOZT9)  

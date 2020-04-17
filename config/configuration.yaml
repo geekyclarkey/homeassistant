@@ -38,14 +38,6 @@ notify:
 recorder:
   purge_keep_days: 7
 
-hacs:
-  token: !secret hacs_token
-  sidepanel_title: HACS
-  sidepanel_icon: "mdi:alpha-h-box"
-  python_script: true
-  appdaemon: true
-  theme: true
-
 weather:
   - platform: darksky
     api_key: !secret darksky_api
@@ -215,6 +207,22 @@ input_text:
     initial: ''
     icon: mdi:amazon-alexa
 
+input_number:
+  peak_price:
+    name: Peak price per Kwh
+    unit_of_measurement: €
+    min: 0.081
+    max: 0.200
+    step: 0.001
+    mode: box
+  offpeak_price:
+    name: Off-Peak price per Kwh
+    unit_of_measurement: €
+    min: 0.031
+    max: 0.100
+    step: 0.001
+    mode: box
+
 input_datetime:
   test:
     name: test time
@@ -293,12 +301,21 @@ utility_meter:
   home_energy_meter_monthly:
     source: sensor.shelly_em_energy
     cycle: monthly
+    tariffs:
+      - peak
+      - offpeak
   home_energy_meter_weekly:
     source: sensor.shelly_em_energy
     cycle: weekly
+    tariffs:
+      - peak
+      - offpeak
   home_energy_meter_daily:
     source: sensor.shelly_em_energy
     cycle: daily
+    tariffs:
+      - peak
+      - offpeak
 
 camera:
   - platform: generic
@@ -317,3 +334,6 @@ camera:
     name: Workbench Camera
     still_image_url: !secret workbench_camera_still_image_url
     stream_source: !secret workbench_camera_stream_source
+
+
+

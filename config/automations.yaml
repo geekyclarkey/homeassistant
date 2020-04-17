@@ -336,60 +336,36 @@
         title: Tumble Dryer
         message: The tumble dryer has stopped. Your clothes are fluffy and warm!
 
+- alias: Notify - Electricity is now off-peak
+  trigger:
+  - at: '23:00:00'
+    platform: time
+  action:
+    - service: notify.mobile_app_hayleys_iphone
+      data:
+        title: Cheaper electricity
+        message: The Electricity tarrif has changed to off-peak
+    - service: notify.mobile_app_seans_iphone
+      data:
+        title: Cheaper electricity
+        message: The Electricity tarrif has changed to off-peak
+
+- alias: Notify - Electricity is now peak
+  trigger:
+  - at: '13:00:00'
+    platform: time
+  action:
+    - service: notify.mobile_app_hayleys_iphone
+      data:
+        title: Expensive electricity
+        message: The Electricity tarrif has changed to peak
+    - service: notify.mobile_app_seans_iphone
+      data:
+        title: Expensive electricity
+        message: The Electricity tarrif has changed to peak
+        
 
 ##### Aircon Automations #####
-
-- alias: Living room aircon on at 7pm
-#  initial_state: true
-  trigger:
-  - at: '19:00:00'
-    platform: time
-  action:
-  - data:
-      entity_id: climate.livingroom_aircon
-    service: climate.turn_on
-- alias: Living room aircon off at 9pm
-  trigger:
-  - at: '21:00:00'
-    platform: time
-  action:
-  - data:
-      entity_id: climate.livingroom_aircon
-    service: climate.turn_off
-
-- alias: Lias aircon on at 7pm
-  trigger:
-  - at: '19:00:00'
-    platform: time
-  action:
-  - data:
-      entity_id: climate.lias_aircon
-    service: climate.turn_on
-- alias: Lias aircon off at 9pm
-  trigger:
-  - at: '21:00:00'
-    platform: time
-  action:
-  - data:
-      entity_id: climate.lias_aircon
-    service: climate.turn_off
-
-- alias: Charlies aircon on at 7pm
-  trigger:
-  - at: '19:00:00'
-    platform: time
-  action:
-  - data:
-      entity_id: climate.charlies_aircon
-    service: climate.turn_on
-- alias: Charlies aircon off at 9pm
-  trigger:
-  - at: '21:00:00'
-    platform: time
-  action:
-  - data:
-      entity_id: climate.charlies_aircon
-    service: climate.turn_off
 
 - alias: Bedroom aircon auto off after 2 hours
   trigger:
@@ -453,6 +429,27 @@
   action:
     - service: climate.turn_off
       entity_id: climate.charlies_aircon
+
+- alias: Living Room aircon auto off after 2 hours
+  trigger:
+    - platform: state
+      entity_id: climate.livingroom_aircon
+      to: 'cool'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.livingroom_aircon
+      to: 'heat'
+      for:
+        hours: 2
+    - platform: state
+      entity_id: climate.livingroom_aircon
+      to: 'dry'
+      for:
+        hours: 2
+  action:
+    - service: climate.turn_off
+      entity_id: climate.livingroom_aircon
 
 
 ##### Camera Automations #####
@@ -662,13 +659,13 @@
 
 ##### Kitchen Automations #####
 
-- alias: No motion in kitchen for 10 min - Turn lights off
+- alias: No motion in kitchen for 5 min - Turn lights off
   initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.kitchen
     to: 'off'
-    for: 00:10:00
+    for: 00:05:00
   action:
   - data:
       entity_id: light.kitchen
@@ -727,13 +724,13 @@
 
 ##### Kids Bathroom Automations #####
 
-- alias: No motion in kids bathroom for 10 min - Turn light off
+- alias: No motion in kids bathroom for 5 min - Turn light off
   initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.kids_bathroom
     to: 'off'
-    for: 00:10:00
+    for: 00:05:00
   action:
   - data:
       entity_id: light.kids_bathroom_wall
@@ -780,13 +777,13 @@
 
 ##### Hallway Automations #####
 
-- alias: No motion in hall for 10 min - Turn lights off
+- alias: No motion in hall for 5 min - Turn lights off
   initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.downstairs_hall
     to: 'off'
-    for: 00:10:00
+    for: 00:05:00
   action:
   - data:
       entity_id: light.hall_1
@@ -798,13 +795,13 @@
       entity_id: light.garage_stairs
     service: light.turn_off
 
-- alias: No motion on landing for 10 min - Turn lights off
+- alias: No motion on landing for 5 min - Turn lights off
   initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.landing
     to: 'off'
-    for: 00:10:00
+    for: 00:05:00
   action:
   - data:
       entity_id: light.landing
@@ -816,13 +813,13 @@
 
 ##### Charlies room Automations #####
 
-- alias: No motion in Charlies room for 1 hour - Turn light off
+- alias: No motion in Charlies room for 30 min - Turn light off
   initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.charlies_room
     to: 'off'
-    for: 01:00:00
+    for: 00:30:00
   action:
   - data:
       entity_id: light.charlies_bedroom
@@ -831,24 +828,25 @@
 
 ##### Lias room Automations #####
 
-- alias: No motion in Lias room for 1 hour - Turn light off
+- alias: No motion in Lias room for 30 min - Turn light off
   initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.lias_room
     to: 'off'
-    for: 01:00:00
+    for: 00:30:00
   action:
   - data:
       entity_id: light.lias_bedroom
     service: light.turn_off
 
+
 ### Bedroom Automations ###
 
-- alias: Turn on heated blanket at 11:15pm
+- alias: Turn on heated blanket at 12:15am
   initial_state: true
   trigger:
-  - at: '23:15:00'
+  - at: '00:15:00'
     platform: time
   condition: []
   action:
@@ -878,9 +876,9 @@
   action:
     - entity_id: light.salt_lamp
       service: light.turn_on
-- alias: Salt Lamp off at 5am
+- alias: Salt Lamp off at 3am
   trigger:
-  - at: '05:00:00'
+  - at: '03:00:00'
     platform: time
   condition:
     condition: state
@@ -1130,20 +1128,54 @@
     entity_id: script.intruder_alert2
 
 
-### Random automations ###
+### Energy Meter Automations ###
 
-- alias: Free electric reminder
+- alias: Change to peak tarrif
   initial_state: true
   trigger:
-  - at: '19:00:00'
+  - at: '13:00:00'
     platform: time
   action:
-  - service: script.free_electric_tts
+  - service: utility_meter.select_tariff
+    data:
+      entity_id: utility_meter.home_energy_meter_daily
+      tariff: peak
+  - service: utility_meter.select_tariff
+    data:
+      entity_id: utility_meter.home_energy_meter_weekly
+      tariff: peak
+  - service: utility_meter.select_tariff
+    data:
+      entity_id: utility_meter.home_energy_meter_monthly
+      tariff: peak
+  - service: script.peak_tariff_tts
+- alias: Change to offpeak tarrif
+  initial_state: true
+  trigger:
+  - at: '23:00:00'
+    platform: time
+  action:
+  - service: utility_meter.select_tariff
+    data:
+      entity_id: utility_meter.home_energy_meter_daily
+      tariff: offpeak
+  - service: utility_meter.select_tariff
+    data:
+      entity_id: utility_meter.home_energy_meter_weekly
+      tariff: offpeak
+  - service: utility_meter.select_tariff
+    data:
+      entity_id: utility_meter.home_energy_meter_monthly
+      tariff: offpeak
+  - service: script.offpeak_tariff_tts
+    
+
+### Random automations ###
 
 - id: bedtime_announcement
   alias: Bedtime Announcement
   trigger:
-  - at: '20:00:00'
+  - at: '21:00:00'
     platform: time
   condition:
   - condition: time
@@ -1172,21 +1204,25 @@
   action:
   - service: script.water_plants_tts
 
-- alias: PlayStation turned on by playstation controler
+- alias: Turn on TV using the Playstation controller
   initial_state: true
   trigger:
     - platform: state
-      entity_id: media_player.playstation
-      from: 'off'
+      entity_id: media_player.playstation_4
+      from: 'standby'
   action:
-    - service: input_boolean.turn_on
-      entity_id: input_boolean.tv_power
-    - delay:
-        seconds: 5
-    - service: media_player.select_source
+    - service: broadlink.send
       data:
-        entity_id: media_player.living_room_tv
-        source: HDMI 3
+        host: !secret livingroom_broadlink_ip
+        packet:
+          - "JgBGAJKVETkRORA6ERQRFBEUERQRFBE5ETkQOhAVEBUQFREUEBUQOhEUERQRORE5EBURFBA6EBUQOhE5EBUQFRA6EDoRFBEADQUAAA==" #Samsung power on
+    - delay:
+        seconds: 6
+    - service: broadlink.send
+      data:
+        host: !secret livingroom_broadlink_ip
+        packet:
+          - "JgBGAJOUEDoRORE5ERQRFRAUERQRFBE5EDsQOhAVEBUPFg8WDxYPFhA6EBUPFg8WEBUROQ87EDoQFQ87EDoQOhA6EBUPFhAADQUAAA==" #Samsung HDMI3
 
 - alias: Operation try not to trip the elrctric, phase one
   initial_state: true
@@ -1209,8 +1245,6 @@
   action:
     - entity_id: switch.boiler_plug
       service: switch.turn_on
-
-
 
 
 

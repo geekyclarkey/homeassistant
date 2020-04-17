@@ -14,6 +14,10 @@ views:
                   control your smart home more efficiently and economically.
                   This is the home of the future. Take a look around and amaze
                   yourself with technology.
+
+
+                  For information and tips please check out the
+                  [Website](http://usesavvy.com/savvy-ai-home-automation)
                 type: markdown
             type: 'custom:vertical-stack-in-card'
         type: entities
@@ -36,6 +40,9 @@ views:
           - type: divider
           - entity: binary_sensor.smoke_alarm
           - entity: binary_sensor.gas_alarm
+          - type: divider
+          - entity: sensor.hacs
+            name: Hassio Community Store
           - type: divider
           - entity: automation.bedtime_announcement
           - entity: automation.water_plant_reminder
@@ -1210,38 +1217,34 @@ views:
           - entity: automation.notify_radarr_download_completed
           - entity: automation.notify_washing_machine_has_finnished
           - entity: automation.notify_tumble_dryer_has_finnished
+          - entity: automation.notify_electricity_is_now_peak
+          - entity: automation.notify_electricity_is_now_off_peak
         show_header_toggle: false
         title: Notification Automations
         type: entities
       - entities:
-          - entity: automation.living_room_aircon_on_at_7pm
-          - entity: automation.living_room_aircon_off_at_9pm
-          - entity: automation.lias_aircon_auto_off_after_2_hours
+          - entity: automation.no_motion_in_living_room_for_1_hour_turn_lights_off
         show_header_toggle: false
         title: Living Room Automations
         type: entities
       - entities:
-          - entity: automation.bedroom_aircon_auto_off_after_2_hours
-          - entity: automation.turn_on_heated_blanket_at_11_15pm
-          - entity: automation.turn_off_heated_blanket_after_1_hour
-          - entity: automation.salt_lamp_on_when_tv_turned_on
-          - entity: automation.salt_lamp_off_at_5am
-        show_header_toggle: false
-        title: Bedroom automations
-        type: entities
-      - entities:
-          - entity: automation.lias_aircon_on_at_7pm
-          - entity: automation.lias_aircon_off_at_9pm
           - entity: automation.lias_aircon_auto_off_after_2_hours
         show_header_toggle: false
         title: Lias Automations
         type: entities
       - entities:
-          - entity: automation.charlies_aircon_on_at_7pm
-          - entity: automation.charlies_aircon_off_at_9pm
           - entity: automation.charlies_aircon_auto_off_after_2_hours
         show_header_toggle: false
         title: Charlies Automations
+        type: entities
+      - entities:
+          - entity: automation.bedroom_aircon_auto_off_after_2_hours
+          - entity: automation.turn_on_heated_blanket_at_12_15am
+          - entity: automation.turn_off_heated_blanket_after_1_hour
+          - entity: automation.salt_lamp_on_when_tv_turned_on
+          - entity: automation.salt_lamp_off_at_3am
+        show_header_toggle: false
+        title: Bedroom automations
         type: entities
       - entities:
           - entity: automation.car_presence_auto_open
@@ -1255,10 +1258,10 @@ views:
           - entity: automation.no_motion_in_garage_for_5_min_light_off
           - type: divider
           - entity: automation.motion_in_kids_bathroom_turn_light_on
-          - entity: automation.no_motion_in_kids_bathroom_for_10_min_turn_light_off
+          - entity: automation.no_motion_in_kids_bathroom_for_5_min_turn_light_off
           - type: divider
           - entity: automation.motion_in_kitchen_turn_lights_on
-          - entity: automation.no_motion_in_kitchen_for_10_min_turn_lights_off
+          - entity: automation.no_motion_in_kitchen_for_5_min_turn_lights_off
           - type: divider
           - entity: automation.motion_in_living_room_turn_lamp_on
           - entity: automation.no_motion_in_living_room_for_1_hour_turn_lights_off
@@ -1266,12 +1269,12 @@ views:
           - entity: automation.motion_in_toilet_turn_light_on
           - entity: automation.no_motion_in_toilet_for_10_min_turn_light_off
           - type: divider
-          - entity: automation.no_motion_in_hall_for_10_min_turn_lights_off
-          - entity: automation.no_motion_on_landing_for_10_min_turn_lights_off
+          - entity: automation.no_motion_in_hall_for_5_min_turn_lights_off
+          - entity: automation.no_motion_on_landing_for_5_min_turn_lights_off
           - type: divider
-          - entity: automation.no_motion_in_charlies_room_for_1_hour_turn_light_off
+          - entity: automation.no_motion_in_charlies_room_for_30_min_turn_light_off
           - type: divider
-          - entity: automation.no_motion_in_lias_room_for_1_hour_turn_light_off
+          - entity: automation.no_motion_in_lias_room_for_30_min_turn_light_off
           - type: divider
           - entity: automation.no_motion_in_front_yard_for_5_min_turn_light_off
         show_header_toggle: false
@@ -1348,62 +1351,70 @@ views:
             type: entities
         type: vertical-stack
       - entities:
-          - text: Machine Stats
-            type: 'custom:text-divider-row'
-          - cards:
-              - columns: 3
-                entities:
-                  - entity: binary_sensor.ping_pc
-                    name: PC
-                  - entity: binary_sensor.ping_mac
-                    name: Mac
-                  - entity: binary_sensor.ping_plex
-                    name: Plex
-                  - entity: sensor.sonarr_upcoming_media
-                    name: Sonarr
-                  - entity: sensor.radarr_upcoming_media
-                    name: Radarr
-                type: glance
-            type: 'custom:vertical-stack-in-card'
-        type: entities
-      - entities:
           - text: Hassio Stats
             type: 'custom:text-divider-row'
           - cards:
               - cards:
-                  - entities:
+                  - cards:
                       - entity: sensor.count_lights
-                        icon: 'mdi:lightbulb'
-                        name: Lights
-                      - entity: sensor.count_binary_sensors
-                        icon: 'mdi:electric-switch'
-                        name: Binary Sensors
+                        type: entity
+                      - entity: sensor.count_sensors
+                        type: entity
                       - entity: sensor.count_cameras
-                        icon: 'mdi:cctv'
-                        name: Cameras
+                        type: entity
+                    type: 'custom:vertical-stack-in-card'
+                  - cards:
                       - entity: sensor.count_switches
-                        icon: 'mdi:toggle-switch'
-                        name: Switches
+                        type: entity
+                      - entity: sensor.count_binary_sensors
+                        type: entity
                       - entity: sensor.count_media_players
-                        icon: 'mdi:youtube'
-                        name: Media Players
-                    show_header_toggle: false
-                    type: entities
-                  - entities:
+                        type: entity
+                    type: 'custom:vertical-stack-in-card'
+                  - cards:
                       - entity: sensor.count_scripts
-                        icon: 'mdi:script'
-                        name: Scripts
-                      - entity: sensor.count_sensorss
-                        icon: 'mdi:leak'
-                        name: Sensors
+                        type: entity
                       - entity: sensor.count_automations
-                        icon: 'mdi:robot'
-                        name: Automations
+                        type: entity
                       - entity: sensor.count_air_conditioners
-                        icon: 'mdi:air-conditioner'
-                        name: Air Cons
-                    show_header_toggle: false
-                    type: entities
+                        type: entity
+                    type: 'custom:vertical-stack-in-card'
+                type: horizontal-stack
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entity: sensor.printer
+        name: Brother Printer
+        type: entity
+      - entities:
+          - text: Machine Stats
+            type: 'custom:text-divider-row'
+          - cards:
+              - cards:
+                  - cards:
+                      - entity: binary_sensor.ping_pc
+                        icon: 'mdi:desktop-classic'
+                        name: PC
+                        type: entity
+                      - entity: sensor.sonarr_upcoming_media
+                        icon: 'mdi:alpha-s-circle'
+                        name: Sonarr
+                        type: entity
+                    type: 'custom:vertical-stack-in-card'
+                  - cards:
+                      - entity: binary_sensor.ping_mac
+                        icon: 'mdi:laptop'
+                        name: Mac
+                        type: entity
+                      - entity: sensor.radarr_upcoming_media
+                        icon: 'mdi:alpha-r-circle'
+                        name: Radarr
+                        type: entity
+                    type: 'custom:vertical-stack-in-card'
+                  - cards:
+                      - entity: binary_sensor.ping_plex
+                        name: plex
+                        type: entity
+                    type: 'custom:vertical-stack-in-card'
                 type: horizontal-stack
             type: 'custom:vertical-stack-in-card'
         type: entities
@@ -1515,11 +1526,11 @@ views:
             type: entity
           - color_thresholds:
               - color: '#c0392b'
-                value: 500
+                value: 600
               - color: '#7cfc00'
-                value: 100
+                value: 300
               - color: '#0000ff'
-                value: 1
+                value: 50
             entities:
               - entity: sensor.washing_machine_power
             font_size: 70
@@ -1541,11 +1552,11 @@ views:
             type: entity
           - color_thresholds:
               - color: '#c0392b'
-                value: 300
+                value: 600
               - color: '#7cfc00'
-                value: 100
+                value: 300
               - color: '#0000ff'
-                value: 1
+                value: 50
             entities:
               - entity: sensor.tumble_dryer_power
             font_size: 70
@@ -1567,11 +1578,11 @@ views:
             type: entity
           - color_thresholds:
               - color: '#c0392b'
-                value: 100
+                value: 600
               - color: '#7cfc00'
-                value: 30
+                value: 300
               - color: '#0000ff'
-                value: 1
+                value: 50
             entities:
               - entity: sensor.boiler_power
             font_size: 70
@@ -1592,6 +1603,12 @@ views:
             type: 'custom:text-divider-row'
           - cards:
               - entities:
+                  - entity: input_number.peak_price
+                    icon: 'mdi:clock-alert'
+                  - entity: input_number.offpeak_price
+                    icon: 'mdi:clock'
+                type: entities
+              - entities:
                   - entity: sensor.todays_energy_cost
                     icon: 'mdi:currency-eur'
                     name: Todays energy cost so far
@@ -1603,7 +1620,7 @@ views:
                     name: This months energy cost so far
                 type: entities
               - cards:
-                  - entity: sensor.home_energy_meter_daily
+                  - entity: sensor.todays_energy
                     fill: '#454647'
                     font_style:
                       color: '#d5dee6'
@@ -1615,7 +1632,7 @@ views:
                     stroke_color: '#d5dee6'
                     stroke_width: 10
                     type: 'custom:circle-sensor-card'
-                  - entity: sensor.home_energy_meter_weekly
+                  - entity: sensor.this_weeks_energy
                     fill: '#454647'
                     font_style:
                       color: '#d5dee6'
@@ -1627,7 +1644,7 @@ views:
                     stroke_color: '#d5dee6'
                     stroke_width: 10
                     type: 'custom:circle-sensor-card'
-                  - entity: sensor.home_energy_meter_monthly
+                  - entity: sensor.this_months_energy
                     fill: '#454647'
                     font_style:
                       color: '#d5dee6'
@@ -2328,8 +2345,6 @@ views:
         max_length: 50
         title: Alexa Say...
         type: 'custom:lovelace-multiline-text-input-card'
-      - entity: switch.heated_blanket
-        type: entity
       - cards:
           - elements:
               - entity: sensor.boiler_energy_today
@@ -2373,6 +2388,84 @@ views:
         stroke_color: '#d5dee6'
         stroke_width: 10
         type: 'custom:circle-sensor-card'
+      - entities:
+          - sensor.ags2_w09_battery_level
+          - sensor.ags2_w09_battery_level_2
+        font_size: 70
+        height: 80
+        hours_to_show: 24
+        line_width: 2
+        name: Kids Battery Levels
+        points_per_hour: 10
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - entities:
+          - text: Hassio Stats
+            type: 'custom:text-divider-row'
+          - cards:
+              - cards:
+                  - entities:
+                      - entity: sensor.count_lights
+                        name: Lights
+                      - entity: sensor.count_binary_sensors
+                        name: Binary Sensors
+                      - entity: sensor.count_cameras
+                        name: Cameras
+                      - entity: sensor.count_switches
+                        name: Switches
+                      - entity: sensor.count_media_players
+                        name: Media Players
+                    show_header_toggle: false
+                    type: entities
+                  - entities:
+                      - entity: sensor.count_scripts
+                        name: Scripts
+                      - entity: sensor.count_sensorss
+                        name: Sensors
+                      - entity: sensor.count_automations
+                        name: Automations
+                      - entity: sensor.count_air_conditioners
+                        name: Air Cons
+                    show_header_toggle: false
+                    type: entities
+                type: horizontal-stack
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - cards:
+          - cards:
+              - entity: sensor.boiler_state
+                name: The boiler is currently
+                type: entity
+              - entity: sensor.boiler_energy_today
+                icon: 'mdi:flash'
+                name: Today has used
+                type: entity
+            type: horizontal-stack
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 600
+              - color: '#7cfc00'
+                value: 300
+              - color: '#0000ff'
+                value: 50
+            entities:
+              - entity: sensor.boiler_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 15
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
     path: test
     title: Test
     visible:
