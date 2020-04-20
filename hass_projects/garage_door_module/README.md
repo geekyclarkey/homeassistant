@@ -16,12 +16,12 @@ Im using [ESPHome](https://esphome.io/) for the firmware.
 ## Hardware
 
 ### Step 1
-![](images/1.jpeg)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/1.jpeg" width="300px">
 Place all of the components onto the board thinking about the spacing.  
 Solder all them down.  
 
 ### Step 2
-![](images/9.jpeg)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/9.jpeg" width="300px">
 You will need to connect up all of the connections to the D1. I used ethernet cables cut to length to link all of the pins.  
 
 ### Step 3
@@ -139,7 +139,7 @@ This will create a .bin file. when compiled, click `Download Binary`
 Flash the bin file onto your D1Mini
 
 ### Step 5
-Add the sensors to the module.
+Add the sensors to the module.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/6.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/7.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/8.jpeg" width="300px">
 
 ## Homeassistant
