@@ -3,7 +3,7 @@
 I created a garage door module to simulate pressing the open and close buttons on my garage controller.  
 While i had GPIO pins left i also added some sensors and made the whole thing on some perf board so they can easily be changed in the future if needed.  
 Im using [ESPHome](https://esphome.io/) for the firmware.  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/2.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/3.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/4.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/5.jpeg" width="300px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/2.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/4.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/5.jpeg" width="300px">
 
 ## Purchase all the sensors and components needed
 [D1 Mini](https://www.banggood.com/custlink/Gm3KgKZrD4)  
@@ -140,7 +140,7 @@ Flash the bin file onto your D1Mini
 
 ### Step 5
 Add the sensors to the module.
-![](images/6.jpeg)![](images/7.jpeg)![](images/8.jpeg)    
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/6.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/7.jpeg" width="300px"><img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/8.jpeg" width="300px">
 
 ## Homeassistant
 
