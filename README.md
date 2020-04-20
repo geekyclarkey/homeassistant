@@ -28,7 +28,7 @@ Here is my [Lovelace Raw File.](lovelace.yaml)
 [How to backup Homeassistant to Google Drive](howto_guides/hassio_google_backup/README.md)  
 [How to chnage Tv channels with Alexa](howto_guides/changing_tv_channels_with_alexa/README.md)  
 [How to control Homeassistant with Alexa. No cloud or subscription](howto_guides/control_homeassistant_using_alexa/README.md)  
-[How to set up car presence detection](howto_guides/car_presence_detection/README.md)  s
+[How to set up car presence detection](howto_guides/car_presence_detection/README.md)  
 
 ## Projects I have been Working on
 Including step by step instruction how i accomplished the end result.  
@@ -36,6 +36,7 @@ Including step by step instruction how i accomplished the end result.
 [Homeassistant Smoke Detector](hass_projects/homeassistant_smoke_detector/README.md)  
 [CCTV With Recording In Homeassistant](hass_projects/cctv_with_recording_in_homeassistant/README.md)  
 [Christmas Tree Lights In Homeassistant](hass_projects/homeassistant_christmas_tree_lights/README.md)  
+[Garage Door Module](hass_projects/garage_door_module/README.md)  
 
 ## CCTV Camera URLs
 [Here](cameras.md) is a list of IP cameras stream and still image URLs that i have managed to get working in Homeasistant.  
