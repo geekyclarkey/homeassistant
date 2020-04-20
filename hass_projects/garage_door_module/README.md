@@ -12,6 +12,7 @@ Im using [ESPHome](https://esphome.io/) for the firmware.
 [5V AC-DC Power Supply](https://www.banggood.com/custlink/33Dm43IWdV)  
 [Prototype Boards](https://www.banggood.com/custlink/GKvDBmLBqM)  
 [Wired Door/Window Magnetic Reed Switch](https://www.banggood.com/custlink/KKmKeDOsKw)  
+[PC817 Opto Isolators](https://www.amazon.es/Optoacoplador-60pcs-Optocoupler-%EF%BC%8COptocoupler-Arduino/dp/B07X46SYQT/ref=sr_1_1?__mk_es_ES=%C3%85M%C3%85%C5%BD%C3%95%C3%91&dchild=1&keywords=pc817&qid=1587387133&sr=8-1)
 
 ## Hardware
 
@@ -23,6 +24,7 @@ Solder all them down.
 ### Step 2
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/garage_door_module/images/9.jpeg" width="300px">
 You will need to connect up all of the connections to the D1. I used ethernet cables cut to length to link all of the pins.  
+With the Opto Isolators, solder the cathode to ground and the annode to the GPIO pins states below. the collector and emitter for each one are both soldered to the screw terminals.  
 
 ### Step 3
 If you use the same GPIO pins i used you can follow the software instructions but if you use different pins, make sure you set up the correct pins in Esphome  
