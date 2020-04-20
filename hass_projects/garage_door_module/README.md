@@ -43,7 +43,7 @@ First of all you need to have ESPHome addon installed in homeassistant. See [her
 
 ### Step 1
 Go into the ESPHome dashboard and click the `+` to create a new device.
-Fill in the prompts like requested. It doesn't actually matter what you put because you will be replacing the config in a moment.
+Fill in the prompts like requested. It doesn't actually matter what you put because you will be replacing the config in a moment.  
 *Make sure you don't use capital letters when adding a name*  
 
 ### Step 2
@@ -52,8 +52,8 @@ Once the Dummy file is created, click on the word `edit` and paste the following
 substitutions:
   espname: "garagedoormodule"
   hostname: "Garage Door Module"
-  ssid: "yourwifiname" # You will need to replace the words inside the "" with your wifi ssid
-  ssidpassword: "yourwifipassword" # You will need to replace the words inside the "" with your wifi password
+  ssid: "yourwifiname"
+  ssidpassword: "yourwifipassword"
 
 esphome:
   name: $espname
@@ -126,7 +126,7 @@ text_sensor:
       name: $hostname IP Address
 
 ```
-Once you have made the changes to your wifi details and changed the GpIO pins (if you have on the hardware) click `Save`  
+Once you have made the changes to your wifi details and changed the GPIO pins (if you have on the hardware) click `Save`  
 
 As you can see, there is an auto switch off on the open and close switches. This is because we want to simulate a button press. When you toggle the switch it will stay on for half a second then turn off again. just like the push of a button.  
 
