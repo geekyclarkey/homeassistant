@@ -2,7 +2,7 @@
 
 I don't have a greenhouse myself but my uncle does. Even though we both live in different countries we have found a way to create this via video calls and messages.   
 We have both been working together to make the ultimate greenhouse module with fully automated watering system and so much more.  
-Light, humidity, motion sensors and relays to control everything from the irrigation to the heating and Cooling.  
+Light, humidity, motion sensors and relays to control everything from the irrigation to the heating and cooling.  
 This project was fun for me as i felt like a teacher, guiding my uncle through the setup procedure. Even though i didn't get my hands dirty i still feel like i accomplished something.  
 
 ## Purchase all the sensors and components needed
@@ -21,7 +21,6 @@ We used ESPHome for this. You need to have ESPHome addon installed in Homeassist
 Once thats installed you will need to create a new ESPHome file. Create a dummy file using the `+` icon and give it the name `greenhousemodule`  
 Here is a copy of the ESPHome code we used. You may need to adapt this to your sensors.  
 ```
-
 substitutions:
   espname: "greenhousemodule"
   hostname: "Greenhouse"
@@ -122,6 +121,7 @@ text_sensor:
 ```
 
 ### Lets break this down:  
+Here you will need to put your wifi ssid and password. Nothing special.  
 ```
 substitutions:
   espname: "greenhousenodemcu"
@@ -129,8 +129,8 @@ substitutions:
   ssid: "yourwifiname"
   ssidpassword: "yourwifipassword"
 ```
-Here you will need to put your wifi ssid and password. Nothing special.  
 
+This will use the wifi info you entered above and if the board can not connect to your wifi it will generate its own wifi name so you can connect to it and adapt the wifi config. The password for the captive portal is set to `1234567890` you can change this if you like.  
 ```
 wifi:
   ssid: $ssid
@@ -141,8 +141,8 @@ wifi:
 
 captive_portal:
 ```
-This will use the wifi info you entered above and if the board can not connect to your wifi it will generate its own wifi name so you can connect to it and adapt the wifi config. The password for the captive portal is set to `1234567890` you can change this if you like.  
 
+This is the I2C bus, because we have sensors that use I2C we need to tell ESPHome what pins we used for the clock and data. If you followed out pinout you wont need to change anything.  
 ```
 i2c:
   sda: D3
@@ -150,8 +150,8 @@ i2c:
   scan: True
   id: bus_a
 ```
-This is the I2C bus, because we have sensors that use I2C we need to tell ESPHome what pins we used for the clock and data. If you followed out pinout you wont need to change anything.  
 
+Here is the Temp and humidity sensor. As you can see we slightly calibrated the temperature sensor. To do this you need another temperature sensor for a reference. Then the 23.3 is what ESPHome was saying the temp was and 23.8 was another more accurate sensor said. Now ESPHome will make amendments to its value to show more accurate reading.  
 ```
 - platform: htu21d
   temperature:
@@ -164,8 +164,8 @@ This is the I2C bus, because we have sensors that use I2C we need to tell ESPHom
     name: $hostname Humidity
   update_interval: 10s
 ```
-Here is the Temp and humidity sensor. As you can see we slightly calibrated the temperature sensor. To do this you need another temperature sensor for a reference. then the 23.3 is what ESPHome was saying the temp was and 23.8 was another more accurate sensor said. Now ESPHome will make amendments to its value to show more accurate reading.  
 
+The same calibration was made to the Brightness sensor. If you don't have another brightness sensor to compare then its not essential to have a true lux reading. You only need it as a reference to how light or dark it is. You can just use whatever value you would consider to be dark or light in the automations. its not crucial.
 ```
 - platform: bh1750
   name: $hostname Brightness
@@ -176,8 +176,10 @@ Here is the Temp and humidity sensor. As you can see we slightly calibrated the 
       - 0.0 -> 0.0
       - 196.3 -> 118.0
 ```
-The same calibration was made to the Brightness sensor. If you don't have another brightness sensor to compare then its not essential to have a true lux reading. You only need it as a reference to how light or dark it is. You can just use whatever value you would consider to be dark or light in the automations. its not crucial.
 
+This is for the capacitive soil sensor. We set up the lambda filter like so...   
+First comment out the lambda filter and boot up the board with the soil sensor connected. As the sensor is analogue you will see a voltage reading.  
+Now check the logs of ESPHome to see the values when you do the following, when the sensor is completely dry add that to the if statement `0.81` then take a reading when it was submerged in water and added that to the esle if statement `0.48` Now in the else statement you need to add the values again using mine as a reference, this will give you a percentage from dry 0% to wet 100% and everything in-between.  
 ```
 - platform: adc
   name: $hostname Soil Moisture Level
@@ -196,10 +198,8 @@ The same calibration was made to the Brightness sensor. If you don't have anothe
   icon: mdi:cup-water
   unit_of_measurement: "%"
 ```
-This is for the capacitive soil sensor. We set up the lambda filter like so...   
-First comment out or remove the lambda filter and boot up the board with the soil sensor connected. As the sensor is analogue you will see a voltage reading.  
-Now check the logs of ESPHome to see the values when you do the following, when the sensor is completely dry add that to the if statement `(x > 0.81)` then take a reading when it was submerged in water and added that to the esle if statement `(x < 0.48)` Now in the else statement you need to add the values again using mine as a reference, this will give you a percentage from dry 0% to wet 100% and everything in-between.  
 
+This is the motion sensor, You may or may not need the `INPUT_PULLUP` Remove it if necessary.  
 ```
 binary_sensor:
   - platform: gpio
@@ -209,17 +209,57 @@ binary_sensor:
     name: $hostname Movement
     device_class: motion
 ```
-This is the motion sensor, You may or may not need the `INPUT_PULLUP` Remove it if necessary.  
-
 
 ## Homeassistant
 ESPHome devices are generally automatically found by Homeassistant and all you need to do is click the notification and add the device to your home automation server.  
 You can then find the entities from the `Intergrations` section of your Homeassistant.  
 
+We have a template sensor here to show the soil state according to the percentage value of the soils sensor. You may need to change the values to better suit your setup.  
+Add the following the sensor section of your configoration.yaml
+```
+- platform: template
+  sensors:
+    greenhouse_soil_moisture_state:
+      friendly_name: "Soil Moisture State"
+      value_template: >-
+        {% if states('sensor.greenhouse_soil_moisture_level')|float < 25 %}
+          Dry
+        {% elif states('sensor.greenhouse_soil_moisture_level')|float >= 25 and states('sensor.greenhouse_soil_moisture_level')|float < 40 %}
+          Moist
+        {% elif states('sensor.greenhouse_soil_moisture_level')|float >= 40 and states('sensor.greenhouse_soil_moisture_level')|float < 60 %}
+          Very Moist
+        {% elif states('sensor.greenhouse_soil_moisture_level')|float >= 60 and states('sensor.greenhouse_soil_moisture_level')|float < 80 %}
+          Wet
+        {% else %}
+          Saturated
+        {% endif %}
+```
+
 Now the entities are in Homeasistant we can start adding them into lovelace.  
 
 ## Automations
 
+Here is an automation that turns the irrigation Solenoid on and off according to the moisture levels. Again, you may need to change the values to better suit your setup.  
+Add the following to your automations.yaml
+```
+- alias: Irrigation auto turn on
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_soil_moisture_level
+      below: 25
+  action:
+    - service: switch.turn_on
+      entity_id: switch.greenhouse_irrigation
+
+- alias: Irrigation auto turn off
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.greenhouse_soil_moisture_level
+      above: 60
+  action:
+    - service: switch.turn_off
+      entity_id: switch.greenhouse_irrigation
+```
 
 
 
