@@ -16,6 +16,7 @@
 [Node MCU](https://www.banggood.com/custlink/GmDK0GL0am)  
 [ESP32 Camera](https://www.banggood.com/custlink/33mDevleLi)  
 [ESP01](https://www.banggood.com/custlink/KKGDBvlgpN)  
+[ESP32](https://www.banggood.com/custlink/mKDDMq5dIY)  
 ### Motion Sensors
 [Mini IR Infrared Pyroelectric PIR](https://www.banggood.com/custlink/3KK3BDIEwm)  
 [21mm PIR Motion Sensor](https://www.banggood.com/custlink/KmKGeGan88)  
