@@ -121,7 +121,7 @@ text_sensor:
 ```
 
 ### Lets break this down:  
-Here you will need to put your wifi ssid and password. Nothing special.  
+* Here you will need to put your wifi ssid and password. Nothing special.  
 ```
 substitutions:
   espname: "greenhousenodemcu"
@@ -130,7 +130,7 @@ substitutions:
   ssidpassword: "yourwifipassword"
 ```
 
-This will use the wifi info you entered above and if the board can not connect to your wifi it will generate its own wifi name so you can connect to it and adapt the wifi config. The password for the captive portal is set to `1234567890` you can change this if you like.  
+* This will use the wifi info you entered above and if the board can not connect to your wifi it will generate its own wifi name so you can connect to it and adapt the wifi config. The password for the captive portal is set to `1234567890` you can change this if you like.  
 ```
 wifi:
   ssid: $ssid
