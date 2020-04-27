@@ -142,7 +142,7 @@ wifi:
 captive_portal:
 ```
 
-This is the I2C bus, because we have sensors that use I2C we need to tell ESPHome what pins we used for the clock and data. If you followed out pinout you wont need to change anything.  
+* This is the I2C bus, because we have sensors that use I2C we need to tell ESPHome what pins we used for the clock and data. If you followed out pinout you wont need to change anything.  
 ```
 i2c:
   sda: D3
@@ -151,7 +151,7 @@ i2c:
   id: bus_a
 ```
 
-Here is the Temp and humidity sensor. As you can see we slightly calibrated the temperature sensor. To do this you need another temperature sensor for a reference. Then the 23.3 is what ESPHome was saying the temp was and 23.8 was another more accurate sensor said. Now ESPHome will make amendments to its value to show more accurate reading.  
+* Here is the Temp and humidity sensor. As you can see we slightly calibrated the temperature sensor. To do this you need another temperature sensor for a reference. Then the 23.3 is what ESPHome was saying the temp was and 23.8 was another more accurate sensor said. Now ESPHome will make amendments to its value to show more accurate reading.  
 ```
 - platform: htu21d
   temperature:
@@ -165,7 +165,7 @@ Here is the Temp and humidity sensor. As you can see we slightly calibrated the 
   update_interval: 10s
 ```
 
-The same calibration was made to the Brightness sensor. If you don't have another brightness sensor to compare then its not essential to have a true lux reading. You only need it as a reference to how light or dark it is. You can just use whatever value you would consider to be dark or light in the automations. its not crucial.
+* The same calibration was made to the Brightness sensor. If you don't have another brightness sensor to compare then its not essential to have a true lux reading. You only need it as a reference to how light or dark it is. You can just use whatever value you would consider to be dark or light in the automations. its not crucial.
 ```
 - platform: bh1750
   name: $hostname Brightness
@@ -177,7 +177,7 @@ The same calibration was made to the Brightness sensor. If you don't have anothe
       - 196.3 -> 118.0
 ```
 
-This is for the capacitive soil sensor. We set up the lambda filter like so...   
+* This is for the capacitive soil sensor. We set up the lambda filter like so...   
 First comment out the lambda filter and boot up the board with the soil sensor connected. As the sensor is analogue you will see a voltage reading.  
 Now check the logs of ESPHome to see the values when you do the following, when the sensor is completely dry add that to the if statement `0.81` then take a reading when it was submerged in water and added that to the esle if statement `0.48` Now in the else statement you need to add the values again using mine as a reference, this will give you a percentage from dry 0% to wet 100% and everything in-between.  
 ```
@@ -199,7 +199,7 @@ Now check the logs of ESPHome to see the values when you do the following, when 
   unit_of_measurement: "%"
 ```
 
-This is the motion sensor, You may or may not need the `INPUT_PULLUP` Remove it if necessary.  
+* This is the motion sensor, You may or may not need the `INPUT_PULLUP` Remove it if necessary.  
 ```
 binary_sensor:
   - platform: gpio
@@ -214,8 +214,8 @@ binary_sensor:
 ESPHome devices are generally automatically found by Homeassistant and all you need to do is click the notification and add the device to your home automation server.  
 You can then find the entities from the `Intergrations` section of your Homeassistant.  
 
-We have a template sensor here to show the soil state according to the percentage value of the soils sensor. You may need to change the values to better suit your setup.  
-Add the following the sensor section of your configoration.yaml
+We used a template sensor here to show the soil state according to the percentage value of the soils sensor. You may need to change the values to better suit your setup.  
+Add the following the sensor section of your configoration.yaml adapt the entity id if you used something else.  
 ```
 - platform: template
   sensors:
