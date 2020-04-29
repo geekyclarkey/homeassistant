@@ -64,8 +64,9 @@
 [Sonoff 4CH](https://www.banggood.com/custlink/KGGm4GlsN4)  
 ### Shelly
 [Shelly 1](https://shelly.cloud/product/shelly-1-open-source/)  
-[Shelly 2.5](https://shelly.cloud/product/wifi-smart-home-automation-shelly-25-switch-relay-roller-shutter/)  
-[Shelly EM](https://shelly.cloud/product/wifi-smart-home-automation-shelly-em-energy-meter/)  
+[Shelly 2.5](https://shop.shelly.cloud/shelly-2.5-ce-ul-wifi-smart-home-automation#54)  
+[Shelly EM](https://shop.shelly.cloud/shelly-em-50a-clamp-wifi-smart-home-automation-1#139)  
+[Shelly Dimmer](https://shop.shelly.cloud/shelly-dimmer-wifi-smart-home-automation#58)  
 ### Smart Plugs
 [Blitzwolf BW-SHP6 10A Smart Plug](https://www.banggood.com/custlink/vmv3emaAjc)  
 [Blitzwolf BW-SHP6 Pro 15A Smart Plug](https://www.banggood.com/custlink/mDDm2QrKBh)  
