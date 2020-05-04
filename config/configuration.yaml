@@ -135,14 +135,19 @@ ios:
             behavior: 'textInput'
             textInputButtonTitle: 'Send TTS'
             textInputPlaceholder: 'What do you want to say?'
-      - name: cameras
-        identifier: 'camera'
+    #   - name: cameras
+    #     identifier: 'camera'
+    #     actions:
+    #       - identifier: 'TTS_MESSAGE'
+    #         title: 'Alexa TTS Message'
+    #         behavior: 'textInput'
+    #         textInputButtonTitle: 'Send TTS'
+    #         textInputPlaceholder: 'What do you want to say?'
+      - name: PC
+        identifier: 'pc'
         actions:
-          - identifier: 'TTS_MESSAGE'
-            title: 'Alexa TTS Message'
-            behavior: 'textInput'
-            textInputButtonTitle: 'Send TTS'
-            textInputPlaceholder: 'What do you want to say?'
+          - identifier: 'PC_REBOOT'
+            title: 'Reboot PC'
 
 speedtestdotnet:
   scan_interval:
@@ -193,6 +198,12 @@ input_select:
       - None
     icon: mdi:amazon-alexa
     initial: None
+  bedroom_fan:
+    options:
+      - Off
+      - Low
+      - Medium
+      - High
 
 input_boolean:
   lamp_lux:

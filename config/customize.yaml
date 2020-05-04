@@ -69,6 +69,8 @@ sensor.tumble_dryer_state:
   icon: mdi:tumble-dryer
 sensor.boiler_state:
   icon: mdi:water-boiler
+sensor.dishwasher_state:
+  icon: mdi:dishwasher
 sensor.count_lights:
   icon: mdi:lightbulb
 sensor.count_binary_sensors:

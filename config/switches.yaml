@@ -37,6 +37,14 @@
     payload_on: "ON"
     payload_off: "OFF"
     icon: mdi:power-socket-eu
+  - platform: mqtt
+    name: "Dishwasher Plug"
+    command_topic: "cmnd/dishwasherplug/power"
+    state_topic: "stat/dishwasherplug/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    icon: mdi:power-socket-eu
 
 
 ### Shelly Switches ###

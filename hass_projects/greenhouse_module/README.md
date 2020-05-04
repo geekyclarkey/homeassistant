@@ -12,7 +12,7 @@ This project was fun for me as i felt like a teacher, guiding my uncle through t
 [HTU21D Temperature Humidity Sensor](https://www.banggood.com/custlink/m3KG0m8CYD) or [SHT30 Temperature Humidity Sensor](https://www.banggood.com/custlink/G33KeDOeZO)  
 [8 Channel Relay](https://www.banggood.com/custlink/vKGK4mLbe4)  
 [Capacitive Soil Moisture Sensor](https://www.banggood.com/custlink/D3GmqQcD4V)  
-[Solenoid Water Valve](https://www.betavalve.com/Product-Detail?prodref=6115NC+240VAC&description=2/2%20sol%20vlv%203/4%22)
+[3/4" Male to Male Solenoid Water Valve](https://www.banggood.com/custlink/mGDmM2sWTu)  
 
 ## Hardware
 

@@ -14,7 +14,7 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [Click Here](tasmota_info_and_help.md) For tasmota help
 
 ## My Homeassistant config files
-**Last Updated: 17/4/20**  
+**Last Updated: 04/05/2020**  
 Here are my personal [config files.](config) Hopefully something in here will help someone do what they are trying to do.  
 Here is my [Lovelace Raw File.](lovelace.yaml)  
 ### Custom cards I use  

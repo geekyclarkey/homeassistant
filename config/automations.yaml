@@ -258,22 +258,18 @@
     entity_id: binary_sensor.front_door
     state: 'on'
   action:
-    - service: notify.mobile_app_hayleys_iphone
+    - service: notify.notify
       data:
-        title: Hayley
-        message: Someone is in the front yard
-    - service: notify.mobile_app_seans_iphone
-      data:
-        title: Sean
+        title: Front Yard
         message: Someone is in the front yard
     - service: automation.turn_off
       data:
-        entity_id: automation.notify_someone_in_the_yard_while_door_is_open
+        entity_id: automation.notify_motion_in_the_yard_while_door_is_open
     - delay:
         minutes: 2
     - service: automation.turn_on
       data:
-        entity_id: automation.notify_someone_in_the_yard_while_door_is_open
+        entity_id:  automation.notify_motion_in_the_yard_while_door_is_open
 
 - alias: Notify - Smoke alarm triggered
   initial_state: true
@@ -309,14 +305,31 @@
     for: 
       minutes: 10
   action:
-    - service: notify.mobile_app_hayleys_iphone
+    - service: notify.notify
       data:
         title: Washing Machine
-        message: The washing is done. Your clothes now smell like roses!
-    - service: notify.mobile_app_seans_iphone
-      data:
-        title: Washing Machine
-        message: The washing is done. Your clothes now smell like roses!
+        message: '{{
+          [
+          "Hay! ",
+          "Yo! ",
+          "Oi! ",
+          "Sup Brah! ",
+          ]|random +[
+          "The washing machine ",
+          "That big white box in the laundry room ",
+          "The noisey machine ",
+          "The washer ",
+          ]|random +[
+          "has finnished. ",
+          "has washed your clothes. ",
+          "has just stopped. ",
+          "is done. ",
+          ]|random +[
+          "The clothes now smell like roses.",
+          "Your skidmarks have disappeared.",
+          "I think that stain came out!",
+          "Charlies pants dont smell like bum anymore",
+          ]|random}}'
 
 - alias: Notify - Tumble dryer has finnished
   trigger:
@@ -327,25 +340,35 @@
     for: 
       minutes: 3
   action:
-    - service: notify.mobile_app_hayleys_iphone
+    - service: notify.notify
       data:
         title: Tumble Dryer
-        message: The tumble dryer has stopped. Your clothes are fluffy and warm!
-    - service: notify.mobile_app_seans_iphone
-      data:
-        title: Tumble Dryer
-        message: The tumble dryer has stopped. Your clothes are fluffy and warm!
+        message: '{{
+          [
+          "Hay! ",
+          "Yo! ",
+          "Oi! ",
+          "Sup Brah! ",
+          ]|random +[
+          "The tumble dryer ",
+          "That box that drys clothes ",
+          "The dryer ",
+          ]|random +[
+          "has finnished. ",
+          "has dried your clothes. ",
+          "has just stopped. ",
+          "is done. ",
+          ]|random +[
+          "Get them out while they are still warm.",
+          "Your clothes are now fluffy and warm.",
+          ]|random}}'
 
 - alias: Notify - Electricity is now off-peak
   trigger:
   - at: '23:00:00'
     platform: time
   action:
-    - service: notify.mobile_app_hayleys_iphone
-      data:
-        title: Cheaper electricity
-        message: The Electricity tarrif has changed to off-peak
-    - service: notify.mobile_app_seans_iphone
+    - service: notify.notify
       data:
         title: Cheaper electricity
         message: The Electricity tarrif has changed to off-peak
@@ -355,14 +378,26 @@
   - at: '13:00:00'
     platform: time
   action:
-    - service: notify.mobile_app_hayleys_iphone
+    - service: notify.notify
       data:
         title: Expensive electricity
         message: The Electricity tarrif has changed to peak
+
+- alias: Notify - The PC is off
+  initial_state: true
+  trigger:
+    - entity_id: binary_sensor.ping_pc
+      from: 'on'
+      platform: state
+      to: 'off'
+  action:
     - service: notify.mobile_app_seans_iphone
       data:
-        title: Expensive electricity
-        message: The Electricity tarrif has changed to peak
+        title: PC Alert!
+        message: The PC has just switched off
+        data:
+          push:
+            category: "pc"
         
 
 ##### Aircon Automations #####
@@ -540,8 +575,6 @@
             entity_id: 'device_tracker.hayley'
             state: 'not_home'
   action:
-    - service: light.turn_on
-      entity_id: light.front_yard
     - service: script.frontyardcam_record
     - service: notify.notify
       data:
@@ -557,7 +590,6 @@
 ##### Living room automations #####
 
 - alias: Dark in livingroom - Turn on lamp part 1
-  initial_state: true
   trigger:
     platform: numeric_state
     entity_id: sensor.living_room_brightness
@@ -567,7 +599,6 @@
       entity_id: input_boolean.lamp_lux
     service: input_boolean.turn_on
 - alias: Dark in livingroom - Turn on lamp part 2
-  initial_state: true
   trigger:
     - platform: state
       entity_id: input_boolean.lamp_lux
@@ -577,7 +608,6 @@
       entity_id: light.lamp
     service: light.turn_on
 - alias: Dark in livingroom - Turn on lamp part 3
-  initial_state: true
   trigger:
   - platform: time
     at: '12:00:00'
@@ -586,7 +616,6 @@
       entity_id: input_boolean.lamp_lux
     service: input_boolean.turn_off
 - alias: Bright in livingroom - Turn off lamp
-  initial_state: true
   trigger:
     platform: numeric_state
     entity_id: sensor.living_room_brightness
@@ -636,7 +665,6 @@
     service: light.turn_off
 
 - alias: Motion in living room - Turn lamp on
-  initial_state: true
   trigger:
   - entity_id: binary_sensor.living_room
     from: 'off'
@@ -660,7 +688,6 @@
 ##### Kitchen Automations #####
 
 - alias: No motion in kitchen for 5 min - Turn lights off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.kitchen
@@ -672,7 +699,6 @@
     service: light.turn_off
 
 - alias: Motion in kitchen - Turn lights on
-  initial_state: true
   trigger:
   - entity_id: binary_sensor.kitchen
     from: 'off'
@@ -693,7 +719,6 @@
 ##### Toilet Automations #####
 
 - alias: No motion in toilet for 10 min - Turn light off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.toilet
@@ -705,7 +730,6 @@
     service: light.turn_off
 
 - alias: Motion in toilet - Turn light on
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.toilet
@@ -725,7 +749,6 @@
 ##### Kids Bathroom Automations #####
 
 - alias: No motion in kids bathroom for 5 min - Turn light off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.kids_bathroom
@@ -740,7 +763,6 @@
     service: light.turn_off
 
 - alias: Motion in kids bathroom - Turn light on
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.kids_bathroom
@@ -763,7 +785,6 @@
 ##### Front Yard Automations #####
 
 - alias: No motion in front yard for 5 min - Turn light off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.front_yard
@@ -778,7 +799,6 @@
 ##### Hallway Automations #####
 
 - alias: No motion in hall for 5 min - Turn lights off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.downstairs_hall
@@ -796,7 +816,6 @@
     service: light.turn_off
 
 - alias: No motion on landing for 5 min - Turn lights off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.landing
@@ -811,10 +830,41 @@
     service: light.turn_off
 
 
+
+##### Laundry Room Automations #####
+
+- alias: No motion in laundry room for 5 min - Turn light off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.laundry_room
+    to: 'off'
+    for: 00:05:00
+  action:
+  - data:
+      entity_id: light.laundry_room
+    service: light.turn_off
+
+- alias: Motion in laundry room - Turn light on
+  trigger:
+    platform: state
+    entity_id: binary_sensor.laundry_room
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.laundry_room
+    state: 'off'
+    for:
+      seconds: 5
+  action:
+  - data:
+      entity_id: light.laundry_room
+    service: light.turn_on
+
+
+
 ##### Charlies room Automations #####
 
 - alias: No motion in Charlies room for 30 min - Turn light off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.charlies_room
@@ -829,7 +879,6 @@
 ##### Lias room Automations #####
 
 - alias: No motion in Lias room for 30 min - Turn light off
-  initial_state: true
   trigger:
     platform: state
     entity_id: binary_sensor.lias_room
@@ -844,11 +893,9 @@
 ### Bedroom Automations ###
 
 - alias: Turn on heated blanket at 12:15am
-  initial_state: true
   trigger:
   - at: '00:15:00'
     platform: time
-  condition: []
   action:
   - data:
       entity_id: switch.heated_blanket
@@ -1168,12 +1215,40 @@
       entity_id: utility_meter.home_energy_meter_monthly
       tariff: offpeak
   - service: script.offpeak_tariff_tts
-    
 
-### Random automations ###
 
-- id: bedtime_announcement
-  alias: Bedtime Announcement
+
+### ios Push Notification Actions ###
+
+- alias: Reboot PC Button
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: PC_REBOOT
+  action:
+    - entity_id: switch.computer_plug
+      service: switch.turn_off
+    - delay:
+        seconds: 5
+    - entity_id: switch.computer_plug
+      service: switch.turn_on
+
+
+
+### Alexa TTS Announcments ###
+
+- id: TTS-clear-cache
+  alias: Clear TTS Cache
+  initial_state: true
+  trigger:
+    platform: time
+    at: '2:35:00'
+  action:
+    service: tts.clear_cache
+
+- alias: Bedtime announcement
   trigger:
   - at: '21:00:00'
     platform: time
@@ -1187,15 +1262,6 @@
     - thu
   action:
   - service: script.bedtime_tts
-      
-- id: TTS-clear-cache
-  alias: Clear TTS Cache
-  initial_state: true
-  trigger:
-    platform: time
-    at: '2:35:00'
-  action:
-    service: tts.clear_cache
 
 - alias: Water Plant Reminder
   trigger:
@@ -1203,6 +1269,10 @@
     platform: time
   action:
   - service: script.water_plants_tts
+
+
+
+### Random automations ###
 
 - alias: Turn on TV using the Playstation controller
   initial_state: true
@@ -1248,12 +1318,125 @@
 
 
 
+### Fan Sync Automations ###
 
+- alias: Bedroom fan sync - low 1
+  trigger:
+    platform: mqtt
+    topic: "tele/sonoffrf/RESULT"
+  condition:
+    condition: template
+    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F3F3' }}"
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'Low'
+- alias: Bedroom fan sync - low 2
+  trigger:
+    platform: event
+    event_type: call_service
+    event_data:
+      domain: script
+      service: turn_on
+      service_data:
+        entity_id: script.bedroom_fan_low
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'Low'
 
+- alias: Bedroom fan sync - med 1
+  trigger:
+    platform: mqtt
+    topic: "tele/sonoffrf/RESULT"
+  condition:
+    condition: template
+    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F333' }}"
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'Medium'
+- alias: Bedroom fan sync - med 2
+  trigger:
+    platform: event
+    event_type: call_service
+    event_data:
+      domain: script
+      service: turn_on
+      service_data:
+        entity_id: script.bedroom_fan_medium
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'Medium'
 
+- alias: Bedroom fan sync - high 1
+  trigger:
+    platform: mqtt
+    topic: "tele/sonoffrf/RESULT"
+  condition:
+    condition: template
+    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F3CC' }}"
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'High'
+- alias: Bedroom fan sync - high 2
+  trigger:
+    platform: event
+    event_type: call_service
+    event_data:
+      domain: script
+      service: turn_on
+      service_data:
+        entity_id: script.bedroom_fan_high
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'High'
 
-
-
+- alias: Bedroom fan sync - off 1
+  trigger:
+    platform: mqtt
+    topic: "tele/sonoffrf/RESULT"
+  condition:
+    condition: template
+    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F330' }}"
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'False'
+- alias: Bedroom fan sync - off 2
+  trigger:
+    platform: event
+    event_type: call_service
+    event_data:
+      domain: script
+      service: turn_on
+      service_data:
+        entity_id: script.bedroom_fan_off
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'False'
+- alias: Bedroom fan sync - off 3
+  trigger:
+    - platform: state
+      entity_id: light.bedroom
+      to: 'off'
+  action:
+    service: input_select.select_option
+    data:
+      entity_id: input_select.bedroom_fan
+      option: 'False'
 
 
 

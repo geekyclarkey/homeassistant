@@ -52,7 +52,8 @@
 [Prototype Boards](https://www.banggood.com/custlink/GKvDBmLBqM)  
 [Plug In Screw Terminals](https://www.banggood.com/custlink/3vv3gvO475)  
 [12v Magnetic Door Lock](https://www.banggood.com/custlink/m3330mjbCr)  
-[50 RGB Common Cathode 4-Pin F5 5MM LEDs](https://www.banggood.com/custlink/vmDmksr3UO)
+[50 RGB Common Cathode 4-Pin F5 5MM LEDs](https://www.banggood.com/custlink/vmDmksr3UO)  
+[3/4" Male to Male Solenoid Water Valve](https://www.banggood.com/custlink/mGDmM2sWTu)  
 
 
 ## Smart Devices

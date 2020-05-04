@@ -57,6 +57,12 @@
     payload_off: "0"
     name: "Kids Bathroom"
     device_class: motion
+  - platform: mqtt
+    state_topic: "laundryroommultisensor/pir"
+    payload_on: "1"
+    payload_off: "0"
+    name: "Laundry Room"
+    device_class: motion
 
 
 ### 433 Motion Sensors ###

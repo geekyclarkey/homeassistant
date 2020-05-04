@@ -68,6 +68,11 @@
     state_topic: "tele/bedroommultisensor/SENSOR"
     value_template: "{{ (value_json['HTU21'].Temperature - 3.3)|float|round(2) }}"
     unit_of_measurement: '°C'
+  - platform: mqtt
+    name: "Laundry Room Temperature"
+    state_topic: "tele/laundryroommultisensor/SENSOR"
+    value_template: "{{ value_json['AM2301'].Temperature }}"
+    unit_of_measurement: '°C'
 
 
 ### Humidity Sensors ###
@@ -100,6 +105,12 @@
     name: "Bedroom Humidity"
     state_topic: "tele/bedroommultisensor/SENSOR"
     value_template: "{{ value_json['HTU21'].Humidity }}"
+    unit_of_measurement: '%'
+    icon: mdi:water-percent
+  - platform: mqtt
+    name: "Laundry Room Humidity"
+    state_topic: "tele/laundryroommultisensor/SENSOR"
+    value_template: "{{ value_json['AM2301'].Humidity }}"
     unit_of_measurement: '%'
     icon: mdi:water-percent
 
@@ -139,6 +150,12 @@
   - platform: mqtt
     name: "Kids Bathroom Brightness"
     state_topic: "tele/kidsbathroomsensor/SENSOR"
+    value_template: "{{ value_json['ANALOG'].Illuminance }}"
+    unit_of_measurement: 'lx'
+    icon: mdi:brightness-5
+  - platform: mqtt
+    name: "Laundry Room Brightness"
+    state_topic: "tele/laundryroommultisensor/SENSOR"
     value_template: "{{ value_json['ANALOG'].Illuminance }}"
     unit_of_measurement: 'lx'
     icon: mdi:brightness-5
@@ -223,6 +240,21 @@
   - platform: mqtt
     name: "Washing Machine Energy Today"
     state_topic: "tele/washingmachine/SENSOR"
+    value_template: "{{ value_json.ENERGY.Today }}"
+    unit_of_measurement: 'Kwh'
+  - platform: mqtt
+    name: "Dishwasher Power"
+    state_topic: "tele/dishwasherplug/SENSOR"
+    value_template: "{{ value_json.ENERGY.Power }}"
+    unit_of_measurement: 'Watts'
+  - platform: mqtt
+    name: "Dishwasher Current"
+    state_topic: "tele/dishwasherplug/SENSOR"
+    value_template: "{{ value_json.ENERGY.Current }}"
+    unit_of_measurement: 'Amps'
+  - platform: mqtt
+    name: "Dishwasher Energy Today"
+    state_topic: "tele/dishwasherplug/SENSOR"
     value_template: "{{ value_json.ENERGY.Today }}"
     unit_of_measurement: 'Kwh'
 
@@ -381,7 +413,7 @@
         value_template: >-
           {% if is_state('switch.washing_machine_plug', 'off') %}
             Off
-          {% elif states('sensor.washing_machine_power')|float > 80 %}
+          {% elif states('sensor.washing_machine_power')|float > 120 %}
             Washing
           {% else %}
             Idle
@@ -407,6 +439,18 @@
             Off
           {% elif states('sensor.boiler_power')|float > 50 %}
             Heating
+          {% else %}
+            Idle
+          {% endif %}
+  - platform: template
+    sensors:
+      dishwasher_state:
+        friendly_name: "Dishwasher State"
+        value_template: >-
+          {% if is_state('switch.dishwasher_plug', 'off') %}
+            Off
+          {% elif states('sensor.dishwasher_power')|float > 120 %}
+            Cleaning
           {% else %}
             Idle
           {% endif %}

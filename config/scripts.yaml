@@ -915,7 +915,7 @@ bedtime_tts:
           "Get ready and give us a kiss.",
           "Have a wash and brush your teeth.",
           "Wash your Hands Bums and teeth.",
-          "Washy washy, teethy brushy, kissy kissy",
+          "You know what to do!.",
           "Get sorted, and remember, we love you!",
           ]|random}}'
 
@@ -936,16 +936,16 @@ peak_tariff_tts:
 
           "The electricity is now more expensive.",
           "The electricity tariff has changed to peak.",
-          "Bear in mind, energy costs more, starting now!.",
+          "Bear in mind, energy costs more. Starting, Now!.",
           ]|random}}'
 
 offpeak_tariff_tts:
   sequence:
     - service: notify.alexa_media
       data:
-        target: media_player.downstairs
+        target: media_player.living_room_echo_dot
         data:
-          type: announce
+          type: tts
         message: '{{
           [
           "Clarkes!... ",
@@ -954,9 +954,9 @@ offpeak_tariff_tts:
           "Hay peeps!... ",
           ]|random +[
 
-          "The electricity is cheap again!!",
+          "The electricity is cheap again!! Whoop! Whoop!",
           "The electricity tariff has changed to off peak.",
-          "Energy costs less, starting now!.",
+          "Energy costs less. Starting, Now!.",
           ]|random}}'
 
 

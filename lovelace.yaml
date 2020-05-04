@@ -121,6 +121,9 @@ views:
                   - entity: binary_sensor.downstairs_hall
                     name: Hall
                     state_color: true
+                  - entity: binary_sensor.laundry_room
+                    name: Laundry Room
+                    state_color: true
                   - entity: binary_sensor.toilet
                     name: Toilet
                     state_color: true
@@ -181,6 +184,9 @@ views:
                   - entity: sensor.kitchen_brightness
                     icon: 'mdi:fridge'
                     name: Kitchen
+                  - entity: sensor.laundry_room_brightness
+                    icon: 'mdi:washing-machine'
+                    name: Laundry Room
                   - type: divider
                   - entity: sensor.bedroom_brightness
                     icon: 'mdi:hotel'
@@ -334,6 +340,32 @@ views:
           fill: true
           labels: false
         type: 'custom:mini-graph-card'
+      - cards:
+          - entity: sensor.dishwasher_state
+            name: The dishwasher is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 600
+              - color: '#7cfc00'
+                value: 300
+              - color: '#0000ff'
+                value: 50
+            entities:
+              - entity: sensor.dishwasher_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 15
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
       - entity: media_player.kitchen_echo_dot
         type: media-control
     icon: 'mdi:fridge'
@@ -577,6 +609,140 @@ views:
       - user: c7ab05691bfb4e6ebd3ef09d36e51061
       - user: b8d79ae488264bd386759fd2126bd213
       - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Laundry Room
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control the light and get information from the laundry room.
+                  From  this tab you can see things like, Dendor data from the
+                  washing machine and tunble dryer. Also temperature and
+                  humidity levels.  Check it out!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.laundry_room
+                    name: laundry Room Motion Sensor
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.laundry_room
+        show_header_toggle: false
+        title: Lights
+        type: entities
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 25
+          - color: '#1db954'
+            value: 20
+          - color: '#3498db'
+            value: 15
+        entities:
+          - sensor.laundry_room_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#e74c3c'
+            value: 65
+          - color: '#1db954'
+            value: 40
+          - color: '#3498db'
+            value: 0
+        entities:
+          - sensor.laundry_room_humidity
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - color_thresholds:
+          - color: '#01a2ff'
+            value: 12
+          - color: '#ff9501'
+            value: 0
+        entities:
+          - sensor.laundry_room_brightness
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 5
+        show:
+          extrema: false
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
+      - cards:
+          - entity: sensor.washing_machine_state
+            name: The washing machine is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 600
+              - color: '#7cfc00'
+                value: 300
+              - color: '#0000ff'
+                value: 50
+            entities:
+              - entity: sensor.washing_machine_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 15
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
+      - cards:
+          - entity: sensor.tumble_dryer_state
+            name: The tumble dryer is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 600
+              - color: '#7cfc00'
+                value: 300
+              - color: '#0000ff'
+                value: 50
+            entities:
+              - entity: sensor.tumble_dryer_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 2
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
+    icon: 'mdi:washing-machine'
+    path: laundry-room
+    title: Laundry Room
   - badges: []
     cards:
       - entities:
@@ -918,6 +1084,43 @@ views:
         type: media-control
       - entity: climate.charlies_aircon
         type: thermostat
+      - entities:
+          - text: Celing Fan
+            type: 'custom:text-divider-row'
+          - cards:
+              - default_dismiss: false
+                default_open: false
+                icon: 'mdi:fan'
+                items:
+                  - entity: switch.charlies_fan_medium
+                    haptic: true
+                    icon: 'mdi:alpha-m-circle'
+                    tap_action:
+                      action: toggle
+                  - entity: switch.charlies_fan_high
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:alpha-h-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: switch.charlies_fan_stop
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:power'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: switch.charlies_fan_low
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:alpha-l-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                type: 'custom:radial-menu'
+            type: 'custom:vertical-stack-in-card'
+        type: entities
       - entity: media_player.charlies_echo_dot
         type: media-control
     icon: 'mdi:alpha-c-circle'
@@ -925,6 +1128,60 @@ views:
     title: Charlies Room
     visible:
       - user: 6efd4f3bc6e54d93baac065c5e50c929
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
+      - user: b8d79ae488264bd386759fd2126bd213
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+  - badges: []
+    cards:
+      - entities:
+          - text: Stairs / Hallways
+            type: 'custom:text-divider-row'
+          - cards:
+              - content: >-
+                  Control lights and get information from the hallways. From
+                  this tab you can do things like, check out the cameras or turn
+                  on stairs light.  Check it out!
+                type: markdown
+              - entities:
+                  - entity: binary_sensor.downstairs_hall
+                    name: Downstairs Hall Motion Sensor
+                    state_color: true
+                  - entity: binary_sensor.landing
+                    name: Landing Motion Sensor
+                    state_color: true
+                  - entity: binary_sensor.front_door
+                    name: Front Door Sensor
+                    state_color: true
+                  - entity: binary_sensor.garage_stairs_door
+                    name: Garage Stairs Door Sensor
+                    state_color: true
+                type: entities
+            type: 'custom:vertical-stack-in-card'
+        type: entities
+      - entities:
+          - entity: light.hall_1
+          - entity: light.hall_2
+          - entity: light.stairs
+          - entity: light.landing
+          - entity: light.garage_stairs
+        title: Lights
+        type: entities
+      - aspect_ratio: 75%
+        camera_image: camera.hall_camera
+        entities:
+          - entity: switch.momentary_hallcam_snapshot
+          - entity: switch.momentary_hallcam_record
+        title: Hall Camera
+        type: picture-glance
+      - aspect_ratio: 75%
+        camera_image: camera.hallcam
+        entities: []
+        title: Hall Camera
+        type: picture-glance
+    icon: 'mdi:stairs'
+    path: stairs
+    title: Halls
+    visible:
       - user: c7ab05691bfb4e6ebd3ef09d36e51061
       - user: b8d79ae488264bd386759fd2126bd213
       - user: 129ac4fd676d4ce8a964d58173d73d97
@@ -1090,55 +1347,6 @@ views:
   - badges: []
     cards:
       - entities:
-          - text: Stairs / Hallways
-            type: 'custom:text-divider-row'
-          - cards:
-              - content: >-
-                  Control lights and get information from the hallways. From
-                  this tab you can do things like, check out the cameras or turn
-                  on stairs light.  Check it out!
-                type: markdown
-              - entities:
-                  - entity: binary_sensor.downstairs_hall
-                    name: Downstairs Hall Motion Sensor
-                    state_color: true
-                  - entity: binary_sensor.landing
-                    name: Landing Motion Sensor
-                    state_color: true
-                  - entity: binary_sensor.front_door
-                    name: Front Door Sensor
-                    state_color: true
-                  - entity: binary_sensor.garage_stairs_door
-                    name: Garage Stairs Door Sensor
-                    state_color: true
-                type: entities
-            type: 'custom:vertical-stack-in-card'
-        type: entities
-      - entities:
-          - entity: light.hall_1
-          - entity: light.hall_2
-          - entity: light.stairs
-          - entity: light.landing
-          - entity: light.garage_stairs
-        title: Lights
-        type: entities
-      - aspect_ratio: 75%
-        camera_image: camera.hall_camera
-        entities:
-          - entity: switch.momentary_hallcam_snapshot
-          - entity: switch.momentary_hallcam_record
-        title: Hall Camera
-        type: picture-glance
-    icon: 'mdi:stairs'
-    path: stairs
-    title: Halls
-    visible:
-      - user: c7ab05691bfb4e6ebd3ef09d36e51061
-      - user: b8d79ae488264bd386759fd2126bd213
-      - user: 129ac4fd676d4ce8a964d58173d73d97
-  - badges: []
-    cards:
-      - entities:
           - text: CCTV Cameras
             type: 'custom:text-divider-row'
           - cards:
@@ -1188,6 +1396,11 @@ views:
           - entity: switch.momentary_workbenchcam_snapshot
           - entity: switch.momentary_workbenchcam_record
         title: Workbench Camera
+        type: picture-glance
+      - aspect_ratio: 75%
+        camera_image: camera.hallcam
+        entities: []
+        title: Hall Camera
         type: picture-glance
     icon: 'mdi:cctv'
     path: cctv
@@ -1268,6 +1481,9 @@ views:
           - type: divider
           - entity: automation.motion_in_toilet_turn_light_on
           - entity: automation.no_motion_in_toilet_for_10_min_turn_light_off
+          - type: divider
+          - entity: automation.motion_in_laundry_room_turn_light_on
+          - entity: automation.no_motion_in_laundry_room_for_5_min_turn_light_off
           - type: divider
           - entity: automation.no_motion_in_hall_for_5_min_turn_lights_off
           - entity: automation.no_motion_on_landing_for_5_min_turn_lights_off
@@ -1598,6 +1814,32 @@ views:
               labels: false
             type: 'custom:mini-graph-card'
         type: 'custom:vertical-stack-in-card'
+      - cards:
+          - entity: sensor.dishwasher_state
+            name: The dishwasher is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 600
+              - color: '#7cfc00'
+                value: 300
+              - color: '#0000ff'
+                value: 50
+            entities:
+              - entity: sensor.dishwasher_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 15
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
       - entities:
           - text: Cost & Usages
             type: 'custom:text-divider-row'
@@ -1626,7 +1868,7 @@ views:
                       color: '#d5dee6'
                       font-size: 1.3em
                       text-shadow: 1px 1px black
-                    max: 22
+                    max: 24
                     name: Today
                     show_card: true
                     stroke_color: '#d5dee6'
@@ -1665,6 +1907,7 @@ views:
                     height: 80px
                     icon: 'mdi:alpha-w-box'
                     max: 1
+                    name: Yesterday
                     positions:
                       icon: 'off'
                       indicator: 'off'
@@ -1675,7 +1918,7 @@ views:
                         from: 0
                         to: 2000
                     type: 'custom:bar-card'
-                    width: 120px
+                    width: 110px
                   - direction: up
                     entities:
                       - entity: sensor.last_weeks_energy
@@ -1683,6 +1926,7 @@ views:
                     height: 80px
                     icon: 'mdi:alpha-w-box'
                     max: 1
+                    name: Last Week
                     positions:
                       icon: 'off'
                       indicator: 'off'
@@ -1693,7 +1937,7 @@ views:
                         from: 0
                         to: 2000
                     type: 'custom:bar-card'
-                    width: 120px
+                    width: 110px
                   - direction: up
                     entities:
                       - entity: sensor.last_months_energy
@@ -1701,6 +1945,7 @@ views:
                     height: 80px
                     icon: 'mdi:alpha-m-box'
                     max: 1
+                    name: Last Month
                     positions:
                       icon: 'off'
                       indicator: 'off'
@@ -1711,7 +1956,7 @@ views:
                         from: 0
                         to: 2000
                     type: 'custom:bar-card'
-                    width: 120px
+                    width: 110px
                 type: horizontal-stack
             type: 'custom:vertical-stack-in-card'
         type: entities
@@ -2466,6 +2711,10 @@ views:
               labels: false
             type: 'custom:mini-graph-card'
         type: 'custom:vertical-stack-in-card'
+      - type: entities
+        title: My Title
+        entities:
+          - entity: input_select.bedroom_fan
     path: test
     title: Test
     visible:
