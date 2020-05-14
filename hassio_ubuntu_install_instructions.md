@@ -83,3 +83,21 @@ Then run this command:
 
 ### if open ssh is not installed and enabled from ubuntu install. Do so by typing:
 `sudo apt-get install openssh-server`
+
+
+
+##Test##
+{% set kwh_amount = {
+  "01": 33.35,
+  "02": 10.98,
+} %}
+
+{% set variables = {
+  "peak_kwh_price": 33.35,
+  "offpeak_kwh_price": 10.98,
+} %}
+
+Your bill with energy nordic would have been (estimated)...
+
+{{ ((((((variables.peak_kwh_price|float)+(variables.offpeak_kwh_price|float)+16)/100*5.11)+(variables.peak_kwh_price|float)+(variables.offpeak_kwh_price|float)+16+0.74)/100*21)+((((variables.peak_kwh_price|float)+(variables.offpeak_kwh_price|float)+16)/100*5.11)+(variables.peak_kwh_price|float)+(variables.offpeak_kwh_price|float)+16+0.74))|round(2) }}€
+
