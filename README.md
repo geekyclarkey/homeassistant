@@ -47,7 +47,7 @@ Using them in Homeassistant and day to day life. If you are looking for a specif
 [Click Here to access the list](approved_components.md)  
 
 ## Port forwarding in routers I have used
-[Click Here](port_forwarding_in_routers/) For port forwarding examples
+[Click Here](port_forwarding_in_routers/) For port forwarding examples.
 
 ## Acknowledgements
 I would like to thank the following people for providing videos, help and tips regarding Homeassistant.  
