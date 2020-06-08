@@ -1,11 +1,11 @@
 
-# Esp8266 & Esp32 pinout information  
+# ESP8266 & ESP32 Pinout Information  
 
-## Esp8266  
+## ESP8266  
 
 ### The ESP8266 12-E chip pinout.
 Use this diagram if you’re using an ESP8266 bare chip in your projects.  
-* Note: not all GPIOs are accessible in all development boards, but each specific GPIO works in the same way regardless of the development board you’re using. If you’re just getting started with the ESP8266  
+*Note: not all GPIOs are accessible in all development boards, but each specific GPIO works in the same way regardless of the development board you’re using. If you’re just getting started with the   ESP8266*   
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-ESP-12E-chip-pinout-gpio-pin.png" width="600px">
 
 ### ESP8266-01 Pinout  
@@ -14,7 +14,7 @@ If you’re using an ESP8266-01 board, you can use the following GPIO diagram as
 
 ### ESP8266 NodeMCU  
 The ESP8266 12-E NodeMCU kit pinout diagram is shown below.  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-NodeMCU-kit-12-E-pinout-gpio-pin.png" width="500px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-NodeMCU-kit-12-E-pinout-gpio-pin.png" width="600px">
 
 ### Wemos D1 Mini Pinout  
 The following figure shows the WeMos D1 Mini pinout.  
@@ -22,17 +22,17 @@ The following figure shows the WeMos D1 Mini pinout.
 
 ### ESP8266 Peripherals  
 The ESP8266 peripherals include:  
-17 GPIOs  
-SPI  
-I2C (implemented on software)  
-I2S interfaces with DMA  
-UART  
-10-bit ADC  
+* 17 GPIOs  
+* SPI  
+* I2C (implemented on software)  
+* I2S interfaces with DMA  
+* UART  
+* 10-bit ADC  
 
 ### Best Pins to Use – ESP8266  
 One important thing to notice about ESP8266 is that the GPIO number doesn’t match the label on the board silkscreen. For example, D0 corresponds to GPIO16 and D1 corresponds to GPIO5.   
 The following table shows the correspondence between the labels on the silkscreen and the GPIO number as well as what pins are the best to use in your projects, and which ones you need to be cautious.    
-The pins highlighted in green are OK to use. The ones highlighted in yellow are OK to use, but you need to pay attention because they may have unexpected behavior mainly at boot.    
+The pins highlighted in green are OK to use. The ones highlighted in yellow are OK to use, but you need to pay attention because they may have unexpected behaviour mainly at boot.    
 The pins highlighted in red are not recommended to use as inputs or outputs.    
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-gpio-pinout.png" width="700px">
 
@@ -55,8 +55,9 @@ There are certain pins that output a 3.3V signal when the ESP8266 boots. This ma
 * GPIO16  
 * GPIO3  
 * GPIO1  
-GPIO10  
-GPIO9  
+* GPIO10  
+* GPIO9   
+
 Additionally, the other GPIOs, except GPIO5 and GPIO4, can output a low-voltage signal at boot, which can be problematic if these are connected to transistors or relays.    
 GPIO4 and GPIO5 are the most safe to use GPIOs if you want to operate relays.  
 
@@ -80,15 +81,15 @@ GPIO16 can be used to wake up the ESP8266 from deep sleep. To wake up the ESP826
 
 ### I2C
 The ESP8266 doens’t have hardware I2C pins, but it can be implemented in software. So you can use any GPIOs as I2C. Usually, the following GPIOs are used as I2C pins:  
-GPIO5: SCL  
-GPIO4: SDA    
+* GPIO5: SCL  
+* GPIO4: SDA    
 
 ### SPI
 The pins used as SPI in the ESP8266 are:  
-GPIO12: MISO  
-GPIO13: MOSI  
-GPIO14: SCLK  
-GPIO15: CS    
+* GPIO12: MISO  
+* GPIO13: MOSI  
+* GPIO14: SCLK  
+* GPIO15: CS    
 
 ### PWM Pins
 ESP8266 allows software PWM in all I/O pins: GPIO0 to GPIO16. PWM signals on ESP8266 have 10-bit resolution.  
