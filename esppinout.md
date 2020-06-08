@@ -3,12 +3,14 @@
 
 ## Esp8266  
 
-### The ESP8266 12-E chip pinout. 
+### The ESP8266 12-E chip pinout.
 Use this diagram if you’re using an ESP8266 bare chip in your projects.  
 * Note: not all GPIOs are accessible in all development boards, but each specific GPIO works in the same way regardless of the development board you’re using. If you’re just getting started with the ESP8266  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-ESP-12E-chip-pinout-gpio-pin.png" width="200px">
 
 ### ESP8266-01 Pinout  
 If you’re using an ESP8266-01 board, you can use the following GPIO diagram as a reference.  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP-01-ESP8266-pinout-gpio-pin.png" width="200px">
 
 ### ESP8266 NodeMCU  
 The ESP8266 12-E NodeMCU kit pinout diagram is shown below.  
@@ -67,7 +69,7 @@ The LED is connected to a pull-down resistor, so when you send a HIGH signal the
 ### RST Pin  
 When the RST pin is pulled LOW, the ESP8266 resets. This is the same as pressing the on-board RESET button.    
 
-### GPIO0 
+### GPIO0
 When GPIO0 is pulled LOW, it sets the ESP8266 into bootloader mode. This is the same as pressing the on-board FLASH/BOOT button.   
 
 ### GPIO16  
@@ -103,7 +105,3 @@ The ESP8266 supports interrupts in any GPIO, except GPIO16.
 I did not create or write the information above.  
 I fount this information from [This website](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/)  
 I only copied it and added it to my github page so i can access it again in the future or incase the source site/post gets removed.  
-
-
-
-
