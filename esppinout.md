@@ -36,20 +36,20 @@ GPIO6 to GPIO11 are usually connected to the flash chip in ESP8266 boards. So, t
 
 ### Pins used during Boot  
 The ESP8266 can be prevented from booting if some pins are pulled LOW or HIGH. The following list shows the state of the following pins on BOOT:  
-GPIO16: pin is high at BOOT  
-GPIO0: boot failure if pulled LOW  
-GPIO2: pin is high on BOOT, boot failure if pulled LOW  
-GPIO15: boot failure if pulled HIGH  
-GPIO3: pin is high at BOOT  
-GPIO1: pin is high at BOOT, boot failure if pulled LOW  
-GPIO10: pin is high at BOOT  
-GPIO9: pin is high at BOOT  
+* GPIO16: pin is high at BOOT  
+* GPIO0: boot failure if pulled LOW  
+* GPIO2: pin is high on BOOT, boot failure if pulled LOW  
+* GPIO15: boot failure if pulled HIGH  
+* GPIO3: pin is high at BOOT  
+* GPIO1: pin is high at BOOT, boot failure if pulled LOW  
+* GPIO10: pin is high at BOOT  
+* GPIO9: pin is high at BOOT  
 
 ### Pins HIGH at Boot  
 There are certain pins that output a 3.3V signal when the ESP8266 boots. This may be problematic if you have relays or other peripherals connected to those GPIOs. The following GPIOs output a HIGH signal on boot:  
-GPIO16  
-GPIO3  
-GPIO1  
+* GPIO16  
+* GPIO3  
+* GPIO1  
 GPIO10  
 GPIO9  
 Additionally, the other GPIOs, except GPIO5 and GPIO4, can output a low-voltage signal at boot, which can be problematic if these are connected to transistors or relays.    
