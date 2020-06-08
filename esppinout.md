@@ -6,17 +6,19 @@
 ### The ESP8266 12-E chip pinout.
 Use this diagram if you’re using an ESP8266 bare chip in your projects.  
 * Note: not all GPIOs are accessible in all development boards, but each specific GPIO works in the same way regardless of the development board you’re using. If you’re just getting started with the ESP8266  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-ESP-12E-chip-pinout-gpio-pin.png" width="400px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-ESP-12E-chip-pinout-gpio-pin.png" width="500px">
 
 ### ESP8266-01 Pinout  
 If you’re using an ESP8266-01 board, you can use the following GPIO diagram as a reference.  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP-01-ESP8266-pinout-gpio-pin.png" width="400px">
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP-01-ESP8266-pinout-gpio-pin.png" width="500px">
 
 ### ESP8266 NodeMCU  
 The ESP8266 12-E NodeMCU kit pinout diagram is shown below.  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-NodeMCU-kit-12-E-pinout-gpio-pin.png" width="500px">
 
 ### Wemos D1 Mini Pinout  
 The following figure shows the WeMos D1 Mini pinout.  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-WeMos-D1-Mini-pinout-gpio-pin.png" width="500px">
 
 ### ESP8266 Peripherals  
 The ESP8266 peripherals include:  
@@ -32,6 +34,7 @@ One important thing to notice about ESP8266 is that the GPIO number doesn’t ma
 The following table shows the correspondence between the labels on the silkscreen and the GPIO number as well as what pins are the best to use in your projects, and which ones you need to be cautious.    
 The pins highlighted in green are OK to use. The ones highlighted in yellow are OK to use, but you need to pay attention because they may have unexpected behavior mainly at boot.    
 The pins highlighted in red are not recommended to use as inputs or outputs.    
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP8266-gpio-pinout.png" width="500px">
 
 ### GPIOs connected to the Flash Chip  
 GPIO6 to GPIO11 are usually connected to the flash chip in ESP8266 boards. So, these pins are not recommended to use.    
