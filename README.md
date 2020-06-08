@@ -38,6 +38,10 @@ Including step by step instruction how i accomplished the end result.
 [Christmas Tree Lights In Homeassistant](hass_projects/homeassistant_christmas_tree_lights/README.md)  
 [Garage Door Module](hass_projects/garage_door_module/README.md)  
 
+## Esp8266 & Esp32 Pinout
+A detailed writeup about the esp pinouts and all features.  
+[Here](esppinout.md)   
+
 ## CCTV Camera URLs
 [Here](cameras.md) is a list of IP cameras stream and still image URLs that i have managed to get working in Homeasistant.  
 
