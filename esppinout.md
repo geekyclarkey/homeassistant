@@ -105,7 +105,7 @@ The ESP8266 supports interrupts in any GPIO, except GPIO16.
 
 ### The ESP32 bare chip pinout.  
 The figure below illustrates the ESP-WROOM-32 pinout.  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/esp32-pinout-chip-ESP-WROOM-32.png" width="700px">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/esp32-pinout-chip-ESP-WROOM-32.png" width="900px">   
 *Note: not all GPIOs are accessible in all development boards, but each specific GPIO works in the same way regardless of the development board you’re using.*    
 
 ### ESP32 Peripherals  
@@ -121,7 +121,7 @@ The ESP32 peripherals include:
 
 The ADC (analog to digital converter) and DAC (digital to analog converter) features are assigned to specific static pins. However, you can decide which pins are UART, I2C, SPI, PWM, etc – you just need to assign them in the code. This is possible due to the ESP32 chip’s multiplexing feature.    
 Although you can define the pins properties on the software, there are pins assigned by default as shown in the following figure (this is an example for the ESP32 DEVKIT V1 DOIT board with 36 pins – the pin location can change depending on the manufacturer).   
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs-updated.jpg" width="700px">    
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP32-DOIT-DEVKIT-V1-Board-Pinout-36-GPIOs-updated.jpg" width="800px">    
 
 Additionally, there are pins with specific features that make them suitable or not for a specific project. The following table shows what pins are best to use as inputs, outputs and which ones you need to be cautious.   
 The pins highlighted in green are OK to use. The ones highlighted in yellow are OK to use, but you need to pay attention because they may have unexpected behavior mainly at boot. The pins highlighted in red are not recommended to use as inputs or outputs.  
