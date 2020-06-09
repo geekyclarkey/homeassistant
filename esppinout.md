@@ -224,7 +224,7 @@ The ESP32 has two I2C channels and any pin can be set as SDA or SCL. When using 
 ### SPI
 By default, the pin mapping for SPI is:   
 | SPI     | MOSI    | MISO    | CLK     | CS     |  
-|:---     |:----:   | :----:  | :----:  |   ---: |
+|:---     | :----:  | :----:  | :----:  |   ---: |
 |**VSPI** |	GPIO 23	| GPIO 19	| GPIO 18	| GPIO 5 |
 |**HSPI** |	GPIO 13	| GPIO 12	| GPIO 14	| GPIO 15|
 
@@ -264,5 +264,6 @@ The ESP32 also features a built-in hall effect sensor that detects changes in th
 
 # Disclaimer
 I did not create information above.  
-I fount this information on [Random Nerd Tutorials](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/)  
-I only copied it and added it to my github page so i can access it again in the future or incase the source site/post gets removed.  
+I found this information on [Here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/) and [Here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/)  
+I added it to my github page so i can access it again in the future or incase the source site/post gets removed.  
+All credit for the information has to go to [Random Nerd Tutorials](https://randomnerdtutorials.com/)
