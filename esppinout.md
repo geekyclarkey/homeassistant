@@ -125,7 +125,7 @@ Although you can define the pins properties on the software, there are pins assi
 
 Additionally, there are pins with specific features that make them suitable or not for a specific project. The following table shows what pins are best to use as inputs, outputs and which ones you need to be cautious.   
 The pins highlighted in green are OK to use. The ones highlighted in yellow are OK to use, but you need to pay attention because they may have unexpected behavior mainly at boot. The pins highlighted in red are not recommended to use as inputs or outputs.  
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP32-gpio-pinout.PNG" width="600px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/images/esp_pinout_images/ESP32-gpio-pinout.PNG" width="700px">  
 
 ### Input only pins
 GPIOs 34 to 39 are GPIs – input only pins. These pins don’t have internal pull-ups or pull-down resistors. They can’t be used as outputs, so use these pins only as inputs:  
