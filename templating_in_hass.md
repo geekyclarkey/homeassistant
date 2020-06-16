@@ -2,7 +2,7 @@
 # Templating in Homeassistant
 
 Here are some examples I use in my Homeassistant automations, configurations and scripts.  
-I have put them all here with detailed comments about how they work to reming myself of what they do and how they work.  
+I have put them all here with detailed comments about how they work to remind myself of what they do and how they work.  
 If anyone else finds this information useful i am glad to be of service.  
 
 
