@@ -1,7 +1,7 @@
 
 # Templating in Homeassistant
 
-Here are some examples I have come across and used in my Homeassistant automations, configurations and scripts.  
+Here are some examples I use in my Homeassistant automations, configurations and scripts.  
 I have put them all here with detailed comments about how they work to reming myself of what they do and how they work.  
 If anyone else finds this information useful i am glad to be of service.  
 
@@ -62,3 +62,6 @@ As the state of `sensor.offpeak_max_price` goes higher than the state of `input_
           Idle
         {% endif %}
 ```
+
+### Homeassistant docs
+More examples and information can be found in the [Homeassistant docs](https://www.home-assistant.io/docs/configuration/templating/)  
