@@ -43,7 +43,7 @@ A detailed writeup about the ESP chip pinouts, all features and useful informati
 [Click here](esppinout.md) to check it out   
 
 ## Templating in Homeassistant
-Examples and information on using templates in Homeassistant 
+Examples and information on using templates in Homeassistant  
 [Click here](templating_in_hass.md) to check it out   
 
 ## CCTV Camera URLs
