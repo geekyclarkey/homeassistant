@@ -223,10 +223,10 @@ The ESP32 has two I2C channels and any pin can be set as SDA or SCL. When using 
 
 ### SPI
 By default, the pin mapping for SPI is:   
-| SPI     | MOSI    | MISO    | CLK     | CS     |  
-|:---     |:----:   | :----:  | :----:  |   ---: |
-|**VSPI** |	GPIO 23	| GPIO 19	| GPIO 18	| GPIO 5 |
-|**HSPI** |	GPIO 13	| GPIO 12	| GPIO 14	| GPIO 15|
+| SPI | MOSI    | MISO    | CLK     |   CS   |  
+|:--- |:----:   | :----:  | :----:  |   ---: |
+|VSPI |	GPIO 23	| GPIO 19	| GPIO 18	| GPIO 5 |
+|HSPI |	GPIO 13	| GPIO 12	| GPIO 14	| GPIO 15|
 
 ### Interrupts
 All GPIOs can be configured as interrupts.  
