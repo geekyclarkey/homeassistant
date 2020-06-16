@@ -61,12 +61,12 @@ The `if` statement calculates the value using the peak or offpeak price accordin
           {% endif %}
       unit_of_measurement: '€'
 ```
-- `(states.sensor.shelly_em_power.state|float)/1000*(states.input_number.peak_price.state|float)` This takes the current state of the shelly em (the amount of watts currently being used)   
+`(states.sensor.shelly_em_power.state|float)/1000*(states.input_number.peak_price.state|float)` This takes the current state of the shelly em (the amount of watts currently being used)   
 divides that by 1000 to get 1 kwh and multiplies that by the price per kwh.   
-- `+0.022)/100*5.11` adds on the handling fee (0.022€)and divides the whole amount by 100 and multiplies it by 5.11 to get 5.11% of the value witch is a government fee.   
-- Next it calculates the same value again and divides it by 100 and multiplies it by 21 to get 21% tax of the value `/100*21`        
-- Lastly it calculates the whole amount again and adds it to the 21% taxed amount.    
-- `|round(2)` rounds the final amount p to 2 decimal places.   
+`+0.022)/100*5.11` adds on the handling fee (0.022€)and divides the whole amount by 100 and multiplies it by 5.11 to get 5.11% of the value witch is a government fee.   
+Next it calculates the same value again and divides it by 100 and multiplies it by 21 to get 21% tax of the value `/100*21`        
+Lastly it calculates the whole amount again and adds it to the 21% taxed amount.    
+`|round(2)` rounds the final amount p to 2 decimal places.   
 *The brackets are important and the template will break if they are not used correctly. Bear that in mind if you adapt this template*  
 **I'm not sure i have explained that well but i'm sure with the template above you can work out what's going on.**  
 
