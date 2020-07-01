@@ -22,6 +22,16 @@ The `|timestamp_custom('%d', true) == '01'` will return the current day of the m
 **I think! Im not too sure i understand this one properly, but thats how i have interoperated it.**  
 
 
+### The user who did the action
+This i use for a notification automation, i use it to tell me which homeassistant user switched enabled and disabled the house alarm.  
+```
+{% for person in states.person %}
+{{ person.name + ' has enabled the house alarm' if person.attributes.user_id == states.input_boolean.alarm_enabled.context.user_id }}
+{% endfor %}
+```
+To use this for yourself you need to make sure the `person` is set up in homeassistant (not just a user) and change the `input_boolean.alarm_enabled` to the entity you want to use.   
+
+
 ### Using UTC Time
 This will return true at 1pm UTC  
 `{{ (utcnow().hour|int==15) }}`  
