@@ -13,6 +13,28 @@ The switchretain should always be off, the buttonretain is on then off again to 
 * `switchmode3 0` This makes momentary switchmode a toggle switch not on/off so it toggles the state no matter what home assistant is set to
 
 
+## Long press function in tasmota
+Using a button/momentary switch you can make use of the long press function in tasmota to execute an automation. To do so, in the tasmota console type the following:  
+`switchmode1 6` or `switchmode1 5` Depending on if you want the relay to activate when you press the button or release it.  
+Next type `setoption32 10` This enables long press and sets the trigger time to 1 whole second.  
+Now you need rules, here is a rule for a single relay device:  
+`rule1 on switch#state=2 do power toggle endon on switch#state=3 do publish stat/bedroom/POWER HOLD endon` The first section keeps the normal functionality of the relay, press and release the relay toggles. the 2nd part publishes an MQTT message when the button/momentary switch is held down.  
+Here is a rule for a dual relay device:  
+`rule1 on switch1#state=2 do power1 toggle endon on switch2#state=2 do power2 toggle endon on switch1#state=3 do publish stat/livingroom/POWER1 HOLD endon on switch2#state=3 do publish stat/livingroom/POWER2 HOLD endon` I keep the publish topic the same as my devices mqtt topic and just create a payload of HOLD.  
+Now in homeassistant you can create an automation that does something when you hold down the button/momentary switch:  
+```
+alias: Living room light long press - Toggle lamp
+initial_state: true
+trigger:
+  platform: mqtt
+  topic: stat/livingroom/POWER1
+  payload: "HOLD"
+  encoding: "utf-8"
+action:
+  - entity_id: light.lamp
+    service: light.toggle
+```
+
 
 ## Sonoff RF Rule:
 Change the RF codes in the rule to suit your devices:
