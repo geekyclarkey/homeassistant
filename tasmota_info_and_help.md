@@ -40,10 +40,33 @@ action:
 ```
 
 
-## Sonoff RF Rule:
-Change the RF codes in the rule to suit your devices:
+## Sonoff RF:
+* RF code rule. Change the RF codes in the rule to suit your devices:
 ```
 rule1 on rfreceived#Data=18290E do publish2 home/sonoffrf/rfrecieve 18290E endon on rfreceived#Data=18290A do publish2 home/sonoffrf/rfrecieve 18290A endon on rfreceived#Data=14AB0A do publish2 home/sonoffrf/rfrecieve 14AB0A endon on rfreceived#Data=14AB0E do publish2 home/sonoffrf/rfrecieve 14AB0E endon
+```
+* In homeassistant you can set a binary sensor to switch on/off according to the RF code:
+```
+- platform: mqtt
+  name: "Front Door"
+  state_topic: "tele/sonoffrf/RESULT"
+  value_template: '{{value_json.RfReceived.Data}}'
+  payload_on: "14AB0A"
+  payload_off: "14AB0E"
+  device_class: door
+  qos: 1
+```
+* If the RF device doesn't have a code for the off position you can add an `off_delay` This example will turn the binary sensor off after 3 seconds of receiving the on code.  
+```
+- platform: mqtt
+  name: "Front Yard"
+  state_topic: "tele/sonoffrf/RESULT"
+  value_template: '{{value_json.RfReceived.Data}}'
+  payload_on: "EC2EEE"
+  payload_off: "OFF"
+  off_delay: 3
+  device_class: motion
+  qos: 1
 ```
 
 
