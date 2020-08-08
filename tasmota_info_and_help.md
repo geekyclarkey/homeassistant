@@ -20,7 +20,7 @@ Next type `setoption32 10` This enables long press and sets the trigger time to 
 
 *Now you need rules*  
 * Here is a rule for a single relay device:  
-`rule1 on switch#state=2 do power toggle endon on switch#state=3 do publish stat/bedroom/POWER HOLD endon` The first section keeps the normal functionality of the relay, press and release, the relay toggles. The 2nd part publishes an MQTT message when the button/momentary switch is held down.  
+`rule1 on switch1#state=2 do power toggle endon on switch1#state=3 do publish stat/bedroom/POWER HOLD endon` The first section keeps the normal functionality of the relay, press and release, the relay toggles. The 2nd part publishes an MQTT message when the button/momentary switch is held down.  
 
 * Here is a rule for a dual relay device:  
 `rule1 on switch1#state=2 do power1 toggle endon on switch2#state=2 do power2 toggle endon on switch1#state=3 do publish stat/livingroom/POWER1 HOLD endon on switch2#state=3 do publish stat/livingroom/POWER2 HOLD endon` I keep the publish topic the same as my devices mqtt topic and just create a payload of HOLD.  
