@@ -16,19 +16,19 @@ Firstly we are going to install the amazon alexa pallet.
 * Click on the install tab and search for `node-red-contrib-amazon-echo`
 * install the pallet  
 
-If you are using MQTT you need to add your broker in sop we can use the MQTT nodes.
+If you are using MQTT you need to add your broker in so we can use the MQTT nodes.
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/mqtt_nodes.PNG">    
 
-* Drag out a MQTT node and double click it. 
+* Drag out a MQTT node and double click it.
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/mqtt_in_node_red.PNG">  
 
-* Give the Broaker a name. (`Mosquitto` for example) 
-* Click the pencil next to server anc add your broaker server ip address.
+* Give the Broker a name. (`Mosquitto` for example)
+* Click the pencil next to server and add your broker server ip address.
 * Click the security tab and add your MQTT username and password.
-* Click Update in the top right 
+* Click Update in the top right
 
 ## Now we need to create some flows  
-Below i have separated each flow indevidually but you can only have one Amazon Echo Hub on your flow.
+Below i have separated each flow individually but you can only have one Amazon Echo Hub on your flow.
 You should end up with something like this:  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/whole_alexa_flow.PNG">  
 
@@ -53,12 +53,12 @@ From left to right we have:
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/mqtt_out.PNG">   
 
 
-### For scripts you want to exicute we can set our flow like this
+### For scripts you want to execute we can set our flow like this
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/script_flow.PNG">   
 
 From left to right we have:  
 
-* Events-state node - this will let alexa know if homeassistant changes the device. 
+* Events-state node - this will let alexa know if homeassistant changes the device.
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/event_state_node_script.PNG">   
 
 * Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
@@ -70,7 +70,7 @@ From left to right we have:
 * The Amazon Echo Device Node - Type in the name of your light (this is the name ask alexa to control)  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/amazon_device_script.PNG">   
 
-* A Switch node - To only allow on commands pass through (because scripts are set to on then fo off automatically when the script has been completed)
+* A Switch node - To only allow on commands pass through (because scripts are set to on then go off automatically when the script has been completed)
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/switch_node.PNG">   
 
 * Call Service node - to activate the script in homeassistant
@@ -82,7 +82,7 @@ From left to right we have:
 
 From left to right we have:  
 
-* Eventnts-state node - thi will let alexa know if homeassistant changes the device. 
+* Eventnts-state node - this will let alexa know if homeassistant changes the device.
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/event_state_entity.PNG">   
 
 * Function node - for the alexa-hass sync. (i´ll explain more on this further down)  
@@ -133,7 +133,7 @@ return msg;
 ```
 in the `var nodeid` section add the node id of the alexa device node. To find that, click on the amazon device node and see the information section at the top  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/control_homeassistant_using_alexa/images/node_id.PNG">   
-copy and paste the node id from the amazon-device node into the function 
+copy and paste the node id from the amazon-device node into the function
 
 ## Add Devices to Alexa
 
@@ -151,4 +151,4 @@ also please check out the other sites and youtube channels below. Everyone in th
 * [DrZzs](http://drzzs.com/) Here is a link to the docs website
 * [Digiblur](https://www.digiblur.com/) Here is a link to Travis website
 * [Hasscasts](https://www.youtube.com/channel/UCGOCeqMJnLvr-5C-ypUw7IQ/featured) Here is a link to his youtube channel
-* [BurnsHa](https://www.youtube.com/channel/UCSKQutOXuNLvFetrKuwudpg) Here is a link to his youtube channel 
+* [BurnsHa](https://www.youtube.com/channel/UCSKQutOXuNLvFetrKuwudpg) Here is a link to his youtube channel

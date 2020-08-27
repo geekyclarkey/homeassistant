@@ -42,6 +42,10 @@ Including step by step instruction how i accomplished the end result.
 A detailed writeup about the ESP chip pinouts, all features and useful information.  
 [Click here](esppinout.md) to check it out   
 
+## Templating in Homeassistant
+Examples and information on using templates in Homeassistant  
+[Click here](templating_in_hass.md) to check it out   
+
 ## CCTV Camera URLs
 [Here](cameras.md) is a list of IP cameras stream and still image URLs that i have managed to get working in Homeasistant.  
 
