@@ -13,6 +13,9 @@ I am trying to keep it up to date as much as possible and adding any new feature
 ## Tasmota Tips and rules
 [Click Here](tasmota_info_and_help.md) For tasmota help
 
+## ESPHome Config Examples
+[Click Here](esphome/esphome_examples.md) For examples of all the ESPHome config files i have used in the past.  
+
 ## My Homeassistant config files
 **Last Updated: 04/05/2020**  
 Here are my personal [config files.](config) Hopefully something in here will help someone do what they are trying to do.  
