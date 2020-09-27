@@ -186,7 +186,8 @@ switch:
 ```
 
 ## RC522 RFID Reader
-This one you need to add the [rc522_sensor.h](rc522_sensor.h) file to the esphome folder in your homeassistant directory (/config/esphome/rc522_sensor.h).  
+This one you need to add the [rc522_sensor.h](rc522_sensor.h) file to the esphome folder in homeassistant config directory.  
+Copy all of the file test. Then save it in /config/esphome/ name the file rc522_sensor.h (no file extention) You should end up with /config/esphome/rc522_sensor.h  
 I also added a LED to pin D3 then in homeassistant i have a LED light to use in automations.  
 The pinout is as follows:  
 | Esp8266 | RC522 |  
@@ -578,7 +579,7 @@ light:
     restore_mode: RESTORE_DEFAULT_OFF
 ```
 
-## Blitzwolf Smart Plug
+## Teckin SP21 16A Smart Plug
 ```
 substitutions:
   espname: "smartplug"
