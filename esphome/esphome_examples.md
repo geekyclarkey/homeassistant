@@ -143,7 +143,7 @@ text_sensor:
 ```
 substitutions:
   devicename: 'pn532rfid'
-  hostname: 'm5stack Camera'
+  hostname: 'PN532 RFID'
   ssid: 'WiFi'
   password: 'password'
 
@@ -177,7 +177,7 @@ pn532:
 binary_sensor:
   - platform: pn532
     uid: 74-10-37-94
-    name: "PN532 NFC Tag"
+    name: "Test Tag"
 
 switch:
   - platform: gpio
