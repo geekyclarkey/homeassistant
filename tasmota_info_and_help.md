@@ -75,11 +75,11 @@ In tazmota, set timer 1 and save
 `rule1 on Clock#Timer=1 do Restart 1 endon`
 `
 
+
 ## Add PIR sensor to switch2
 
 * `rule1 on switch2#state do publish2 livingroom/pir %value% endon`
 * `switchmode2 1` This is so the pir sends a 1 or 0 as the mqtt payload.
-
 
 
 ## Calibrating the power monitoring in tazmota
@@ -90,15 +90,45 @@ VoltageSet 240
 CurrentSet 250
 ```
 
-
 ## Remember to switch on rules:
 * `rule1 1` (switches on rule 1)
 * `rule1 0` (switches off rule 1)
 
 
+## ShellyEM config for homeassistant
+It took me a while to figure out how to get only one of the values out of the tele but here it is:  
+```
+sensor:
+  - platform: mqtt
+    name: "Shelly EM Power"
+    state_topic: "tele/shellyem/SENSOR"
+    value_template: "{{ value_json.ENERGY.Power[-1] }}"
+    unit_of_measurement: "W"  
+```
+As the value_json has 2 results you need to specify what result you want out of the list. `[0]` means the first value `[1]` means the 2nd value `[2]` means the 3rd value and so on.  
+You can also use short code to get the last value in the list, `[-1]`  
+
+
+## Adding PWM dimmer into homeassistant  
+This is the config you need to use the dimmer PWM from Tasmota in homeassistant.  
+```
+- platform: mqtt
+   name: "Dimable Lamp"
+   state_topic: "stat/dimablelamp/POWER"
+   command_topic: "cmnd/dimablelamp/power"
+   brightness_state_topic: "stat/dimablelamp/RESULT"
+   brightness_command_topic: "cmnd/dimablelamp/Dimmer"
+   brightness_scale: 100
+   brightness_value_template: "{{ value_json.Dimmer }}"
+   qos: 1
+   payload_on: "ON"
+   payload_off: "OFF"
+```
+
+
 ## Tasmota templates website with a list of many devices:
 * [Click Here](https://blakadder.github.io/templates/) - There are many templates to look at
-
+Here are some that i use on a regular basis:  
 Shelly 2.5 template.
 * `{"NAME":"Shelly 2.5","GPIO":[56,255,17,255,21,83,0,0,6,82,5,22,156],"FLAG":2,"BASE":18}`
 
