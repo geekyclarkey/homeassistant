@@ -90,10 +90,6 @@ VoltageSet 240
 CurrentSet 250
 ```
 
-## Remember to switch on rules:
-* `rule1 1` (switches on rule 1)
-* `rule1 0` (switches off rule 1)
-
 
 ## ShellyEM config for homeassistant
 It took me a while to figure out how to get only one of the values out of the tele but here it is:  
@@ -127,12 +123,19 @@ This is the config you need to use the dimmer PWM from Tasmota in homeassistant.
 
 
 ## Tasmota templates website with a list of many devices:
-* [Click Here](https://blakadder.github.io/templates/) - There are many templates to look at
-Here are some that i use on a regular basis:  
-Shelly 2.5 template.
-* `{"NAME":"Shelly 2.5","GPIO":[56,255,17,255,21,83,0,0,6,82,5,22,156],"FLAG":2,"BASE":18}`
+[Click Here](https://blakadder.github.io/templates/) - There are many templates to look at  
 
+Here are some that i use on a regular basis:  
+* Shelly 2.5 `{"NAME":"Shelly 2.5","GPIO":[56,0,17,0,21,83,0,0,6,82,5,22,156],"FLAG":2,"BASE":18}`  
+* Shelly 1 `{"NAME":"Shelly 1","GPIO":[0,0,0,0,21,82,0,0,0,0,0,0,0],"FLAG":0,"BASE":46}`  
+* ShellyEM `{"NAME":"Shelly EM","GPIO":[0,0,0,0,0,0,0,0,6,156,5,21,0],"FLAG":15,"BASE":18}`  
+* shelly Plug S (EU) `{"NAME":"Shelly Plug S","GPIO":[56,255,158,255,255,134,0,0,131,17,132,21,255],"FLAG":2,"BASE":45}`  
 
 
 ## Set a rule to switch off relay after 1 second
-`Rule1 on power1#state=1 do backlog delay 10 ; power1 0 endon`
+`Rule1 on power1#state=1 do backlog delay 10 ; power1 0 endon`  
+
+
+## Remember to switch on rules:
+* `rule1 1` (switches on rule 1)
+* `rule1 0` (switches off rule 1)  
