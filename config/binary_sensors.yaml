@@ -9,14 +9,9 @@
     payload_off: "0"
     name: "Downstairs Hall"
     device_class: motion
+    force_update: true
   - platform: mqtt
-    state_topic: "livingroommultisensor/pir"
-    payload_on: "1"
-    payload_off: "0"
-    name: "Living Room"
-    device_class: motion
-  - platform: mqtt
-    state_topic: "landing/pir"
+    state_topic: "landingpir/pir"
     payload_on: "1"
     payload_off: "0"
     name: "Landing"
@@ -32,36 +27,6 @@
     payload_on: "1"
     payload_off: "0"
     name: "Charlies Room"
-    device_class: motion
-  - platform: mqtt
-    state_topic: "liasmultisensor/pir"
-    payload_on: "1"
-    payload_off: "0"
-    name: "Lias Room"
-    device_class: motion
-  - platform: mqtt
-    state_topic: "kitchenmultisensor/pir"
-    payload_on: "1"
-    payload_off: "0"
-    name: "Kitchen"
-    device_class: motion
-  - platform: mqtt
-    state_topic: "bedroommultisensor/pir"
-    payload_on: "1"
-    payload_off: "0"
-    name: "Bedroom"
-    device_class: motion
-  - platform: mqtt
-    state_topic: "kidsbathroomsensor/pir"
-    payload_on: "1"
-    payload_off: "0"
-    name: "Kids Bathroom"
-    device_class: motion
-  - platform: mqtt
-    state_topic: "laundryroommultisensor/pir"
-    payload_on: "1"
-    payload_off: "0"
-    name: "Laundry Room"
     device_class: motion
 
 
@@ -80,7 +45,7 @@
     name: "Front Yard"
     state_topic: "tele/sonoffrf/RESULT"
     value_template: '{{value_json.RfReceived.Data}}'
-    payload_on: "EC2EEE"
+    payload_on: "66352C"
     payload_off: "OFF"
     off_delay: 3
     device_class: motion
@@ -150,19 +115,11 @@
     name: Ping Mac
     host: !secret mac_ip
     count: 3
-
-
-
-
-
-
-
-
-
-
-
-
-
+  - platform: ping
+    name: Internet Access
+    host: 162.159.200.123
+    count: 3
+    scan_interval: 60
 
 
 

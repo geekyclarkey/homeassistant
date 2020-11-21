@@ -22,15 +22,14 @@ views:
             type: 'custom:vertical-stack-in-card'
         type: entities
       - cards:
-          - aspect_ratio: 125%
-            entity: person.sean
-            image: local/images/sean.jpg
+          - entity: person.sean
+            image: local/images/seanmimoji.png
             name: Sean is at
             theme: Backend-selected
             type: picture-entity
-          - aspect_ratio: 125%
-            entity: person.hayley
-            image: local/images/hayley.jpg
+            aspect_ratio: 100%
+          - entity: person.hayley
+            image: local/images/hayleymimoji.png
             name: Hayley is at
             theme: Backend-selected
             type: picture-entity
@@ -45,9 +44,28 @@ views:
             name: Hassio Community Store
           - type: divider
           - entity: automation.bedtime_announcement
-          - entity: automation.water_plant_reminder
+          - entity: automation.bedtime_routine
         show_header_toggle: false
         type: entities
+      - color_thresholds:
+          - color: '#c0392b'
+            value: 28
+          - color: '#7cfc00'
+            value: 20
+          - color: '#0000ff'
+            value: 15
+        entities:
+          - entity: sensor.average_household_temperature
+        font_size: 70
+        height: 65
+        hours_to_show: 24
+        line_width: 2
+        points_per_hour: 10
+        show:
+          extrema: true
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
       - color_thresholds:
           - color: '#c0392b'
             value: 28
@@ -112,16 +130,16 @@ views:
             type: 'custom:text-divider-row'
           - cards:
               - entities:
-                  - entity: binary_sensor.living_room
+                  - entity: binary_sensor.living_room_pir
                     name: Living Room
                     state_color: true
-                  - entity: binary_sensor.kitchen
+                  - entity: binary_sensor.kitchen_pir
                     name: Kitchen
                     state_color: true
                   - entity: binary_sensor.downstairs_hall
                     name: Hall
                     state_color: true
-                  - entity: binary_sensor.laundry_room
+                  - entity: binary_sensor.laundry_room_pir
                     name: Laundry Room
                     state_color: true
                   - entity: binary_sensor.toilet
@@ -134,16 +152,16 @@ views:
                   - entity: binary_sensor.landing
                     name: Landing
                     state_color: true
-                  - entity: binary_sensor.bedroom
+                  - entity: binary_sensor.bedroom_pir
                     name: Bedroom
                     state_color: true
-                  - entity: binary_sensor.lias_room
-                    name: Lia Room
+                  - entity: binary_sensor.lias_pir
+                    name: Lias Room
                     state_color: true
                   - entity: binary_sensor.charlies_room
-                    name: Charlie Room
+                    name: Charlies Room
                     state_color: true
-                  - entity: binary_sensor.kids_bathroom
+                  - entity: binary_sensor.kids_bathroom_pir
                     name: Kids Bathroom
                     state_color: true
                   - type: divider
@@ -189,7 +207,7 @@ views:
                     name: Laundry Room
                   - type: divider
                   - entity: sensor.bedroom_brightness
-                    icon: 'mdi:hotel'
+                    icon: 'mdi:bed'
                     name: Master Bedroom
                   - entity: sensor.lias_room_brightness
                     icon: 'mdi:alpha-l-circle'
@@ -224,6 +242,11 @@ views:
           - entity: light.laundry_room
           - entity: light.stairs
           - entity: light.garage_stairs
+          - entity: light.hall_cabinet_leds
+            icon: 'mdi:led-strip-variant'
+          - entity: light.salt_lamp
+          - entity: group.hall_cabinet_candles
+            icon: 'mdi:candle'
           - entity: light.downstairs_toilet
           - entity: light.kids_bathroom
           - entity: light.kids_bathroom_wall
@@ -235,13 +258,14 @@ views:
           - entity: light.lias_bedroom
           - entity: light.lias_lamp
           - entity: light.lias_leds
+            name: Lias Bed
           - entity: light.charlies_bedroom
           - entity: light.charlies_lamp
           - entity: light.charlies_bed
+            icon: 'mdi:led-strip-variant'
           - entity: light.garage_light
           - entity: light.garage_wall_light
           - entity: switch.workbench_light
-            state_color: true
           - entity: light.hall_1
           - entity: light.hall_2
           - entity: light.terrace
@@ -251,6 +275,7 @@ views:
             https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRBgmk9RUFILrFjUp3kdly4qcxKtpbFZ-aKyItVlnjLydEnPLZn
           type: picture
         show_header_toggle: true
+        state_color: true
         title: House Lights
         type: entities
     icon: 'mdi:lightbulb'
@@ -272,7 +297,7 @@ views:
                   on the lights or check out the temparture data. Have a go!
                 type: markdown
               - entities:
-                  - entity: binary_sensor.kitchen
+                  - entity: binary_sensor.kitchen_pir
                     name: Kitchen Motion Sensor
                     state_color: true
                 type: entities
@@ -387,8 +412,11 @@ views:
                   history, switch on the TV or open the blinds. Have a go!
                 type: markdown
               - entities:
-                  - entity: binary_sensor.living_room
+                  - entity: binary_sensor.living_room_pir
                     name: Living Room Motion Sensor
+                    state_color: true
+                  - entity: switch.living_room_mozzie_plug
+                    name: Living Room Mozzie Plug
                     state_color: true
                 type: entities
             type: 'custom:vertical-stack-in-card'
@@ -400,6 +428,7 @@ views:
           - entity: light.desk_lamp
             name: Desk Lamp
         show_header_toggle: true
+        state_color: true
         theme: Backend-selected
         title: Living room Lights
         type: entities
@@ -461,88 +490,26 @@ views:
       - entity: climate.livingroom_aircon
         theme: Backend-selected
         type: thermostat
+      - entity: media_player.tv
+        type: media-control
       - entity: media_player.playstation_4
         type: media-control
       - entity: media_player.sonos
-        type: media-control
-      - entity: media_player.living_room_echo_dot
         type: media-control
       - entities:
           - text: Living Room Blinds
             type: 'custom:text-divider-row'
           - cards:
-              - cards:
-                  - entity: switch.open_left_blind
-                    icon: 'mdi:arrow-up-circle-outline'
-                    name: Left Up
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                  - entity: switch.close_left_blind
-                    icon: 'mdi:arrow-down-circle-outline'
-                    name: Left Down
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                  - entity: script.stop_blinds
-                    icon: 'mdi:stop-circle-outline'
-                    name: Stop
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                  - entity: switch.close_right_blind
-                    icon: 'mdi:arrow-down-circle-outline'
-                    name: Right Down
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                  - entity: switch.open_right_blind
-                    icon: 'mdi:arrow-up-circle-outline'
-                    name: Right Up
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                type: horizontal-stack
+              - entities:
+                  - entity: cover.left_blind
+                    name: Left Blind
+                type: 'custom:shutter-card'
+              - entities:
+                  - entity: cover.right_blind
+                    name: Right Blind
+                type: 'custom:shutter-card'
             type: 'custom:vertical-stack-in-card'
         type: entities
-      - cards:
-          - cards:
-              - cards:
-                  - entity: script.livingroom_hdmi1
-                    icon: 'mdi:video-input-hdmi'
-                    name: HDMI 1
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                type: horizontal-stack
-              - cards:
-                  - entity: script.livingroom_hdmi2
-                    icon: 'mdi:video-input-hdmi'
-                    name: HDMI 2
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                type: horizontal-stack
-              - cards:
-                  - entity: script.livingroom_hdmi3
-                    icon: 'mdi:video-input-hdmi'
-                    name: HDMI 3
-                    tap_action:
-                      action: toggle
-                    type: entity-button
-                type: horizontal-stack
-            type: horizontal-stack
-          - entity: script.livingroom_power_toggle
-            hold_action:
-              action: more-info
-            icon: 'mdi:power'
-            icon_height: 30px
-            show_icon: true
-            show_name: true
-            tap_action:
-              action: toggle
-            type: entity-button
-        type: vertical-stack
       - entities:
           - text: Pre-Configured Channels
             type: 'custom:text-divider-row'
@@ -601,6 +568,8 @@ views:
                 type: horizontal-stack
             type: 'custom:vertical-stack-in-card'
         type: entities
+      - entity: media_player.living_room_echo_dot
+        type: media-control
     icon: 'mdi:sofa'
     panel: false
     path: livingroom
@@ -622,7 +591,7 @@ views:
                   humidity levels.  Check it out!
                 type: markdown
               - entities:
-                  - entity: binary_sensor.laundry_room
+                  - entity: binary_sensor.laundry_room_pir
                     name: laundry Room Motion Sensor
                     state_color: true
                 type: entities
@@ -743,6 +712,9 @@ views:
     icon: 'mdi:washing-machine'
     path: laundry-room
     title: Laundry Room
+    visible:
+      - user: 129ac4fd676d4ce8a964d58173d73d97
+      - user: c7ab05691bfb4e6ebd3ef09d36e51061
   - badges: []
     cards:
       - entities:
@@ -756,10 +728,10 @@ views:
                   for yourself!
                 type: markdown
               - entities:
-                  - entity: binary_sensor.bedroom
+                  - entity: binary_sensor.bedroom_pir
                     name: Bedroom Motion Sensor
                     state_color: true
-                  - entity: switch.heated_blanket
+                  - entity: switch.bedroom_mozzie_plug
                     state_color: true
                 type: entities
             type: 'custom:vertical-stack-in-card'
@@ -771,7 +743,6 @@ views:
             name: Bathroom
           - entity: light.our_bathroom_wall
             name: Bathroom Wall
-          - entity: light.salt_lamp
         title: Lights
         type: entities
       - color_thresholds:
@@ -829,8 +800,17 @@ views:
           fill: true
           labels: false
         type: 'custom:mini-graph-card'
-      - entity: media_player.bedroom_tv
-        type: media-control
+      - entity: script.bedroom_tv_power
+        hold_action:
+          action: more-info
+        icon: 'mdi:power'
+        icon_height: 30px
+        name: TV Power
+        show_icon: true
+        show_name: true
+        tap_action:
+          action: toggle
+        type: entity-button
       - entity: climate.bedroom_aircon
         type: thermostat
       - entities:
@@ -846,6 +826,7 @@ views:
                     icon: 'mdi:alpha-m-circle'
                     tap_action:
                       action: toggle
+                      haptic: true
                   - entity: script.bedroom_fan_high
                     hold_action:
                       action: more-info
@@ -884,9 +865,37 @@ views:
                 type: 'custom:radial-menu'
             type: 'custom:vertical-stack-in-card'
         type: entities
+      - cards:
+          - cards:
+              - entity: script.diffuser_mist
+                hold_action:
+                  action: more-info
+                icon: 'mdi:sleep'
+                icon_height: 30px
+                show_icon: true
+                show_name: true
+                show_state: false
+                state_color: true
+                tap_action:
+                  action: toggle
+                type: button
+              - entity: script.diffuser_light
+                hold_action:
+                  action: more-info
+                icon: 'mdi:lightbulb'
+                icon_height: 30px
+                show_icon: true
+                show_name: true
+                show_state: false
+                state_color: true
+                tap_action:
+                  action: toggle
+                type: button
+            type: horizontal-stack
+        type: 'custom:vertical-stack-in-card'
       - entity: media_player.bedroom_echo_dot
         type: media-control
-    icon: 'mdi:hotel'
+    icon: 'mdi:bed'
     panel: false
     path: bedroom
     title: Bedroom
@@ -906,7 +915,7 @@ views:
                   TV or control the aircon. Try it out for yourself!
                 type: markdown
               - entities:
-                  - entity: binary_sensor.lias_room
+                  - entity: binary_sensor.lias_pir
                     name: Lias Bedroom Motion Sensor
                     state_color: true
                 type: entities
@@ -978,6 +987,50 @@ views:
         type: media-control
       - entity: climate.lias_aircon
         type: thermostat
+      - entities:
+          - text: Celing Fan
+            type: 'custom:text-divider-row'
+          - cards:
+              - default_dismiss: false
+                default_open: false
+                icon: 'mdi:fan'
+                items:
+                  - entity: script.lias_fan_medium
+                    haptic: true
+                    icon: 'mdi:alpha-m-circle'
+                    tap_action:
+                      action: toggle
+                  - entity: script.lias_fan_high
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:alpha-h-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.lias_fan_light_toggle
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:lightbulb'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.lias_fan_off
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:stop-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.lias_fan_low
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:alpha-l-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                type: 'custom:radial-menu'
+            type: 'custom:vertical-stack-in-card'
+        type: entities
       - entity: media_player.lias_echo_dot
         type: media-control
     icon: 'mdi:alpha-l-circle'
@@ -1003,6 +1056,8 @@ views:
               - entities:
                   - entity: binary_sensor.charlies_room
                     name: Charlies Bedroom Motion Sensor
+                  - entity: sensor.charlies_bed
+                    name: Charlies Bed Sensor
                     state_color: true
                 type: entities
             type: 'custom:vertical-stack-in-card'
@@ -1069,18 +1124,7 @@ views:
           fill: true
           labels: false
         type: 'custom:mini-graph-card'
-      - entity: script.charlie_tv_power
-        hold_action:
-          action: more-info
-        icon: 'mdi:power'
-        icon_height: 30px
-        name: TV Power
-        show_icon: true
-        show_name: true
-        tap_action:
-          action: toggle
-        type: entity-button
-      - entity: media_player.charlies_plex
+      - entity: media_player.charlies_tv
         type: media-control
       - entity: climate.charlies_aircon
         type: thermostat
@@ -1092,26 +1136,35 @@ views:
                 default_open: false
                 icon: 'mdi:fan'
                 items:
-                  - entity: switch.charlies_fan_medium
-                    haptic: true
+                  - entity: script.charlies_fan_medium
+                    hold_action:
+                      action: more-info
                     icon: 'mdi:alpha-m-circle'
                     tap_action:
                       action: toggle
-                  - entity: switch.charlies_fan_high
+                      haptic: true
+                  - entity: script.charlies_fan_high
                     hold_action:
                       action: more-info
                     icon: 'mdi:alpha-h-circle'
                     tap_action:
                       action: toggle
                       haptic: true
-                  - entity: switch.charlies_fan_stop
+                  - entity: script.charlies_fan_light_toggle
                     hold_action:
                       action: more-info
-                    icon: 'mdi:power'
+                    icon: 'mdi:lightbulb'
                     tap_action:
                       action: toggle
                       haptic: true
-                  - entity: switch.charlies_fan_low
+                  - entity: script.charlies_fan_off
+                    hold_action:
+                      action: more-info
+                    icon: 'mdi:stop-circle'
+                    tap_action:
+                      action: toggle
+                      haptic: true
+                  - entity: script.charlies_fan_low
                     hold_action:
                       action: more-info
                     icon: 'mdi:alpha-l-circle'
@@ -1162,6 +1215,12 @@ views:
           - entity: light.hall_1
           - entity: light.hall_2
           - entity: light.stairs
+          - entity: light.salt_lamp
+          - entity: light.hall_cabinet_leds
+            icon: 'mdi:led-strip-variant'
+          - entity: group.hall_cabinet_candles
+            icon: 'mdi:candle'
+            state_color: true
           - entity: light.landing
           - entity: light.garage_stairs
         title: Lights
@@ -1176,7 +1235,7 @@ views:
       - aspect_ratio: 75%
         camera_image: camera.hallcam
         entities: []
-        title: Hall Camera
+        title: Stairs Camera
         type: picture-glance
     icon: 'mdi:stairs'
     path: stairs
@@ -1208,7 +1267,7 @@ views:
                   - entity: binary_sensor.garage_door_trip_sensor
                     icon: 'mdi:garage-alert'
                     state_color: true
-                  - entity: switch.computer_plug
+                  - entity: switch.boiler_plug
                     state_color: true
                 type: entities
             type: 'custom:vertical-stack-in-card'
@@ -1310,30 +1369,56 @@ views:
                 type: entity-button
             type: horizontal-stack
         type: vertical-stack
+      - cards:
+          - entity: sensor.boiler_state
+            name: The boiler is currently
+            type: entity
+          - color_thresholds:
+              - color: '#c0392b'
+                value: 600
+              - color: '#7cfc00'
+                value: 300
+              - color: '#0000ff'
+                value: 50
+            entities:
+              - entity: sensor.boiler_power
+            font_size: 70
+            height: 75
+            hours_to_show: 24
+            icon: 'mdi:flash'
+            line_width: 2
+            points_per_hour: 15
+            show:
+              extrema: false
+              fill: true
+              icon: false
+              labels: false
+            type: 'custom:mini-graph-card'
+        type: 'custom:vertical-stack-in-card'
       - card:
           entities:
-            - entity: sensor.carpresence_signal
+            - entity: sensor.seans_car_presence_wifi_signal
               name: Signal
-          entity: binary_sensor.carpresence
+          entity: sensor.seans_car_presence_uptime
           icon: 'mdi:car-connected'
           name: Seans Car Presence Module
           state_color: true
           type: 'custom:multiple-entity-row'
         conditions:
-          - entity: binary_sensor.carpresence
+          - entity: binary_sensor.seans_car_presence
             state: 'on'
         type: conditional
       - card:
           entities:
-            - entity: sensor.carpresencehayley_signal
+            - entity: sensor.hayleys_car_presence_wifi_signal
               name: Signal
-          entity: binary_sensor.carpresencehayley
+          entity: sensor.hayleys_car_presence_uptime
           icon: 'mdi:car-connected'
           name: Hayleys Car Presence Module
           state_color: true
           type: 'custom:multiple-entity-row'
         conditions:
-          - entity: binary_sensor.carpresencehayley
+          - entity: binary_sensor.hayleys_car_presence
             state: 'on'
         type: conditional
     icon: 'mdi:garage'
@@ -1389,6 +1474,11 @@ views:
           - entity: binary_sensor.downstairs_hall
         title: Hall Camera
         type: picture-glance
+      - aspect_ratio: 75%
+        camera_image: camera.hallcam
+        entities: []
+        title: Stairs Camera
+        type: picture-glance
       - aspect_ratio: 0%
         camera_image: camera.workbench_camera
         entities:
@@ -1396,11 +1486,6 @@ views:
           - entity: switch.momentary_workbenchcam_snapshot
           - entity: switch.momentary_workbenchcam_record
         title: Workbench Camera
-        type: picture-glance
-      - aspect_ratio: 75%
-        camera_image: camera.hallcam
-        entities: []
-        title: Hall Camera
         type: picture-glance
     icon: 'mdi:cctv'
     path: cctv
@@ -1428,15 +1513,15 @@ views:
           - entity: automation.notify_motion_in_the_yard_while_door_is_open
           - entity: automation.notify_smoke_alarm_triggered
           - entity: automation.notify_radarr_download_completed
-          - entity: automation.notify_washing_machine_has_finnished
-          - entity: automation.notify_tumble_dryer_has_finnished
-          - entity: automation.notify_electricity_is_now_peak
-          - entity: automation.notify_electricity_is_now_off_peak
+          - entity: automation.notify_washing_machine_has_finished
+          - entity: automation.notify_tumble_dryer_has_finished
+          - entity: automation.notify_the_internet_has_gone_off
+          - entity: automation.notify_the_internet_has_come_back_on
         show_header_toggle: false
         title: Notification Automations
         type: entities
       - entities:
-          - entity: automation.no_motion_in_living_room_for_1_hour_turn_lights_off
+          - entity: automation.living_room_aircon_auto_off_after_2_hours
         show_header_toggle: false
         title: Living Room Automations
         type: entities
@@ -1451,13 +1536,9 @@ views:
         title: Charlies Automations
         type: entities
       - entities:
-          - entity: automation.bedroom_aircon_auto_off_after_2_hours
-          - entity: automation.turn_on_heated_blanket_at_12_15am
-          - entity: automation.turn_off_heated_blanket_after_1_hour
-          - entity: automation.salt_lamp_on_when_tv_turned_on
-          - entity: automation.salt_lamp_off_at_3am
+          - entity: automation.bedroom_aircon_auto_off_after_4_hours
         show_header_toggle: false
-        title: Bedroom automations
+        title: Bedroom Automations
         type: entities
       - entities:
           - entity: automation.car_presence_auto_open
@@ -1495,6 +1576,24 @@ views:
           - entity: automation.no_motion_in_front_yard_for_5_min_turn_light_off
         show_header_toggle: false
         title: Light Automations
+        type: entities
+      - entities:
+          - entity: automation.operation_try_not_to_trip_the_elrctric_phase_one
+          - entity: automation.operation_try_not_to_trip_the_elrctric_phase_two
+        show_header_toggle: false
+        title: Boiler Automations
+        type: entities
+      - entities:
+          - entity: automation.record_the_front_yard
+          - entity: automation.record_the_hall
+          - entity: automation.record_the_garage
+        show_header_toggle: false
+        title: CCTV Automations
+        type: entities
+      - entities:
+          - entity: automation.hall_cabinet_auto_off
+        show_header_toggle: false
+        title: Hallway Automations
         type: entities
     icon: 'mdi:auto-fix'
     path: automations
@@ -1567,6 +1666,39 @@ views:
             type: entities
         type: vertical-stack
       - entities:
+          - buttons:
+              - entity: switch.adguard_protection
+                state_icons:
+                  'off': 'mdi:shield-off'
+                  'on': 'mdi:shield-check'
+                state_styles:
+                  'off':
+                    button:
+                      color: red
+                    ripple:
+                      color: green
+                  'on':
+                    button:
+                      color: green
+                    ripple:
+                      color: red
+                state_text:
+                  'off': Ad-Guard is currently OFF
+                  'on': Ad-Guard is currently ON
+                style:
+                  button:
+                    background-color: var(--table-row-alternative-background-color)
+                    border-radius: 10px
+                    font-size: 1.2rem
+                    padding: 10px
+                tap_action:
+                  action: call-service
+                  service: switch.toggle
+                  service_data:
+                    entity_id: switch.adguard_protection
+            type: 'custom:paper-buttons-row'
+        type: entities
+      - entities:
           - text: Hassio Stats
             type: 'custom:text-divider-row'
           - cards:
@@ -1598,9 +1730,26 @@ views:
                 type: horizontal-stack
             type: 'custom:vertical-stack-in-card'
         type: entities
-      - entity: sensor.printer
-        name: Brother Printer
-        type: entity
+      - cards:
+          - text: Brother Printer
+            type: 'custom:text-divider-row'
+          - entity: sensor.printer
+            name: The Printer is currently
+            type: entity
+          - entities:
+              - entity: sensor.dcp_j315w_black_ink_remaining
+                name: Black
+              - entity: sensor.dcp_j315w_cyan_ink_remaining
+                name: Cyan
+              - entity: sensor.dcp_j315w_magenta_ink_remaining
+                name: Magenta
+              - entity: sensor.dcp_j315w_yellow_ink_remaining
+                name: Yellow
+            hours_to_show: 24
+            refresh_interval: 0
+            title: Ink Levels
+            type: history-graph
+        type: 'custom:vertical-stack-in-card'
       - entities:
           - text: Machine Stats
             type: 'custom:text-divider-row'
@@ -1629,6 +1778,9 @@ views:
                   - cards:
                       - entity: binary_sensor.ping_plex
                         name: plex
+                        type: entity
+                      - entity: binary_sensor.internet_access
+                        name: Internet
                         type: entity
                     type: 'custom:vertical-stack-in-card'
                 type: horizontal-stack
@@ -1682,6 +1834,12 @@ views:
                       name: Rowan
                     - key: sensor.plex.voltageservices*
                       name: Pat
+                    - key: sensor.plex.tlowe2*
+                      name: Tracy
+                    - key: sensor.plex.welsh*
+                      name: Harley
+                    - key: sensor.plex.stacey*
+                      name: Ashley
                 heading_name: Who?
                 heading_state: Watching...
                 title: More Info
@@ -1694,6 +1852,19 @@ views:
       - entity: sensor.radarr_upcoming_media
         title: Upcoming Movies
         type: 'custom:upcoming-media-card'
+      - entities:
+          - entity: sensor.battery_level
+            name: Seans Phone
+          - entity: sensor.ags2_w09_battery_level
+            name: Lias Tablet
+          - entity: sensor.ags2_w09_battery_level_2
+            name: Charlies Tablet
+          - entity: sensor.hayleys_iphone_battery_level
+            name: Hayleys Phone
+        hours_to_show: 24
+        refresh_interval: 0
+        title: Device Battery Levels
+        type: history-graph
     icon: 'mdi:server'
     path: server
     title: Server Info
@@ -1736,119 +1907,38 @@ views:
           fill: true
           labels: false
         type: 'custom:mini-graph-card'
-      - cards:
-          - entity: sensor.washing_machine_state
-            name: The washing machine is currently
-            type: entity
-          - color_thresholds:
-              - color: '#c0392b'
-                value: 600
-              - color: '#7cfc00'
-                value: 300
-              - color: '#0000ff'
-                value: 50
-            entities:
-              - entity: sensor.washing_machine_power
-            font_size: 70
-            height: 75
-            hours_to_show: 24
-            icon: 'mdi:flash'
-            line_width: 2
-            points_per_hour: 15
-            show:
-              extrema: false
-              fill: true
-              icon: false
-              labels: false
-            type: 'custom:mini-graph-card'
-        type: 'custom:vertical-stack-in-card'
-      - cards:
-          - entity: sensor.tumble_dryer_state
-            name: The tumble dryer is currently
-            type: entity
-          - color_thresholds:
-              - color: '#c0392b'
-                value: 600
-              - color: '#7cfc00'
-                value: 300
-              - color: '#0000ff'
-                value: 50
-            entities:
-              - entity: sensor.tumble_dryer_power
-            font_size: 70
-            height: 75
-            hours_to_show: 24
-            icon: 'mdi:flash'
-            line_width: 2
-            points_per_hour: 2
-            show:
-              extrema: false
-              fill: true
-              icon: false
-              labels: false
-            type: 'custom:mini-graph-card'
-        type: 'custom:vertical-stack-in-card'
-      - cards:
-          - entity: sensor.boiler_state
-            name: The boiler is currently
-            type: entity
-          - color_thresholds:
-              - color: '#c0392b'
-                value: 600
-              - color: '#7cfc00'
-                value: 300
-              - color: '#0000ff'
-                value: 50
-            entities:
-              - entity: sensor.boiler_power
-            font_size: 70
-            height: 75
-            hours_to_show: 24
-            icon: 'mdi:flash'
-            line_width: 2
-            points_per_hour: 15
-            show:
-              extrema: false
-              fill: true
-              icon: false
-              labels: false
-            type: 'custom:mini-graph-card'
-        type: 'custom:vertical-stack-in-card'
-      - cards:
-          - entity: sensor.dishwasher_state
-            name: The dishwasher is currently
-            type: entity
-          - color_thresholds:
-              - color: '#c0392b'
-                value: 600
-              - color: '#7cfc00'
-                value: 300
-              - color: '#0000ff'
-                value: 50
-            entities:
-              - entity: sensor.dishwasher_power
-            font_size: 70
-            height: 75
-            hours_to_show: 24
-            icon: 'mdi:flash'
-            line_width: 2
-            points_per_hour: 15
-            show:
-              extrema: false
-              fill: true
-              icon: false
-              labels: false
-            type: 'custom:mini-graph-card'
-        type: 'custom:vertical-stack-in-card'
+      - color_thresholds:
+          - color: '#c0392b'
+            value: 0.25
+          - color: '#7cfc00'
+            value: 0.17
+          - color: '#0000ff'
+            value: 0.07
+        entities:
+          - entity: sensor.current_energy_cost
+        font_size: 70
+        height: 100
+        hours_to_show: 24
+        icon: 'mdi:flash'
+        line_width: 2
+        name: Current Energy Costs Per Hour
+        points_per_hour: 5
+        show:
+          extrema: true
+          fill: true
+          labels: false
+        type: 'custom:mini-graph-card'
       - entities:
           - text: Cost & Usages
             type: 'custom:text-divider-row'
           - cards:
               - entities:
-                  - entity: input_number.peak_price
+                  - entity: sensor.peak_price
                     icon: 'mdi:clock-alert'
-                  - entity: input_number.offpeak_price
+                  - entity: sensor.offpeak_price
                     icon: 'mdi:clock'
+                  - entity: utility_meter.home_energy_meter_daily
+                    name: Currently
                 type: entities
               - entities:
                   - entity: sensor.todays_energy_cost
@@ -1860,6 +1950,9 @@ views:
                   - entity: sensor.this_months_energy_cost
                     icon: 'mdi:currency-eur'
                     name: This months energy cost so far
+                  - entity: sensor.last_months_energy_cost
+                    icon: 'mdi:currency-eur'
+                    name: Last months energy cost
                 type: entities
               - cards:
                   - entity: sensor.todays_energy
@@ -1960,6 +2053,9 @@ views:
                 type: horizontal-stack
             type: 'custom:vertical-stack-in-card'
         type: entities
+      - entity: sensor.pvpc
+        name: Spains Electricity Price
+        type: 'custom:pvpc-hourly-pricing-card'
     icon: 'mdi:flash-alert'
     path: energymonitoring
     title: Energy Monitoring
@@ -1979,7 +2075,7 @@ views:
                   action: toggle
                 type: entity-button
               - entity: script.mag_setup
-                icon: 'mdi:settings'
+                icon: 'mdi:cog'
                 show_name: false
                 tap_action:
                   action: toggle
@@ -2296,227 +2392,14 @@ views:
   - badges: []
     cards:
       - entities:
-          - text: Covid-19 Stats
-            type: 'custom:text-divider-row'
-          - cards:
-              - content: >-
-                  I have made this page to show you the stats and percentages
-                  regarding the virus.
-                type: markdown
-            type: 'custom:vertical-stack-in-card'
+          - entity: sensor.laundry_room_temperature
+          - entity: automation.notify_motion_in_the_yard_while_door_is_open
         type: entities
       - entities:
-          - entity: sensor.worldwide_coronavirus_confirmed
-            name: Worldwide
-          - entity: sensor.spain_coronavirus_confirmed
-            name: Spain
-          - entity: sensor.united_kingdom_coronavirus_confirmed
-            name: UK
-          - entity: sensor.china_coronavirus_confirmed
-            name: China
-          - entity: sensor.italy_coronavirus_confirmed
-            name: Italy
-          - entity: sensor.us_coronavirus_confirmed
-            name: USA
-        hours_to_show: 168
+          - entity: sensor.dishwasher_temperature
+          - entity: sensor.laundry_room_temperature
+        hours_to_show: 24
         refresh_interval: 0
-        title: Confirmed Cases
-        type: history-graph
-      - entities:
-          - entity: sensor.worldwide_coronavirus_current
-            name: Worldwide
-          - entity: sensor.spain_coronavirus_current
-            name: Spain
-          - entity: sensor.united_kingdom_coronavirus_current
-            name: UK
-          - entity: sensor.china_coronavirus_current
-            name: China
-          - entity: sensor.italy_coronavirus_current
-            name: Italy
-          - entity: sensor.us_coronavirus_current
-            name: USA
-        hours_to_show: 168
-        refresh_interval: 0
-        title: Still Infected
-        type: history-graph
-      - entities:
-          - entity: sensor.worldwide_coronavirus_recovered
-            name: Worldwide
-          - entity: sensor.spain_coronavirus_recovered
-            name: Spain
-          - entity: sensor.united_kingdom_coronavirus_recovered
-            name: UK
-          - entity: sensor.china_coronavirus_recovered
-            name: China
-          - entity: sensor.italy_coronavirus_recovered
-            name: Italy
-          - entity: sensor.us_coronavirus_recovered
-            name: USA
-        hours_to_show: 168
-        refresh_interval: 0
-        title: Recovered Cases
-        type: history-graph
-      - entities:
-          - entity: sensor.worldwide_coronavirus_deaths
-            name: Worldwide
-          - entity: sensor.spain_coronavirus_deaths
-            name: Spain
-          - entity: sensor.united_kingdom_coronavirus_deaths
-            name: UK
-          - entity: sensor.china_coronavirus_deaths
-            name: China
-          - entity: sensor.italy_coronavirus_deaths
-            name: Italy
-          - entity: sensor.us_coronavirus_deaths
-            name: USA
-        hours_to_show: 168
-        refresh_interval: 0
-        title: Confirmed Deaths
-        type: history-graph
-      - entities:
-          - entity: sensor.worldwide_coronavirus_current
-            name: Currently Infected
-          - entity: sensor.worldwide_coronavirus_recovered
-            name: Recovered
-          - entity: sensor.worldwide_coronavirus_deaths
-            name: Died
-        title: Coronavirus Stats - Worldwide
-        total_amount: sensor.worldwide_coronavirus_confirmed
-        type: 'custom:pie-chart-card'
-      - entities:
-          - entity: sensor.spain_coronavirus_current
-            name: Currently Infected
-          - entity: sensor.spain_coronavirus_recovered
-            name: Recovered
-          - entity: sensor.spain_coronavirus_deaths
-            name: Died
-        title: Coronavirus Stats - Spain
-        total_amount: sensor.spain_coronavirus_confirmed
-        type: 'custom:pie-chart-card'
-      - entities:
-          - entity: sensor.united_kingdom_coronavirus_current
-            name: Currently Infected
-          - entity: sensor.united_kingdom_coronavirus_recovered
-            name: Recovered
-          - entity: sensor.united_kingdom_coronavirus_deaths
-            name: Died
-        title: Coronavirus Stats - UK
-        total_amount: sensor.united_kingdom_coronavirus_confirmed
-        type: 'custom:pie-chart-card'
-      - entities:
-          - entity: sensor.china_coronavirus_current
-            name: Currently Infected
-          - entity: sensor.china_coronavirus_recovered
-            name: Recovered
-          - entity: sensor.china_coronavirus_deaths
-            name: Died
-        title: Coronavirus Stats - China
-        total_amount: sensor.china_coronavirus_confirmed
-        type: 'custom:pie-chart-card'
-      - entities:
-          - entity: sensor.italy_coronavirus_current
-            name: Currently Infected
-          - entity: sensor.italy_coronavirus_recovered
-            name: Recovered
-          - entity: sensor.italy_coronavirus_deaths
-            name: Died
-        title: Coronavirus Stats - Italy
-        total_amount: sensor.italy_coronavirus_confirmed
-        type: 'custom:pie-chart-card'
-      - entities:
-          - entity: sensor.us_coronavirus_current
-            name: Currently Infected
-          - entity: sensor.us_coronavirus_recovered
-            name: Recovered
-          - entity: sensor.us_coronavirus_deaths
-            name: Died
-        title: Coronavirus Stats - USA
-        total_amount: sensor.us_coronavirus_confirmed
-        type: 'custom:pie-chart-card'
-      - animate: true
-        entities:
-          - entity: sensor.spain_coronavirus_confirmed
-        group_by: day
-        hours_to_show: 168
-        name: Confirmed Cases In Spain
-        points_per_hour: 0.5
-        show:
-          labels: false
-        type: 'custom:mini-graph-card'
-      - animate: true
-        entities:
-          - color: orange
-            entity: sensor.spain_coronavirus_current
-        group_by: day
-        hours_to_show: 168
-        name: Still Infected In Spain
-        points_per_hour: 0.5
-        show:
-          labels: false
-        type: 'custom:mini-graph-card'
-      - animate: true
-        entities:
-          - color: green
-            entity: sensor.spain_coronavirus_recovered
-        group_by: day
-        hours_to_show: 168
-        name: Recovered In Spain
-        points_per_hour: 0.5
-        show:
-          labels: false
-        type: 'custom:mini-graph-card'
-      - animate: true
-        entities:
-          - color: red
-            entity: sensor.worldwide_coronavirus_confirmed
-        group_by: day
-        hours_to_show: 168
-        name: Confirmed Worldwide
-        points_per_hour: 0.5
-        show:
-          labels: false
-        type: 'custom:mini-graph-card'
-      - animate: true
-        entities:
-          - color: purple
-            entity: sensor.worldwide_coronavirus_current
-        group_by: day
-        hours_to_show: 168
-        name: Still Infected Worldwide
-        points_per_hour: 0.5
-        show:
-          labels: false
-        type: 'custom:mini-graph-card'
-      - animate: true
-        entities:
-          - color: lightgreen
-            entity: sensor.worldwide_coronavirus_recovered
-        group_by: day
-        hours_to_show: 168
-        name: Recovered Worldwide
-        points_per_hour: 0.5
-        show:
-          labels: false
-        type: 'custom:mini-graph-card'
-    icon: 'mdi:allergy'
-    path: covid-19
-    title: covid-19
-    visible:
-      - user: c7ab05691bfb4e6ebd3ef09d36e51061
-      - user: b8d79ae488264bd386759fd2126bd213
-      - user: 129ac4fd676d4ce8a964d58173d73d97
-  - badges: []
-    cards:
-      - entities:
-          - entity: input_boolean.intruder_alert
-          - entity: script.intruder_alert
-          - entity: script.intruder_alert2
-          - entity: automation.intruder_alert_alexa_speakers_on
-          - entity: automation.intruder_alert_alexa_speakers_off
-        type: entities
-      - entities:
-          - sensor.d1difference
-          - sensor.average_diffenence
         type: history-graph
       - cards:
           - cards:
@@ -2537,9 +2420,7 @@ views:
       - entities:
           - label: ddasdasdasdcasc
             type: section
-          - light.garage_wall_switch
-          - light.hallcam_light
-          - light.shelly_dimmer
+          - entity: light.shelly_dimmer
         title: Section
         type: entities
       - cards:
@@ -2558,7 +2439,7 @@ views:
                 name: Kitchen
               - type: divider
               - entity: sensor.bedroom_brightness
-                icon: 'mdi:hotel'
+                icon: 'mdi:bed'
                 name: Master Bedroom
               - entity: sensor.lias_room_brightness
                 icon: 'mdi:alpha-l-circle'
@@ -2583,12 +2464,12 @@ views:
         type: entities
       - autosave: false
         buttons:
-          clear: false
+          clear: true
           paste: false
           save: false
         entity: input_text.alexa_tts
-        max_length: 50
-        title: Alexa Say...
+        title: ''
+        max_length: 5000
         type: 'custom:lovelace-multiline-text-input-card'
       - cards:
           - elements:
@@ -2617,11 +2498,6 @@ views:
       - entity: sensor.washing_machine_power
         title: Default
         type: 'custom:bar-card'
-      - entities:
-          - entity: sensor.test_washing_machine_state
-          - entity: input_number.test
-        title: My Title
-        type: entities
       - entity: sensor.home_energy_meter_daily
         fill: '#454647'
         font_style:
@@ -2633,20 +2509,6 @@ views:
         stroke_color: '#d5dee6'
         stroke_width: 10
         type: 'custom:circle-sensor-card'
-      - entities:
-          - sensor.ags2_w09_battery_level
-          - sensor.ags2_w09_battery_level_2
-        font_size: 70
-        height: 80
-        hours_to_show: 24
-        line_width: 2
-        name: Kids Battery Levels
-        points_per_hour: 10
-        show:
-          extrema: false
-          fill: true
-          labels: false
-        type: 'custom:mini-graph-card'
       - entities:
           - text: Hassio Stats
             type: 'custom:text-divider-row'
@@ -2668,7 +2530,7 @@ views:
                   - entities:
                       - entity: sensor.count_scripts
                         name: Scripts
-                      - entity: sensor.count_sensorss
+                      - entity: sensor.count_sensors
                         name: Sensors
                       - entity: sensor.count_automations
                         name: Automations
@@ -2681,40 +2543,95 @@ views:
         type: entities
       - cards:
           - cards:
-              - entity: sensor.boiler_state
-                name: The boiler is currently
-                type: entity
-              - entity: sensor.boiler_energy_today
-                icon: 'mdi:flash'
-                name: Today has used
-                type: entity
-            type: horizontal-stack
-          - color_thresholds:
-              - color: '#c0392b'
-                value: 600
-              - color: '#7cfc00'
-                value: 300
-              - color: '#0000ff'
-                value: 50
-            entities:
-              - entity: sensor.boiler_power
-            font_size: 70
-            height: 75
-            hours_to_show: 24
-            icon: 'mdi:flash'
-            line_width: 2
-            points_per_hour: 15
-            show:
-              extrema: false
-              fill: true
-              icon: false
-              labels: false
-            type: 'custom:mini-graph-card'
+              - type: conditional
+                conditions:
+                  - entity: input_text.table1_item1
+                    state_not: '""'
+                card:
+                  type: markdown
+                  content: '{{states.input_text.table1_item1.state}}'
         type: 'custom:vertical-stack-in-card'
-      - type: entities
-        title: My Title
-        entities:
+      - entities:
           - entity: input_select.bedroom_fan
+        title: My Title
+        type: entities
+      - entities:
+          - entity: input_number.peak_price
+          - entity: input_number.offpeak_price
+          - entity: input_number.test_price
+          - entity: automation.set_max_price_peak
+          - entity: automation.set_max_price_offpeak
+        show_header_toggle: false
+        title: My Title
+        type: entities
+      - entity: climate.test
+        type: thermostat
+      - entities:
+          - entity: cover.left_blind
+          - entity: cover.right_blind
+        title: My Title
+        type: entities
+      - cards:
+          - entities:
+              - entity: cover.left_blind
+                name: Left Blind
+            type: 'custom:shutter-card'
+          - entities:
+              - entity: cover.right_blind
+                name: Right Blind
+            type: 'custom:shutter-card'
+          - content: >
+              Welcome to the home of the future. Where dreams become wet and
+              shit gets real. Take a look around and amaze yourself with
+              technology.
+            title: The Clarke AI Interface
+            type: markdown
+          - entities:
+              - entity: sensor.living_room_brightness
+                icon: 'mdi:sofa'
+                name: Living Room
+              - entity: sensor.kitchen_brightness
+                icon: 'mdi:fridge'
+                name: Kitchen
+              - type: divider
+              - entity: sensor.bedroom_brightness
+                icon: 'mdi:bed'
+                name: Master Bedroom
+              - entity: sensor.lias_room_brightness
+                icon: 'mdi:alpha-l-circle'
+                name: Lias Bedroom
+              - entity: sensor.charlies_room_brightness
+                icon: 'mdi:alpha-c-circle'
+                name: Charlies Bedroom
+              - entity: sensor.kids_bathroom_brightness
+                icon: 'mdi:toilet'
+                name: Kids Bathroom
+              - type: divider
+              - entity: sensor.garage_lux
+                icon: 'mdi:garage'
+                name: Garage
+            type: entities
+        type: 'custom:vertical-stack-in-card'
+      - type: vertical-stack
+        cards:
+          - autosave: false
+            buttons:
+              clear: true
+              paste: false
+              save: false
+            entity: input_text.alexa_tts
+            title: ''
+            max_length: 5000
+            type: 'custom:lovelace-multiline-text-input-card'
+          - autosave: false
+            buttons:
+              clear: true
+              paste: false
+              save: false
+            entity: input_text.alexa_tts
+            title: ''
+            max_length: 5000
+            type: 'custom:lovelace-multiline-text-input-card'
     path: test
     title: Test
     visible:

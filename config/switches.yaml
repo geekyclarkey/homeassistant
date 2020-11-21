@@ -4,14 +4,21 @@
 ### Tasmota Switches ###
 
   - platform: mqtt
-    name: "Heated Blanket"
-    state_topic: "stat/heatedblanket/POWER"
-    command_topic: "cmnd/heatedblanket/power"
+    name: "Living Room Mozzie Plug"
+    command_topic: "cmnd/livingroommozzieplug/power"
+    state_topic: "stat/livingroommozzieplug/POWER"
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
-    icon: mdi:radiator
+    icon: mdi:power-socket-eu
+  - platform: mqtt
+    name: "Bedroom Mozzie Plug"
+    state_topic: "stat/bedroommozzieplug/POWER"
+    command_topic: "cmnd/bedroommozzieplug/power"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+    icon: mdi:power-socket-eu
   - platform: mqtt
     name: "Garage Door Lock"
     command_topic: "cmnd/magneticlock/power"
@@ -20,7 +27,6 @@
     payload_on: "ON"
     payload_off: "OFF"
     icon: mdi:lock
-    retain: false
   - platform: mqtt
     name: "Boiler Plug"
     command_topic: "cmnd/boilerplug/power"
@@ -47,6 +53,7 @@
     icon: mdi:power-socket-eu
 
 
+
 ### Shelly Switches ###
 
   - platform: mqtt
@@ -57,6 +64,7 @@
     payload_on: "on"
     payload_off: "off"
     icon: mdi:power-socket-eu
+
 
 
 ### Garage Door Switches ###
@@ -79,83 +87,16 @@
     icon: mdi:garage
 
 
-### Blinds Switches ###
-
-  - platform: mqtt
-    name: "Open Left Blind"
-    command_topic: "cmnd/leftblind/power2"
-    state_topic: "stat/leftblind/POWER2"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    icon: mdi:arrow-up
-  - platform: mqtt
-    name: "Close Left Blind"
-    command_topic: "cmnd/leftblind/power1"
-    state_topic: "stat/leftblind/POWER1"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    icon: mdi:arrow-down
-  - platform: mqtt
-    name: "Open Right Blind"
-    command_topic: "cmnd/rightblind/power2"
-    state_topic: "stat/rightblind/POWER2"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    icon: mdi:arrow-up
-  - platform: mqtt
-    name: "Close Right Blind"
-    command_topic: "cmnd/rightblind/power1"
-    state_topic: "stat/rightblind/POWER1"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    icon: mdi:arrow-down
-
 
 ### Broadlink RM Mini Switches ###
 
   - platform: broadlink
-    host: !secret lias_broadlink_ip
-    mac: !secret lias_broadlink_mac
-    friendly_name: "Lias Blackbean"
-    timeout: 15
-    switches:
-      lia_tv_power:
-        friendly_name: "LG Power"
-        command_on: 'JgBYAAABK5EVEhUREjgTExITEhQTExQTFDUVNBIUFzMTNxI3FzMTNxMTEhQSFRQ1EhMSFBIUEhQTNxM2FDcTExI3FTQVNRU1EwAFyQABKEoTAAycAAEnSxMADQU='
-        command_off: 'JgBYAAABK5EVEhUREjgTExITEhQTExQTFDUVNBIUFzMTNxI3FzMTNxMTEhQSFRQ1EhMSFBIUEhQTNxM2FDcTExI3FTQVNRU1EwAFyQABKEoTAAycAAEnSxMADQU='
-  - platform: broadlink
-    host: !secret charlies_broadlink_ip
-    mac: !secret charlies_broadlink_mac
-    friendly_name: "Charlies Blackbean"
-    timeout: 15
-    switches:
-      charlie_tv_power:
-        friendly_name: "Charlies TV Power"
-        command_on: 'JgBQAAABKJQTExMTEjYTExMTEhMSExITEjcTNhMUEjYTNxM2EzcTNhMUEhMSNhMUEhMSExI3EzYTNxM2ExMTNhM3EzYTExITEwAFKwABKEkTAA0FAAAAAAAAAAA='
-        command_off: 'JgBQAAABKJQTEhMTEzYTExITEhQSExITEjcTNhMTEjcTNhM3EzcTNhM3ExMSNhMUEhMSExI3EzYTExI3ExMSNxM2EzcTExITEgAFKwABKEoTAA0FAAAAAAAAAAA='
-  - platform: broadlink
-    host: !secret bedroom_broadlink_ip
     mac: !secret bedroom_broadlink_mac
-    friendly_name: "Bedroom Blackbean"
-    timeout: 15
     switches:
-      notused_power:
-        command_on: 'JgBGAJKVETkRORA6ERQRFBEUERQRFBE5ETkQOhAVEBUQFREUEBUQOhEUERQRORE5EBURFBA6EBUQOhE5EBUQFRA6EDoRFBEADQUAAA=='
-        command_off: 'JgBGAJOVEDoQOhA6DxYPFhAVEBUQFRA6ETkROREUERQRFBEUEBUQFREUERQRORE5EBUQFRE5ETkRORE5ERUQFRA6DzsPFhAADQUAAA=='
-  - platform: broadlink
-    host: !secret livingroom_broadlink_ip
-    mac: !secret livingroom_broadlink_mac
-    friendly_name: "Livingroom Blackbean"
-    timeout: 15
-    switches:
-      samsung_tv_power:
-        friendly_name: "Samsung TV Power"
-        command_on: 'JgBGAJKVETkRORA6ERQRFBEUERQRFBE5ETkQOhAVEBUQFREUEBUQOhEUERQRORE5EBURFBA6EBUQOhE5EBUQFRA6EDoRFBEADQUAAA=='
-        command_off: 'JgBGAJOVEDoQOhA6DxYPFhAVEBUQFRA6ETkROREUERQRFBEUEBUQFREUERQRORE5EBUQFRE5ETkRORE5ERUQFRA6DzsPFhAADQUAAA=='
+      - name: Bedroom TV
+        command_on: 'JgBwAE4VExQnFCcUJxUTFCcUExUnFBMUFBQTFBMAAz5OFBQUJxQnFCcUFBQnFBMVJxQTFBMVExQTAAM+ThQUFCcUJxQnFBQUJxQTFCcVExQTFBQUEwADPk4UFBQnFCcUJxQTFScUExQnFBQUExQUFBMADQUAAAAAAAAAAA=='
+        command_off: 'JgCoAE8UJxQnFCcVJhUTFCcUFBQnFBMUFBQTFBQAAylPFCcUJxQnFCcVExQnFBMVJxQTFBQUExQTAAMrTRUnFCcUJxQnFBQUJxQTFSYVExQTFRMUEwADK00VJxQnFCcUJxQUFCcUExQnFRMUExUTFBMAAypOFSYVJxQnFCcUExUnFBMUJxUTFBMUFBQTAAMqThQnFScUJxQnFBMVJxQTFCcUFBQTFBQUEwANBQ=='
+
 
 
 ### Momentary Switches ###

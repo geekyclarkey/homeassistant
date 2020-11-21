@@ -17,7 +17,7 @@ I am trying to keep it up to date as much as possible and adding any new feature
 [Click Here](esphome/esphome_examples.md) For examples of all the ESPHome config files i have used in the past.  
 
 ## My Homeassistant config files
-**Last Updated: 04/05/2020**  
+**Last Updated: 21/11/2020**  
 Here are my personal [config files.](config) Hopefully something in here will help someone do what they are trying to do.  
 Here is my [Lovelace Raw File.](lovelace.yaml)  
 ### Custom cards I use  

@@ -2,28 +2,16 @@
 
 ##### Garage Automations #####
 
-- alias: Garage wall light - Switch on
+- alias: Garage wall switch - Keep light on
   initial_state: true
   trigger:
-  - entity_id: light.garage_wall_switch
-    platform: state
-    to: 'on'
+    platform: mqtt
+    topic: stat/garaged1mini/POWER1
+    payload: "HOLD"
+    encoding: "utf-8"
   action:
-  - entity_id: light.garage_light
-    service: light.turn_on
   - entity_id: automation.no_motion_in_garage_for_5_min_light_off
-    service: automation.turn_off
-- alias: Garage wall light - Switch off
-  initial_state: true
-  trigger:
-  - entity_id: light.garage_wall_switch
-    platform: state
-    to: 'off'
-  action:
-  - entity_id: light.garage_light
-    service: light.turn_off
-  - entity_id: automation.no_motion_in_garage_light_off
-    service: automation.turn_on
+    service: automation.toggle
 
 - alias: Lock the garage door at 8pm
   initial_state: true
@@ -109,10 +97,10 @@
 - alias: Car Presence Auto Open
   trigger:
     - platform: state
-      entity_id: binary_sensor.CarPresence
+      entity_id: binary_sensor.seans_car_presence
       to: 'on'
     - platform: state
-      entity_id: binary_sensor.CarPresenceHayley
+      entity_id: binary_sensor.hayleys_car_presence
       to: 'on'
   condition:
   - condition: state
@@ -123,8 +111,9 @@
 - alias: Car Presence Auto Close 1
   trigger:
     platform: state
-    entity_id: binary_sensor.CarPresence
-    to: 'off'
+    entity_id: binary_sensor.seans_car_presence
+    to: 'unavailable'
+    for: "00:00:05"
   condition:
     condition: and
     conditions:
@@ -135,15 +124,16 @@
         entity_id: script.close_garage_door
         state: 'off'
       - condition: state
-        entity_id: binary_sensor.CarPresenceHayley
-        state: 'off'
+        entity_id: binary_sensor.hayleys_car_presence
+        state: 'unavailable'
   action:
   - service: script.close_garage_door
 - alias: Car Presence Auto Close 2
   trigger:
     platform: state
-    entity_id: binary_sensor.CarPresenceHayley
-    to: 'off'
+    entity_id: binary_sensor.hayleys_car_presence
+    to: 'unavailable'
+    for: "00:00:05"
   condition:
     condition: and
     conditions:
@@ -154,8 +144,8 @@
         entity_id: script.close_garage_door
         state: 'off'
       - condition: state
-        entity_id: binary_sensor.CarPresence
-        state: 'off'
+        entity_id: binary_sensor.seans_car_presence
+        state: 'unavailable'
   action:
   - service: script.close_garage_door
 - alias: Notify - Garage is closed
@@ -233,6 +223,29 @@
     - service: script.turn_on
       entity_id: script.open_garage_door
 
+- alias: Garage Tablet charge automation 1
+  initial_state: true
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.k00z_battery_level
+    below: 10
+  action:
+    - service: switch.turn_on
+      entity_id: switch.garage_tablet_plug
+- alias: Garage Tablet charge automation 2
+  initial_state: true
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.k00z_battery_level
+    above: 95
+  action:
+    - service: switch.turn_off
+      entity_id: switch.garage_tablet_plug
+
+
+
+
+
 ### Notification Automations ###
 
 - alias: Notify - Garage is closing
@@ -246,6 +259,10 @@
         message: The garage has started to close
         title: Sean
       service: notify.mobile_app_seans_iphone
+    - data:
+        message: The garage has started to close
+        title: Hayley
+      service: notify.mobile_app_hayleys_iphone
 
 - alias: Notify - Motion in the yard while door is open
   trigger:
@@ -262,14 +279,7 @@
       data:
         title: Front Yard
         message: Someone is in the front yard
-    - service: automation.turn_off
-      data:
-        entity_id: automation.notify_motion_in_the_yard_while_door_is_open
-    - delay:
-        minutes: 2
-    - service: automation.turn_on
-      data:
-        entity_id:  automation.notify_motion_in_the_yard_while_door_is_open
+    - delay: "00:02:00"
 
 - alias: Notify - Smoke alarm triggered
   initial_state: true
@@ -296,13 +306,13 @@
       title: "Plex Update!"
       message: "{{trigger.event.data.name}} will be available in your Plex library in the next few minutes"
 
-- alias: Notify - Washing machine has finnished
+- alias: Notify - Washing machine has finished
   trigger:
   - entity_id: sensor.washing_machine_state
     platform: state
     from: 'Washing'
     to: 'Idle'
-    for: 
+    for:
       minutes: 10
   action:
     - service: notify.notify
@@ -317,10 +327,10 @@
           ]|random +[
           "The washing machine ",
           "That big white box in the laundry room ",
-          "The noisey machine ",
+          "The noisy machine ",
           "The washer ",
           ]|random +[
-          "has finnished. ",
+          "has finished. ",
           "has washed your clothes. ",
           "has just stopped. ",
           "is done. ",
@@ -331,13 +341,13 @@
           "Charlies pants dont smell like bum anymore",
           ]|random}}'
 
-- alias: Notify - Tumble dryer has finnished
+- alias: Notify - Tumble dryer has finished
   trigger:
   - entity_id: sensor.tumble_dryer_state
     platform: state
     from: 'Drying'
     to: 'Idle'
-    for: 
+    for:
       minutes: 3
   action:
     - service: notify.notify
@@ -354,7 +364,7 @@
           "That box that drys clothes ",
           "The dryer ",
           ]|random +[
-          "has finnished. ",
+          "has finished. ",
           "has dried your clothes. ",
           "has just stopped. ",
           "is done. ",
@@ -362,26 +372,6 @@
           "Get them out while they are still warm.",
           "Your clothes are now fluffy and warm.",
           ]|random}}'
-
-- alias: Notify - Electricity is now off-peak
-  trigger:
-  - at: '23:00:00'
-    platform: time
-  action:
-    - service: notify.notify
-      data:
-        title: Cheaper electricity
-        message: The Electricity tarrif has changed to off-peak
-
-- alias: Notify - Electricity is now peak
-  trigger:
-  - at: '13:00:00'
-    platform: time
-  action:
-    - service: notify.notify
-      data:
-        title: Expensive electricity
-        message: The Electricity tarrif has changed to peak
 
 - alias: Notify - The PC is off
   initial_state: true
@@ -398,27 +388,71 @@
         data:
           push:
             category: "pc"
-        
+
+- alias: Notify - The internet has gone off
+  trigger:
+  - entity_id: binary_sensor.internet_access
+    platform: state
+    from: 'on'
+    to: 'off'
+  action:
+    - service: notify.notify
+      data:
+        title: Oops! 😧🤭
+        message: I'm sorry to inform you but it looks like the internet has gone off. I will let you know when it comes back on.
+
+- alias: Notify - The internet has come back on
+  trigger:
+  - entity_id: binary_sensor.internet_access
+    platform: state
+    from: 'off'
+    to: 'on'
+  action:
+    - service: notify.notify
+      data:
+        title: Whoop! Whoop! 🤗😄
+        message: It looks like the internet has come back on. You're not living in the stone age anymore!!!
+
+- alias: Notify - Motion in the front yard
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.front_yard
+    from: 'off'
+    to: 'on'
+  condition:
+    - condition: time
+      after: '23:00:00'
+      before: '07:00:00'
+  action:
+    - service: notify.notify
+      data:
+        message: Motion was just detected in your front yard, a clip is being recorded.
+    - delay: '00:02:00'
+
+
+
+
 
 ##### Aircon Automations #####
 
-- alias: Bedroom aircon auto off after 2 hours
+- alias: Bedroom aircon auto off after 4 hours
   trigger:
     - platform: state
       entity_id: climate.bedroom_aircon
       to: 'cool'
       for:
-        hours: 2
+        hours: 4
     - platform: state
       entity_id: climate.bedroom_aircon
       to: 'heat'
       for:
-        hours: 2
+        hours: 4
     - platform: state
       entity_id: climate.bedroom_aircon
       to: 'dry'
       for:
-        hours: 2
+        hours: 4
   action:
     - service: climate.turn_off
       entity_id: climate.bedroom_aircon
@@ -485,6 +519,9 @@
   action:
     - service: climate.turn_off
       entity_id: climate.livingroom_aircon
+
+
+
 
 
 ##### Camera Automations #####
@@ -554,37 +591,8 @@
   action:
     - service: script.workbenchcam_record
 
-- alias: Record clip of front if motion detected while away
-  initial_state: true
-  trigger:
-  - platform: state
-    entity_id: binary_sensor.front_yard
-    to: 'on'
-  condition:
-    condition: or
-    conditions:
-      - condition: time
-        after: '23:00:00'
-        before: '07:00:00'
-      - condition: and
-        conditions:
-          - condition: state
-            entity_id: 'device_tracker.sean'
-            state: 'not_home'
-          - condition: state
-            entity_id: 'device_tracker.hayley'
-            state: 'not_home'
-  action:
-    - service: script.frontyardcam_record
-    - service: notify.notify
-      data:
-        message: Motion was just detected in your front yard, a clip has been recorded.
-    - service: automation.turn_off
-      entity_id: automation.record_clip_of_front_yard_if_motion_detected_while_we_are_away
-    - delay:
-        seconds: 30
-    - service: automation.turn_on
-      entity_id: automation.record_clip_of_front_yard_if_motion_detected_while_we_are_away
+
+
 
 
 ##### Living room automations #####
@@ -594,6 +602,10 @@
     platform: numeric_state
     entity_id: sensor.living_room_brightness
     below: 20
+  condition:
+    condition: state
+    entity_id: binary_sensor.living_room_pir
+    state: 'on'
   action:
   - data:
       entity_id: input_boolean.lamp_lux
@@ -625,48 +637,20 @@
       entity_id: light.lamp
     service: light.turn_off
 
-- alias: Auto switch off blind relays
-  initial_state: true
-  trigger:
-    - platform: state
-      entity_id: switch.open_left_blind
-      to: 'on'
-      for: 00:00:45
-    - platform: state
-      entity_id: switch.close_left_blind
-      to: 'on'
-      for: 00:00:45
-    - platform: state
-      entity_id: switch.open_right_blind
-      to: 'on'
-      for: 00:00:45
-    - platform: state
-      entity_id: switch.close_right_blind
-      to: 'on'
-      for: 00:00:45
-  action:
-  - service: script.stop_blinds
-
 - alias: No motion in living room for 1 hour - Turn lights off
   trigger:
     platform: state
-    entity_id: binary_sensor.living_room
+    entity_id: binary_sensor.living_room_pir
     to: 'off'
     for: 01:00:00
   action:
   - data:
-      entity_id: light.lamp
-    service: light.turn_off
-  - data:
-      entity_id: light.dining_room
-    service: light.turn_off
-  - data:
-      entity_id: light.living_room
+      entity_id: light.lamp, light.dining_room, light.living_room
     service: light.turn_off
 
 - alias: Motion in living room - Turn lamp on
   trigger:
-  - entity_id: binary_sensor.living_room
+  - entity_id: binary_sensor.living_room_pir
     from: 'off'
     platform: state
     to: 'on'
@@ -684,15 +668,37 @@
       entity_id: light.lamp
     service: light.turn_on
 
+- alias: Living room mozzie plug auto off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.living_room_pir
+    to: 'off'
+    for: 01:00:00
+  condition:
+    condition: state
+    entity_id: switch.living_room_mozzie_plug
+    state: 'on'
+  action:
+  - data:
+      entity_id: switch.living_room_mozzie_plug
+    service: switch.turn_off
+
+
+
+
 
 ##### Kitchen Automations #####
 
 - alias: No motion in kitchen for 5 min - Turn lights off
   trigger:
     platform: state
-    entity_id: binary_sensor.kitchen
+    entity_id: binary_sensor.kitchen_pir
     to: 'off'
     for: 00:05:00
+  condition:
+    condition: state
+    entity_id: light.kitchen
+    state: 'on'
   action:
   - data:
       entity_id: light.kitchen
@@ -700,7 +706,7 @@
 
 - alias: Motion in kitchen - Turn lights on
   trigger:
-  - entity_id: binary_sensor.kitchen
+  - entity_id: binary_sensor.kitchen_pir
     from: 'off'
     platform: state
     to: 'on'
@@ -716,6 +722,9 @@
     service: light.turn_on
 
 
+
+
+
 ##### Toilet Automations #####
 
 - alias: No motion in toilet for 10 min - Turn light off
@@ -724,6 +733,10 @@
     entity_id: binary_sensor.toilet
     to: 'off'
     for: 00:10:00
+  condition:
+    condition: state
+    entity_id: light.downstairs_toilet
+    state: 'on'
   action:
   - data:
       entity_id: light.downstairs_toilet
@@ -746,33 +759,33 @@
     service: light.turn_on
 
 
+
+
+
 ##### Kids Bathroom Automations #####
 
 - alias: No motion in kids bathroom for 5 min - Turn light off
   trigger:
     platform: state
-    entity_id: binary_sensor.kids_bathroom
+    entity_id: binary_sensor.kids_bathroom_pir
     to: 'off'
     for: 00:05:00
   action:
   - data:
-      entity_id: light.kids_bathroom_wall
-    service: light.turn_off
-  - data:
-      entity_id: light.kids_bathroom
+      entity_id: light.kids_bathroom_wall, light.kids_bathroom
     service: light.turn_off
 
 - alias: Motion in kids bathroom - Turn light on
   trigger:
     platform: state
-    entity_id: binary_sensor.kids_bathroom
+    entity_id: binary_sensor.kids_bathroom_pir
     to: 'on'
   condition:
   - condition: numeric_state
     entity_id: 'sensor.kids_bathroom_brightness'
     below: 20
   - condition: state
-    entity_id: light.kids_bathroom_wall
+    entity_id: ight.kids_bathroom_wall
     state: 'off'
     for:
       seconds: 5
@@ -780,6 +793,9 @@
   - data:
       entity_id: light.kids_bathroom_wall
     service: light.turn_on
+
+
+
 
 
 ##### Front Yard Automations #####
@@ -790,10 +806,17 @@
     entity_id: binary_sensor.front_yard
     to: 'off'
     for: 00:05:00
+  condition:
+    condition: state
+    entity_id: light.front_yard
+    state: 'on'
   action:
   - data:
       entity_id: light.front_yard
     service: light.turn_off
+
+
+
 
 
 ##### Hallway Automations #####
@@ -806,13 +829,7 @@
     for: 00:05:00
   action:
   - data:
-      entity_id: light.hall_1
-    service: light.turn_off
-  - data:
-      entity_id: light.hall_2
-    service: light.turn_off
-  - data:
-      entity_id: light.garage_stairs
+      entity_id: light.hall_1, light.hall_2, light.garage_stairs
     service: light.turn_off
 
 - alias: No motion on landing for 5 min - Turn lights off
@@ -823,11 +840,59 @@
     for: 00:05:00
   action:
   - data:
-      entity_id: light.landing
+      entity_id: light.landing, light.stairs
     service: light.turn_off
-  - data:
-      entity_id: light.stairs
-    service: light.turn_off
+
+- alias: Stairs long press - Automation on
+  initial_state: true
+  trigger:
+    platform: mqtt
+    topic: stat/stairs/POWER
+    payload: "HOLD"
+    encoding: "utf-8"
+  condition:
+  - condition: state
+    entity_id: light.salt_lamp
+    state: 'off'
+  action:
+    - entity_id: light.salt_lamp, light.hall_cabinet_leds
+      service: light.turn_on
+    - delay:
+        milliseconds: 250
+    - entity_id: group.hall_cabinet_candles
+      service: light.turn_on
+
+- alias: Stairs long press - Automation off
+  initial_state: true
+  trigger:
+    platform: mqtt
+    topic: stat/stairs/POWER
+    payload: "HOLD"
+    encoding: "utf-8"
+  condition:
+  - condition: state
+    entity_id: light.salt_lamp
+    state: 'on'
+  action:
+    - entity_id: group.hall_cabinet_candles
+      service: light.turn_off
+    - delay:
+        milliseconds: 250
+    - entity_id: light.salt_lamp, light.hall_cabinet_leds
+      service: light.turn_off
+
+- alias: Hall Cabinet auto off
+  trigger:
+  - at: '00:00:00'
+    platform: time
+  action:
+    - entity_id: group.hall_cabinet_candles
+      service: light.turn_off
+    - delay: 00:00:01
+    - entity_id: light.salt_lamp, light.hall_cabinet_leds
+      service: light.turn_off
+
+
 
 
 
@@ -836,9 +901,13 @@
 - alias: No motion in laundry room for 5 min - Turn light off
   trigger:
     platform: state
-    entity_id: binary_sensor.laundry_room
+    entity_id: binary_sensor.laundry_room_pir
     to: 'off'
     for: 00:05:00
+  condition:
+    condition: state
+    entity_id: light.laundry_room
+    state: 'on'
   action:
   - data:
       entity_id: light.laundry_room
@@ -847,18 +916,23 @@
 - alias: Motion in laundry room - Turn light on
   trigger:
     platform: state
-    entity_id: binary_sensor.laundry_room
+    entity_id: binary_sensor.laundry_room_pir
     to: 'on'
   condition:
+  - condition: numeric_state
+    entity_id: 'sensor.laundry_room_brightness'
+    below: 7
   - condition: state
     entity_id: light.laundry_room
     state: 'off'
     for:
-      seconds: 5
+      seconds: 10
   action:
   - data:
       entity_id: light.laundry_room
     service: light.turn_on
+
+
 
 
 
@@ -870,10 +944,52 @@
     entity_id: binary_sensor.charlies_room
     to: 'off'
     for: 00:30:00
+  condition:
+  - condition: state
+    entity_id: light.charlies_bedroom
+    state: 'on'
+  - condition: numeric_state
+    entity_id: sensor.charlies_bed
+    below: 390000
   action:
   - data:
       entity_id: light.charlies_bedroom
     service: light.turn_off
+
+- alias: Charlies light long press - Automation
+  initial_state: true
+  trigger:
+    platform: mqtt
+    topic: stat/charlielight/POWER
+    payload: "HOLD"
+    encoding: "utf-8"
+  condition:
+    condition: state
+    entity_id: light.charlies_bedroom
+    state: 'on'
+  action:
+    - service: script.charlies_fan_low
+    - delay:
+        seconds: 1
+    - service: script.charlies_fan_light_toggle
+    - service: media_player.turn_on
+      entity_id: media_player.charlies_tv
+
+- alias: Charlies bed Leds off at 12am
+  trigger:
+  - at: '00:00:05'
+    platform: time
+  condition:
+    condition: state
+    entity_id: light.charlies_bed
+    state: 'on'
+  action:
+  - data:
+      entity_id: light.charlies_bed
+    service: light.turn_off
+
+
+
 
 
 ##### Lias room Automations #####
@@ -881,298 +997,103 @@
 - alias: No motion in Lias room for 30 min - Turn light off
   trigger:
     platform: state
-    entity_id: binary_sensor.lias_room
+    entity_id: binary_sensor.lias_pir
     to: 'off'
     for: 00:30:00
+  condition:
+    condition: state
+    entity_id: light.lias_bedroom
+    state: 'on'
   action:
   - data:
       entity_id: light.lias_bedroom
     service: light.turn_off
 
+- alias: Lias light long press - Automation
+  initial_state: true
+  trigger:
+    platform: mqtt
+    topic: stat/lialight/POWER
+    payload: "HOLD"
+    encoding: "utf-8"
+  condition:
+    condition: state
+    entity_id: light.lias_bedroom
+    state: 'on'
+  action:
+    - service: script.lias_fan_low
+    - delay:
+        seconds: 0.5
+    - service: script.lias_fan_light_toggle
+    - service: media_player.turn_on
+      entity_id: media_player.lias_tv
+
+- alias: Lias bed Leds off at 12am
+  trigger:
+  - at: '00:00:00'
+    platform: time
+  condition:
+    condition: state
+    entity_id: light.lias_leds
+    state: 'on'
+  action:
+  - data:
+      entity_id: light.lias_leds
+    service: light.turn_off
+
+
+
+
 
 ### Bedroom Automations ###
 
-- alias: Turn on heated blanket at 12:15am
+- alias: Turn off bedroom mozzie plug at 8am
   trigger:
-  - at: '00:15:00'
-    platform: time
-  action:
-  - data:
-      entity_id: switch.heated_blanket
-    service: switch.turn_on
-- alias: Turn off heated blanket after 1 hour
-  trigger:
-    platform: state
-    entity_id: switch.heated_blanket
-    to: 'on'
-    for: 01:00:00
-  action:
-  - data:
-      entity_id: switch.heated_blanket
-    service: switch.turn_off
-
-- alias: Salt Lamp on when TV turned on
-  trigger:
-    - entity_id: media_player.bedroom_tv
-      from: 'off'
-      platform: state
-  condition:
-    condition: time
-    after: '20:00:00'
-    before: 05:00:00
-  action:
-    - entity_id: light.salt_lamp
-      service: light.turn_on
-- alias: Salt Lamp off at 3am
-  trigger:
-  - at: '03:00:00'
+  - at: '08:00:00'
     platform: time
   condition:
     condition: state
-    entity_id: light.salt_lamp
+    entity_id: switch.bedroom_mozzie_plug
     state: 'on'
   action:
-    - entity_id: light.salt_lamp
-      service: light.turn_off
-
-
-### Alarm Automations###
-
-- alias: RFID Alarm
-  initial_state: true
-  trigger:
-  - platform: mqtt
-    topic: home/esprfid
-    payload: 'Hayley'
-  - platform: mqtt
-    topic: home/esprfid
-    payload: 'Sean'
-  action:
-  - data: {}
-    service: script.rfid_scan
-
-- alias: Trigger alarm while armed away
-  initial_state: true
-  trigger:
-  - entity_id: binary_sensor.living_room
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.downstairs_hall
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.landing
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.front_door
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.garage_house_door
-    platform: state
-    to: 'on'
-#  - entity_id: binary_sensor.garage
-#    platform: state
-#    to: 'on'
-  condition:
-    condition: state
-    entity_id: alarm_control_panel.alarm
-    state: armed_away
-  action:
-    service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.alarm
-
-- alias: Trigger alarm while armed home
-  initial_state: true
-  trigger:
-  - entity_id: binary_sensor.living_room
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.downstairs_hall
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.front_door
-    platform: state
-    to: 'on'
-  - entity_id: binary_sensor.garage_house_door
-    platform: state
-    to: 'on'
-#  - entity_id: binary_sensor.garage
-#    platform: state
-#    to: 'on'
-  - entity_id: binary_sensor.garage_door
-    platform: state
-    to: 'on'
-  condition:
-    condition: state
-    entity_id: alarm_control_panel.alarm
-    state: armed_home
-  action:
-    service: alarm_control_panel.alarm_trigger
-    entity_id: alarm_control_panel.alarm
-
-- alias: Alarm triggered - pending
-  initial_state: true
-  trigger:
-    - platform: state
-      from: 'armed_away'
-      entity_id: alarm_control_panel.alarm
-      to: 'pending'
-    - platform: state
-      from: 'armed_home'
-      entity_id: alarm_control_panel.alarm
-      to: 'pending'
-  action:
-  - service: media_player.volume_set
-    data:
-      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2
-      volume_level: 0.3
-  - service: notify.alexa_media
-    data:
-      target: 
-        - media_player.living_room_echo_dot
-        - media_player.kitchen_echo_dot_2
-      data: 
-        type: tts
-      message: "Please input the alarm code"
-
-- alias: Sound the alarms
-  initial_state: true
-  trigger:
-    - platform: state
-      entity_id: alarm_control_panel.alarm
-      to: 'triggered'
-  action:
   - data:
-      message: The alarm has been triggered
-    service: notify.mobile_app_seans_iphone
-  - service: sonos.snapshot
-    entity_id: media_player.living_room
-  - data:
-      volume_level: 0.9
-    entity_id: media_player.living_room
-    service: media_player.volume_set
-  - data:
-      entity_id: media_player.living_room
-      media_content_id:  http://192.168.100.53:8123/local/audio/Retro-Alarm.mp3
-      media_content_type: music
-    service: media_player.play_media
-  - service: media_player.volume_set
-    data:
-      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot, media_player.sean_s_5th_echo_dot
-      volume_level: 0.4
-  - service: input_boolean.turn_on
-    entity_id: input_boolean.intruder_alert
-
-- alias: Alarm arming
-  initial_state: true
-  trigger:
-  - entity_id: alarm_control_panel.alarm
-    from: 'disarmed'
-    platform: state
-    to: 'pending'
-  action:
-  - service: media_player.volume_set
-    data:
-      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot, media_player.sean_s_5th_echo_dot
-      volume_level: 0.3
-  - service: notify.alexa_media
-    data:
-      target: media_player.everywhere
-      data:
-        type: announce
-      message: "Arming Alarm"
-
-- alias: Alarm armed away
-  initial_state: true
-  trigger:
-    - platform: state
-      entity_id: alarm_control_panel.alarm
-      to: 'armed_away'
-  action:
-  - service: script.exit
-
-# - alias: Alarm armed home
-#   initial_state: true
-#   trigger:
-#     - platform: state
-#       entity_id: alarm_control_panel.alarm
-#       to: 'armed_home'
-#   action:
-
-- alias: Alarm disarmed
-  initial_state: true
-  trigger:
-  - entity_id: alarm_control_panel.alarm
-    platform: state
-    to: 'disarmed'
-  action:
-  - service: media_player.media_pause
-    entity_id: media_player.living_room
-  - service: sonos.restore
-    entity_id: media_player.living_room
-  - service: input_boolean.turn_off
-    entity_id: input_boolean.intruder_alert
-  - data:
-      entity_id: switch.garage_door_lock
+      entity_id: switch.bedroom_mozzie_plug
     service: switch.turn_off
-  - service: media_player.volume_set
-    data:
-      entity_id: media_player.living_room_echo_dot, media_player.kitchen_echo_dot_2, media_player.charlies_echo_dot, media_player.lias_echo_dot, media_player.sean_s_5th_echo_dot
-      volume_level: 0.3
-  - delay:
-      seconds: 1
-  - service: notify.alexa_media
-    data:
-      target: media_player.everywhere
-      data:
-        type: announce
-      message: "Alarm Disarmed"
 
-- alias: intruder alert alexa speakers on
+- alias: Bedroom light long press - AC on
   initial_state: true
   trigger:
-  - entity_id: input_boolean.intruder_alert
-    platform: state
-    from: 'off'
-    to: 'on'
+    platform: mqtt
+    topic: stat/bedroom/POWER2
+    payload: "HOLD"
+    encoding: "utf-8"
+  condition:
+    condition: state
+    entity_id: climate.bedroom_aircon
+    state: 'off'
   action:
-  - service: script.intruder_alert
+    - entity_id: climate.bedroom_aircon
+      service: climate.turn_on
 
-- alias: intruder alert alexa speakers off
+- alias: Bedroom light long press - AC off
   initial_state: true
   trigger:
-  - entity_id: input_boolean.intruder_alert
-    platform: state
-    from: 'on'
-    to: 'off'
+    platform: mqtt
+    topic: stat/bedroom/POWER2
+    payload: "HOLD"
+    encoding: "utf-8"
+  condition:
+    condition: not
+    conditions:
+      - condition: state
+        entity_id: climate.bedroom_aircon
+        state: 'off'
   action:
-  - service: script.turn_off
-    entity_id: script.intruder_alert
-  - service: script.turn_off
-    entity_id: script.intruder_alert2
-  - delay:
-      seconds: 0.2
-  - service: script.turn_off
-    entity_id: script.intruder_alert
-  - service: script.turn_off
-    entity_id: script.intruder_alert2
-  - delay:
-      seconds: 0.2
-  - service: script.turn_off
-    entity_id: script.intruder_alert
-  - service: script.turn_off
-    entity_id: script.intruder_alert2
-  - delay:
-      seconds: 0.2
-  - service: script.turn_off
-    entity_id: script.intruder_alert
-  - service: script.turn_off
-    entity_id: script.intruder_alert2
-  - delay:
-      seconds: 0.2
-  - service: script.turn_off
-    entity_id: script.intruder_alert
-  - service: script.turn_off
-    entity_id: script.intruder_alert2
+    - entity_id: climate.bedroom_aircon
+      service: climate.turn_off
+
+
+
 
 
 ### Energy Meter Automations ###
@@ -1180,45 +1101,91 @@
 - alias: Change to peak tarrif
   initial_state: true
   trigger:
-  - at: '13:00:00'
-    platform: time
+    # platform: template
+    # value_template: "{{ (utcnow().hour|int==11) }}"
+    platform: state
+    entity_id: sensor.time_utc
+    to: "11:00"
   action:
   - service: utility_meter.select_tariff
     data:
-      entity_id: utility_meter.home_energy_meter_daily
-      tariff: peak
-  - service: utility_meter.select_tariff
-    data:
-      entity_id: utility_meter.home_energy_meter_weekly
-      tariff: peak
-  - service: utility_meter.select_tariff
-    data:
-      entity_id: utility_meter.home_energy_meter_monthly
+      entity_id: utility_meter.home_energy_meter_daily, utility_meter.home_energy_meter_weekly, utility_meter.home_energy_meter_monthly
       tariff: peak
   - service: script.peak_tariff_tts
 - alias: Change to offpeak tarrif
   initial_state: true
   trigger:
-  - at: '23:00:00'
-    platform: time
+    # platform: template
+    # value_template: "{{ (utcnow().hour|int==21) }}"
+    platform: state
+    entity_id: sensor.time_utc
+    to: "21:00"
   action:
   - service: utility_meter.select_tariff
     data:
-      entity_id: utility_meter.home_energy_meter_daily
-      tariff: offpeak
-  - service: utility_meter.select_tariff
-    data:
-      entity_id: utility_meter.home_energy_meter_weekly
-      tariff: offpeak
-  - service: utility_meter.select_tariff
-    data:
-      entity_id: utility_meter.home_energy_meter_monthly
+      entity_id: utility_meter.home_energy_meter_daily, utility_meter.home_energy_meter_weekly, utility_meter.home_energy_meter_monthly
       tariff: offpeak
   - service: script.offpeak_tariff_tts
 
+- alias: Set max price - Peak
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: "{{ (states.sensor.peak_max_price.state|float) > (states.input_number.peak_price.state|float) }}"
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.peak_price
+      value: "{{ (states.sensor.peak_max_price.state|float) }}"
+
+- alias: Set max price - offpeak
+  initial_state: true
+  trigger:
+    platform: template
+    value_template: "{{ (states.sensor.offpeak_max_price.state|float) > (states.input_number.offpeak_price.state|float) }}"
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.offpeak_price
+      value: "{{ (states.sensor.offpeak_max_price.state|float) }}"
+
+- alias: Reset peak/offpeak price
+  initial_state: true
+  trigger:
+    platform: time
+    at: "04:00:00"
+  condition:
+    condition: template
+    value_template: '{{ now().day == 6 }}'
+  action:
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.peak_price
+        value: 0.002
+    - service: input_number.set_value
+      data:
+        entity_id: input_number.offpeak_price
+        value: 0.002
+
+- alias: Set last months energy cost
+  initial_state: true
+  trigger:
+    platform: time
+    at: "23:59:59"
+  condition:
+    condition: template
+    value_template: '{{ now().day == 5 }}'
+  action:
+    service: input_number.set_value
+    data_template:
+      entity_id: input_number.energy_cost_last_month
+      value: "{{ (states.sensor.this_months_energy_cost.state|float)|round(2) }}"
 
 
-### ios Push Notification Actions ###
+
+
+
+### ios Actions ###
 
 - alias: Reboot PC Button
   initial_state: true
@@ -1235,6 +1202,54 @@
     - entity_id: switch.computer_plug
       service: switch.turn_on
 
+- alias: Reset Alarm Button
+  initial_state: true
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: RESET_ALARM
+  action:
+    - service: alarm_control_panel.alarm_arm_away
+      data:
+        entity_id: alarm_control_panel.alarm
+        code: !secret alarm_code
+
+- alias: ios open garage
+  initial_state: true
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: open_garage
+  action:
+    - service: script.turn_on
+      entity_id: script.open_garage_door
+
+- alias: ios close garage
+  initial_state: true
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: close_garage
+  action:
+    - service: script.turn_on
+      entity_id: script.close_garage_door
+
+- alias: ios unlock garage door
+  initial_state: true
+  trigger:
+    - platform: event
+      event_type: ios.action_fired
+      event_data:
+        actionName: magnetic_lock
+  action:
+    - service: lock.open
+      entity_id: lock.garage_door
+
+
+
 
 
 ### Alexa TTS Announcments ###
@@ -1250,7 +1265,7 @@
 
 - alias: Bedtime announcement
   trigger:
-  - at: '21:00:00'
+  - at: '20:00:00'
     platform: time
   condition:
   - condition: time
@@ -1263,12 +1278,61 @@
   action:
   - service: script.bedtime_tts
 
-- alias: Water Plant Reminder
+- alias: Bedtime routine
   trigger:
-  - at: '18:00:00'
+  - at: '20:10:00'
     platform: time
+  condition:
+  - condition: time
+    weekday:
+    - sun
+    - mon
+    - tue
+    - wed
+    - thu
   action:
-  - service: script.water_plants_tts
+  - service: script.bedtime_routine
+
+
+
+
+
+### CCTV Automations ###
+
+- alias: Record the front yard
+  max_exceeded: silent
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.front_yard
+    from: 'off'
+    to: 'on'
+  action:
+    - service: script.frontyardcam_record
+    - delay: '00:02:00'
+
+- alias: Record the hall
+  max_exceeded: silent
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.downstairs_hall
+    from: 'off'
+    to: 'on'
+  action:
+    - service: script.hallcam_record
+    - delay: '00:02:00'
+
+- alias: Record the garage
+  max_exceeded: silent
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.garage_2
+    from: 'off'
+    to: 'on'
+  action:
+    - service: script.garagecam_record
+    - delay: '00:02:00'
+
+
 
 
 
@@ -1281,21 +1345,15 @@
       entity_id: media_player.playstation_4
       from: 'standby'
   action:
-    - service: broadlink.send
+    - service: media_player.turn_on
+      entity_id: media_player.tv
+    - wait_template: "{{ is_state('media_player.tv', 'on') }}"
+    - service: media_player.select_source
       data:
-        host: !secret livingroom_broadlink_ip
-        packet:
-          - "JgBGAJKVETkRORA6ERQRFBEUERQRFBE5ETkQOhAVEBUQFREUEBUQOhEUERQRORE5EBURFBA6EBUQOhE5EBUQFRA6EDoRFBEADQUAAA==" #Samsung power on
-    - delay:
-        seconds: 6
-    - service: broadlink.send
-      data:
-        host: !secret livingroom_broadlink_ip
-        packet:
-          - "JgBGAJOUEDoRORE5ERQRFRAUERQRFBE5EDsQOhAVEBUPFg8WDxYPFhA6EBUPFg8WEBUROQ87EDoQFQ87EDoQOhA6EBUPFhAADQUAAA==" #Samsung HDMI3
+        entity_id: media_player.tv
+        source: HDMI 2
 
 - alias: Operation try not to trip the elrctric, phase one
-  initial_state: true
   trigger:
     platform: numeric_state
     entity_id: sensor.shelly_em_power
@@ -1305,7 +1363,6 @@
       service: switch.turn_off
 
 - alias: Operation try not to trip the elrctric, phase two
-  initial_state: true
   trigger:
     platform: numeric_state
     entity_id: sensor.shelly_em_power
@@ -1316,127 +1373,42 @@
     - entity_id: switch.boiler_plug
       service: switch.turn_on
 
+- alias: Update MQTT sensors on hass startup
+  trigger:
+    platform: homeassistant
+    event: start
+  action:
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.smoke_alarm
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.gas_alarm
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.downstairs_hall
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.toilet
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.front_yard
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.garage
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.garage_2
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.charlies_room
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.front_door
+    - service: homeassistant.update_entity
+      entity_id: binary_sensor.garage_stairs_door
+
+- alias: Purge CCTV Files
+  trigger:
+    platform: time
+    at: "03:22:00"
+  action:
+    - service: shell_command.purge_cctv_recordings
+    - service: shell_command.purge_cctv_snapshots
 
 
-### Fan Sync Automations ###
 
-- alias: Bedroom fan sync - low 1
-  trigger:
-    platform: mqtt
-    topic: "tele/sonoffrf/RESULT"
-  condition:
-    condition: template
-    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F3F3' }}"
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'Low'
-- alias: Bedroom fan sync - low 2
-  trigger:
-    platform: event
-    event_type: call_service
-    event_data:
-      domain: script
-      service: turn_on
-      service_data:
-        entity_id: script.bedroom_fan_low
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'Low'
-
-- alias: Bedroom fan sync - med 1
-  trigger:
-    platform: mqtt
-    topic: "tele/sonoffrf/RESULT"
-  condition:
-    condition: template
-    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F333' }}"
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'Medium'
-- alias: Bedroom fan sync - med 2
-  trigger:
-    platform: event
-    event_type: call_service
-    event_data:
-      domain: script
-      service: turn_on
-      service_data:
-        entity_id: script.bedroom_fan_medium
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'Medium'
-
-- alias: Bedroom fan sync - high 1
-  trigger:
-    platform: mqtt
-    topic: "tele/sonoffrf/RESULT"
-  condition:
-    condition: template
-    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F3CC' }}"
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'High'
-- alias: Bedroom fan sync - high 2
-  trigger:
-    platform: event
-    event_type: call_service
-    event_data:
-      domain: script
-      service: turn_on
-      service_data:
-        entity_id: script.bedroom_fan_high
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'High'
-
-- alias: Bedroom fan sync - off 1
-  trigger:
-    platform: mqtt
-    topic: "tele/sonoffrf/RESULT"
-  condition:
-    condition: template
-    value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F330' }}"
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'False'
-- alias: Bedroom fan sync - off 2
-  trigger:
-    platform: event
-    event_type: call_service
-    event_data:
-      domain: script
-      service: turn_on
-      service_data:
-        entity_id: script.bedroom_fan_off
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'False'
-- alias: Bedroom fan sync - off 3
-  trigger:
-    - platform: state
-      entity_id: light.bedroom
-      to: 'off'
-  action:
-    service: input_select.select_option
-    data:
-      entity_id: input_select.bedroom_fan
-      option: 'False'
 
 
 

@@ -12,17 +12,6 @@
     command_on_template: '{"turn": "on"{% if brightness is defined %}, "brightness": {{(brightness | float * 0.3882 + 1) | round(0)}}{% endif %}}'
     command_off_template: '{"turn": "off"}'
     brightness_template: '{{ (value_json.brightness | float * 2.55) | round(0) }}'
-  - platform: mqtt
-    name: "Lias Lamp"
-    state_topic: "stat/liasnewlamp/POWER"
-    command_topic: "cmnd/liasnewlamp/power"
-    brightness_state_topic: "stat/liasnewlamp/RESULT"
-    brightness_command_topic: "cmnd/liasnewlamp/Dimmer"
-    brightness_scale: 100
-    brightness_value_template: "{{ value_json.Dimmer }}"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
 
 
 ### Shelly Firmware ###
@@ -35,19 +24,12 @@
     payload_on: "on"
     payload_off: "off"
   - platform: mqtt
-    name: "Lias Bedroom"
-    state_topic: "shellies/shelly1-5B2E28/relay/0"
-    command_topic: "shellies/shelly1-5B2E28/relay/0/command"
-    payload_on: "on"
-    payload_off: "off"
-  - platform: mqtt
     name: "Hall 1"
     state_topic: "shellies/shellyswitch-55A059/relay/0"
     command_topic: "shellies/shellyswitch-55A059/relay/0/command"
     qos: 1
     payload_on: "on"
     payload_off: "off"
-    retain: false
   - platform: mqtt
     name: "Hall 2"
     state_topic: "shellies/shellyswitch-55A059/relay/1"
@@ -55,7 +37,6 @@
     qos: 1
     payload_on: "on"
     payload_off: "off"
-    retain: false
 
 
 ### Tasmota Firmware ###
@@ -82,13 +63,6 @@
     payload_on: "ON"
     payload_off: "OFF"
   - platform: mqtt
-    name: "Lamp"
-    command_topic: "cmnd/lamp/power"
-    state_topic: "stat/lamp/POWER"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-  - platform: mqtt
     name: "Charlies Bedroom"
     command_topic: "cmnd/charlielight/power"
     state_topic: "stat/charlielight/POWER"
@@ -102,7 +76,6 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
   - platform: mqtt
     name: "Kids Bathroom Wall"
     command_topic: "cmnd/kidsbathroomwall/power"
@@ -110,7 +83,6 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
   - platform: mqtt
     name: "Landing"
     command_topic: "cmnd/landing/power"
@@ -118,15 +90,6 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
-  - platform: mqtt
-    name: "Garage wall switch"
-    command_topic: "cmnd/garaged1mini/POWER"
-    state_topic: "stat/garaged1mini/POWER"
-    qos: 1
-    payload_on: "ON"
-    payload_off: "OFF"
-    retain: false
   - platform: mqtt
     name: "Laundry Room"
     command_topic: "cmnd/laundry/power"
@@ -134,7 +97,6 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
   - platform: mqtt
     name: "Living Room"
     command_topic: "cmnd/livingroom/power1"
@@ -177,7 +139,6 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
   - platform: mqtt
     name: "Terrace"
     command_topic: "cmnd/terrace/power"
@@ -185,7 +146,6 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
   - platform: mqtt
     name: "Bedroom"
     command_topic: "cmnd/bedroom/power2"
@@ -207,7 +167,6 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-    retain: false
   - platform: mqtt
     name: "Salt Lamp"
     command_topic: "cmnd/saltlamp/power"
@@ -222,25 +181,20 @@
     qos: 1
     payload_on: "ON"
     payload_off: "OFF"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  - platform: mqtt
+    name: "Lias Bedroom"
+    command_topic: "cmnd/lialight/power"
+    state_topic: "stat/lialight/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
+  - platform: mqtt
+    name: "Lamp"
+    command_topic: "cmnd/lamp/power"
+    state_topic: "stat/lamp/POWER"
+    qos: 1
+    payload_on: "ON"
+    payload_off: "OFF"
 
 
 

@@ -1,9 +1,15 @@
 homeassistant:
   customize: !include customize.yaml
+  media_dirs:
+    recordings: /media/cameras/Recordings
+    snapshots: /media/cameras/Snapshots
+
+shell_command:
+  purge_cctv_recordings: find /media/cameras/Recordings/ -maxdepth 2 -type f -mtime +2 -exec rm {} -f \;
+  purge_cctv_snapshots: find /media/cameras/Snapshots/ -maxdepth 2 -type f -mtime +2 -exec rm {} -f \;
 
 frontend:
   themes: !include_dir_merge_named themes
-  javascript_version: latest
 
 default_config:
 config:
@@ -22,6 +28,7 @@ mobile_app:
 glances:
 http:
 updater:
+python_script:
 
 group: !include groups.yaml
 automation: !include automations.yaml
@@ -36,7 +43,7 @@ notify:
     name: alexa_media
 
 recorder:
-  purge_keep_days: 7
+  purge_keep_days: 3
 
 weather:
   - platform: darksky
@@ -54,39 +61,41 @@ transmission:
 cloud:
   alexa:
     entity_config:
-      light.lamp:
-        display_categories: SWITCH
       light.desk_lamp:
         display_categories: SWITCH
       light.bedroom_hall:
         display_categories: SWITCH
       light.salt_lamp:
         display_categories: SWITCH
+      cover.left_blind:
+        display_categories: INTERIOR_BLIND
+      cover.right_blind:
+        display_categories: INTERIOR_BLIND
     filter:
       include_domains:
       - light
       - climate
       - lock
+      - cover
       exclude_entities:
       - light.hallcam_light
       - light.spycam_light
       - light.garage_wall_switch
       include_entities:
-      - switch.samsung_tv_power
-      - switch.charlie_tv_power
-      - switch.open_left_blind
-      - switch.close_left_blind
-      - switch.open_right_blind
-      - switch.close_right_blind
+      - switch.bedroom_tv
       - switch.workbench_light
+      - switch.lamp
 
-      - media_player.bedroom_tv
-      - media_player.playstation_4
+      - media_player.charlies_tv
       - media_player.lias_tv
+      - media_player.tv
 
-      - script.bedroom_netflix
-      - script.bedroom_plex
+      - script.charlies_tv_plex
+      - script.charlies_tv_youtube
       - script.lias_tv_plex
+      - script.lias_tv_youtube
+      - script.livingroom_tv_plex
+      - script.livingroom_tv_netflix
       - script.livingroom_hdmi1
       - script.livingroom_hdmi2
       - script.livingroom_hdmi3
@@ -98,19 +107,14 @@ cloud:
       - script.livingroom_mag_itvbe
       - script.livingroom_mag_cartoon_network
       - script.livingroom_mag_e
-      - script.stop_blinds
-      - script.open_blinds
-      - script.close_blinds
+      - script.stop_the_blinds
+      - script.bedtime_routine
 
       - binary_sensor.front_door
       - binary_sensor.garage_door
       - binary_sensor.garage_stairs_door
 
       - sensor.kitchen_temperature
-      - sensor.bedroom_temperature
-      - sensor.charlies_room_temperature
-      - sensor.lias_room_temperature
-      - sensor.living_room_temperature
       - sensor.outside_temperature
       - sensor.garage_temperature
 
@@ -127,14 +131,6 @@ homekit:
 ios:
   push:
     categories:
-      - name: Alarm
-        identifier: 'alarm'
-        actions:
-          - identifier: 'TTS_MESSAGE'
-            title: 'Alexa TTS Message'
-            behavior: 'textInput'
-            textInputButtonTitle: 'Send TTS'
-            textInputPlaceholder: 'What do you want to say?'
     #   - name: cameras
     #     identifier: 'camera'
     #     actions:
@@ -143,11 +139,17 @@ ios:
     #         behavior: 'textInput'
     #         textInputButtonTitle: 'Send TTS'
     #         textInputPlaceholder: 'What do you want to say?'
+      - name: Alarm
+        identifier: 'alarm'
+        actions:
+          - identifier: 'RESET_ALARM'
+            title: 'Reset Alarm'
       - name: PC
         identifier: 'pc'
         actions:
           - identifier: 'PC_REBOOT'
             title: 'Reboot PC'
+    
 
 speedtestdotnet:
   scan_interval:
@@ -159,21 +161,24 @@ speedtestdotnet:
   server_id: !secret speedtest_server_id
 
 webostv:
-  - host: !secret bedroom_tv_ip
-    name: Bedroom TV
+  - host: !secret charlies_tv_ip
+    name: Charlies TV
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
-        mac: !secret bedroom_tv_mac
+        mac: !secret charlies_tv_mac
   - host: !secret lias_tv_ip
     name: Lias TV
     turn_on_action:
       service: wake_on_lan.send_magic_packet
       data:
         mac: !secret lias_tv_mac
-
-media_player:
-  - platform: plex
+  - host: !secret livingroom_tv_ip
+    name: TV
+    turn_on_action:
+      service: wake_on_lan.send_magic_packet
+      data:
+        mac: !secret livingroom_tv_mac
 
 zone:
   - name: Home
@@ -198,19 +203,11 @@ input_select:
       - None
     icon: mdi:amazon-alexa
     initial: None
-  bedroom_fan:
-    options:
-      - Off
-      - Low
-      - Medium
-      - High
 
 input_boolean:
   lamp_lux:
   bedroom_light:
     name: Bedroom Light
-  intruder_alert:
-    name: Intruder Alert
 
 input_text:
   alexa_tts:
@@ -222,39 +219,35 @@ input_number:
   peak_price:
     name: Peak price per Kwh
     unit_of_measurement: €
-    min: 0.081
+    min: 0.001
     max: 0.200
     step: 0.001
     mode: box
   offpeak_price:
     name: Off-Peak price per Kwh
     unit_of_measurement: €
-    min: 0.031
+    min: 0.001
     max: 0.100
     step: 0.001
     mode: box
-
-input_datetime:
-  test:
-    name: test time
-    has_date: false
-    has_time: true
+  energy_cost_last_month:
+    min: 0.01
+    max: 200.00
+    step: 0.01
+    mode: box
 
 alarm_control_panel:
   - platform: manual
     name: Alarm
     code: !secret alarm_code
+    arming_time: 30
+    delay_time: 20
     trigger_time: 300
     disarmed:
       trigger_time: 0
     armed_home:
-      delay_time: 20
-      pending_time: 20
-    armed_away:
-      delay_time: 20
-      pending_time: 20
-    triggered:
-      pending_time: 0
+      arming_time: 0
+      delay_time: 0
 
 lock:
   - platform: template
@@ -269,25 +262,20 @@ lock:
       data:
         entity_id: switch.garage_door_lock
 
-tuya:
-  username: !secret tuyausername
-  password: !secret tuyapassword
-  country_code: 34
-
 climate:
   - platform: smartir
     name: Livingroom Aircon
     unique_id: livingroom_ac
     device_code: 1001
-    controller_data: !secret livingroom_broadlink_ip
+    controller_data: remote.living_room_remote
     temperature_sensor: sensor.living_room_temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
   - platform: smartir
     name: Bedroom Aircon
     unique_id: bedroom_ac
-    device_code: 1001
-    controller_data: !secret bedroom_broadlink_ip
+    device_code: 10012
+    controller_data: remote.bedroom_remote
     temperature_sensor: sensor.bedroom_temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
@@ -295,7 +283,7 @@ climate:
     name: Charlies Aircon
     unique_id: charlies_ac
     device_code: 1001
-    controller_data: !secret charlies_broadlink_ip
+    controller_data: remote.charlies_remote
     temperature_sensor: sensor.charlies_room_temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
@@ -303,7 +291,7 @@ climate:
     name: Lias Aircon
     unique_id: lias_ac
     device_code: 1001
-    controller_data: !secret lias_broadlink_ip
+    controller_data: remote.lias_remote
     temperature_sensor: sensor.lias_room_temperature
     humidity_sensor: sensor.humidity
     power_sensor: binary_sensor.ac_power
@@ -312,6 +300,8 @@ utility_meter:
   home_energy_meter_monthly:
     source: sensor.shelly_em_energy
     cycle: monthly
+    offset:
+      days: 5
     tariffs:
       - peak
       - offpeak
@@ -345,6 +335,4 @@ camera:
     name: Workbench Camera
     still_image_url: !secret workbench_camera_still_image_url
     stream_source: !secret workbench_camera_stream_source
-
-
 

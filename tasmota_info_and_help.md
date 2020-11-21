@@ -69,11 +69,20 @@ rule1 on rfreceived#Data=18290E do publish2 home/sonoffrf/rfrecieve 18290E endon
   qos: 1
 ```
 
+To have an automation trigger when the Sonoff RF receives a code here is an example of the trigger and condition  
+```
+trigger:
+  platform: mqtt
+  topic: "tele/sonoffrf/RESULT"
+condition:
+  condition: template
+  value_template: "{{ trigger.payload_json['RfReceived']['Data'] == 'D1F330' }}"
+```
+
 
 ## Restart using timer 1:
 In tazmota, set timer 1 and save
-`rule1 on Clock#Timer=1 do Restart 1 endon`
-`
+`rule1 on Clock#Timer=1 do Restart 1 endon`  
 
 
 ## Add PIR sensor to switch2

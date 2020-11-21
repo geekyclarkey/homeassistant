@@ -1,0 +1,7 @@
+
+hall_cabinet_candles:
+  name: Hall Cabinet Candles
+  entities:
+    - light.hall_cabinet_candle_1
+    - light.hall_cabinet_candle_2
+    - light.hall_cabinet_candle_3

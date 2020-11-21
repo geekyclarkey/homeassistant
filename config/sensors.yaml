@@ -29,20 +29,21 @@
     section_types:
     - movie
     - show
-  - platform: plex
-    host: !secret plex_ip
-    port: 32400
-    username: !secret plex_username
-    password: !secret plex_password
+  - platform: template
+    sensors:
+      last_alexa:
+        value_template: >
+          {{ states.media_player | selectattr('attributes.last_called','eq',True) | map(attribute='entity_id') | first }}
+  - platform: time_date
+    display_options:
+      - 'time_utc'
+
+
+
 
 
 ### Temperature Sensors ###
 
-  - platform: mqtt
-    name: "Living Room Temperature"
-    state_topic: "tele/livingroommultisensor/SENSOR"
-    value_template: "{{ (value_json['HTU21'].Temperature - 2.4)|float|round(2) }}"
-    unit_of_measurement: '°C'
   - platform: mqtt
     name: "Outside Temperature"
     state_topic: "tele/terraced1mini/SENSOR"
@@ -53,112 +54,45 @@
     state_topic: "tele/charliesmultisensor/SENSOR"
     value_template: "{{ (value_json['SHT3X-0x44'].Temperature - 2.5)|float|round(2) }}"
     unit_of_measurement: '°C'
-  - platform: mqtt
-    name: "Lias Room Temperature"
-    state_topic: "tele/liasmultisensor/SENSOR"
-    value_template: "{{ value_json['SHT3X-0x44'].Temperature }}"
-    unit_of_measurement: '°C'
-  - platform: mqtt
-    name: "Kitchen Temperature"
-    state_topic: "tele/kitchenmultisensor/SENSOR"
-    value_template: "{{ value_json['HTU21'].Temperature }}"
-    unit_of_measurement: '°C'
-  - platform: mqtt
-    name: "Bedroom Temperature"
-    state_topic: "tele/bedroommultisensor/SENSOR"
-    value_template: "{{ (value_json['HTU21'].Temperature - 3.3)|float|round(2) }}"
-    unit_of_measurement: '°C'
-  - platform: mqtt
-    name: "Laundry Room Temperature"
-    state_topic: "tele/laundryroommultisensor/SENSOR"
-    value_template: "{{ value_json['AM2301'].Temperature }}"
-    unit_of_measurement: '°C'
+
+  - platform: average
+    name: 'Average Household Temperature'
+    entities:
+      - sensor.charlies_room_temperature
+      - sensor.bedroom_temperature
+      - sensor.kitchen_temperature
+      - sensor.laundry_room_temperature
+      - sensor.lias_room_temperature
+      - sensor.living_room_temperature
+
+
+
 
 
 ### Humidity Sensors ###
 
-  - platform: mqtt
-    name: "Living Room Humidity"
-    state_topic: "tele/livingroommultisensor/SENSOR"
-    value_template: "{{ value_json['HTU21'].Humidity }}"
-    unit_of_measurement: '%'
-    icon: mdi:water-percent
   - platform: mqtt
     name: "Charlies Room Humidity"
     state_topic: "tele/charliesmultisensor/SENSOR"
     value_template: "{{ value_json['SHT3X-0x44'].Humidity }}"
     unit_of_measurement: '%'
     icon: mdi:water-percent
-  - platform: mqtt
-    name: "Lias Room Humidity"
-    state_topic: "tele/liasmultisensor/SENSOR"
-    value_template: "{{ value_json['SHT3X-0x44'].Humidity }}"
-    unit_of_measurement: '%'
-    icon: mdi:water-percent
-  - platform: mqtt
-    name: "Kitchen Humidity"
-    state_topic: "tele/kitchenmultisensor/SENSOR"
-    value_template: "{{ value_json['HTU21'].Humidity }}"
-    unit_of_measurement: '%'
-    icon: mdi:water-percent
-  - platform: mqtt
-    name: "Bedroom Humidity"
-    state_topic: "tele/bedroommultisensor/SENSOR"
-    value_template: "{{ value_json['HTU21'].Humidity }}"
-    unit_of_measurement: '%'
-    icon: mdi:water-percent
-  - platform: mqtt
-    name: "Laundry Room Humidity"
-    state_topic: "tele/laundryroommultisensor/SENSOR"
-    value_template: "{{ value_json['AM2301'].Humidity }}"
-    unit_of_measurement: '%'
-    icon: mdi:water-percent
+
+
+
 
 
 ### Brightness Sensors ###
 
-  - platform: mqtt
-    name: "Living Room Brightness"
-    state_topic: "tele/livingroommultisensor/SENSOR"
-    value_template: "{{ value_json['BH1750'].Illuminance }}"
-    unit_of_measurement: 'lx'
-    icon: mdi:brightness-5
   - platform: mqtt
     name: "Charlies Room Brightness"
     state_topic: "tele/charliesmultisensor/SENSOR"
     value_template: "{{ value_json['BH1750'].Illuminance }}"
     unit_of_measurement: 'lx'
     icon: mdi:brightness-5
-  - platform: mqtt
-    name: "Lias Room Brightness"
-    state_topic: "tele/liasmultisensor/SENSOR"
-    value_template: "{{ value_json['BH1750'].Illuminance }}"
-    unit_of_measurement: 'lx'
-    icon: mdi:brightness-5
-  - platform: mqtt
-    name: "Kitchen Brightness"
-    state_topic: "tele/kitchenmultisensor/SENSOR"
-    value_template: "{{ value_json['BH1750'].Illuminance }}"
-    unit_of_measurement: 'lx'
-    icon: mdi:brightness-5
-  - platform: mqtt
-    name: "Bedroom Brightness"
-    state_topic: "tele/bedroommultisensor/SENSOR"
-    value_template: "{{ value_json['BH1750'].Illuminance }}"
-    unit_of_measurement: 'lx'
-    icon: mdi:brightness-5
-  - platform: mqtt
-    name: "Kids Bathroom Brightness"
-    state_topic: "tele/kidsbathroomsensor/SENSOR"
-    value_template: "{{ value_json['ANALOG'].Illuminance }}"
-    unit_of_measurement: 'lx'
-    icon: mdi:brightness-5
-  - platform: mqtt
-    name: "Laundry Room Brightness"
-    state_topic: "tele/laundryroommultisensor/SENSOR"
-    value_template: "{{ value_json['ANALOG'].Illuminance }}"
-    unit_of_measurement: 'lx'
-    icon: mdi:brightness-5
+
+
+
 
 
 ### Hassio Stats Sensors ###
@@ -208,6 +142,9 @@
       count_scripts:
         friendly_name: "Scripts"
         value_template: "{{ states.script | count }}"
+
+
+
 
 
 ### Energy Monitoring Plugs ###
@@ -270,17 +207,33 @@
         unit_of_measurement: 'Amps'
 
 
+
+
+
 ### Home Power Monitoring ###
 
   - platform: mqtt
     name: "Shelly EM Power"
-    state_topic: "shellies/shellyem-B9F079/emeter/0/power"
+    state_topic: "tele/shellyem/SENSOR"
+    value_template: "{{ value_json.ENERGY.Power[-1] }}"
     unit_of_measurement: "W"    
   - platform: integration
     source: sensor.shelly_em_power
     name: "Shelly EM Energy"
     unit_prefix: k
     round: 2
+
+  - platform: template
+    sensors:
+      current_energy_cost:
+        friendly_name: Current Energy Cost
+        value_template: >
+            {% if utcnow().hour in [11, 12, 13, 14, 15, 16, 17, 18, 19, 20] %}
+              {{  (((((((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.peak_price.state|float))+0.022)/100*5.11)+((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.peak_price.state|float))+0.022+0.001)/100*21)+(((((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.peak_price.state|float))+0.022)/100*5.11)+((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.peak_price.state|float))+0.022+0.001))|round(2) }}           
+            {% else %}
+              {{  (((((((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.offpeak_price.state|float))+0.022)/100*5.11)+((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.offpeak_price.state|float))+0.022+0.001)/100*21)+(((((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.offpeak_price.state|float))+0.022)/100*5.11)+((states.sensor.shelly_em_power.state|float)/1000*(states.input_number.offpeak_price.state|float))+0.022+0.001))|round(2) }}           
+            {% endif %}
+        unit_of_measurement: '€'
 
   - platform: template
     sensors:
@@ -296,7 +249,7 @@
     sensors:
       todays_energy_cost:
         friendly_name: Todays Energy Cost
-        value_template: '{{ (((((states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float))/100*21)+(states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float))+0.16) |round(2) }}'
+        value_template: '{{ ((((((states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float)+0.53)/100*5.11)+(states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float)+0.53+0.025)/100*21)+((((states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float)+0.53)/100*5.11)+(states.sensor.todays_energy_cost_peak.state|float)+(states.sensor.todays_energy_cost_offpeak.state|float)+0.53+0.025))|round(2) }}'
         unit_of_measurement: '€'
 
   - platform: template
@@ -313,7 +266,7 @@
     sensors:
       this_weeks_energy_cost:
         friendly_name: This Weeks Energy Cost
-        value_template: '{{ (((((states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float))/100*21)+(states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float))+1.25) |round(2) }}'
+        value_template: '{{ ((((((states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float)+4)/100*5.11)+(states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float)+4+0.185)/100*21)+((((states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float)+4)/100*5.11)+(states.sensor.this_weeks_energy_cost_peak.state|float)+(states.sensor.this_weeks_energy_cost_offpeak.state|float)+4+0.185))|round(2) }}'
         unit_of_measurement: '€'
 
   - platform: template
@@ -330,7 +283,7 @@
     sensors:
       this_months_energy_cost:
         friendly_name: This Months Energy Cost
-        value_template: '{{ (((((states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float))/100*21)+(states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float))+5) |round(2) }}'
+        value_template: '{{ ((((((states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float)+16)/100*5.11)+(states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float)+16+0.74)/100*21)+((((states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float)+16)/100*5.11)+(states.sensor.this_months_energy_cost_peak.state|float)+(states.sensor.this_months_energy_cost_offpeak.state|float)+16+0.74))|round(2) }}'
         unit_of_measurement: '€'
 
   - platform: template
@@ -403,6 +356,38 @@
         value_template: '{{ ((states.sensor.home_energy_meter_monthly_peak.state|float)+(states.sensor.home_energy_meter_monthly_offpeak.state|float))|round(2) }}'
         unit_of_measurement: 'Kw/h'
 
+  - platform: template
+    sensors:
+      peak_max_price: 
+        value_template: "{{ (((state_attr('sensor.pvpc', 'price_13h'))+(state_attr('sensor.pvpc', 'price_14h'))+(state_attr('sensor.pvpc', 'price_15h'))+(state_attr('sensor.pvpc', 'price_16h'))+(state_attr('sensor.pvpc', 'price_17h'))+(state_attr('sensor.pvpc', 'price_18h'))+(state_attr('sensor.pvpc', 'price_19h'))+(state_attr('sensor.pvpc', 'price_20h'))+(state_attr('sensor.pvpc', 'price_21h'))+(state_attr('sensor.pvpc', 'price_22h')))/10)|round(3) }}"
+  - platform: template
+    sensors:
+      offpeak_max_price: 
+        value_template: "{{ (((state_attr('sensor.pvpc', 'price_23h'))+(state_attr('sensor.pvpc', 'price_00h'))+(state_attr('sensor.pvpc', 'price_01h'))+(state_attr('sensor.pvpc', 'price_02h'))+(state_attr('sensor.pvpc', 'price_03h'))+(state_attr('sensor.pvpc', 'price_04h'))+(state_attr('sensor.pvpc', 'price_05h'))+(state_attr('sensor.pvpc', 'price_06h'))+(state_attr('sensor.pvpc', 'price_07h'))+(state_attr('sensor.pvpc', 'price_08h'))+(state_attr('sensor.pvpc', 'price_09h'))+(state_attr('sensor.pvpc', 'price_10h'))+(state_attr('sensor.pvpc', 'price_11h'))+(state_attr('sensor.pvpc', 'price_12h')))/14)|round(3) }}"
+
+  - platform: template
+    sensors:
+      last_months_energy_cost:
+        friendly_name: Last Months Energy Cost
+        value_template: '{{ (states.input_number.energy_cost_last_month.state|float) }}'
+        unit_of_measurement: '€'
+
+  - platform: template
+    sensors:
+      peak_price:
+        friendly_name: Peak Price
+        value_template: '{{ (states.input_number.peak_price.state) }}'
+        unit_of_measurement: '€'
+  - platform: template
+    sensors:
+      offpeak_price:
+        friendly_name: Offpeak Price
+        value_template: '{{ (states.input_number.offpeak_price.state) }}'
+        unit_of_measurement: '€'
+
+
+
+
 
 ### Custom Sensors ###
 
@@ -454,7 +439,6 @@
           {% else %}
             Idle
           {% endif %}
-
   - platform: template
     sensors:
       printer:
@@ -467,6 +451,23 @@
           {% else %}
             In Standby
           {% endif %}
+  - platform: template
+    sensors:
+      water_machine_state:
+        friendly_name: "Water Machine State"
+        value_template: >-
+          {% if is_state('switch.water_machine_plug', 'off') %}
+            Off
+          {% elif states('sensor.water_machine_power')|float > 10 and states('sensor.water_machine_power')|float < 100 %}
+            Cooling
+          {% elif states('sensor.water_machine_power')|float >= 100 %}
+            Heating
+          {% else %}
+            Idle
+          {% endif %}
+
+
+
 
 
 ### Test Sensors ###
@@ -490,4 +491,9 @@
       days: 1
     entities:
       - sensor.d1difference
+
+
+
+
+
 
