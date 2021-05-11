@@ -10,6 +10,9 @@ I am trying to keep it up to date as much as possible and adding any new feature
 ## Installing HASSIO on Ubuntu server
 [Click Here](hassio_ubuntu_install_instructions.md) For installing hassio help
 
+## Installing HASSIO on FreeNAS/TrueNAS
+[Click Here](install_hassio_on_truenas.md) For installing hassio instructions
+
 ## Tasmota Tips and rules
 [Click Here](tasmota_info_and_help.md) For tasmota help
 
