@@ -30,9 +30,5 @@ You have removed Docker from the system completely.
 
 # Disclaimer
 I did not come up with the instructions above.  
-I fount these steps from [This Stack Exchange page](https://askubuntu.com/questions/935569/how-to-completely-uninstall-docker)  
+I found these steps from [This Stack Exchange page](https://askubuntu.com/questions/935569/how-to-completely-uninstall-docker)  
 I only copied it and added it to my github page so i can access it again in the future easily if needed.
-
-
-
-

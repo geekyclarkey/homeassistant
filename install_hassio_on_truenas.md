@@ -64,6 +64,6 @@ Power on the VM (hassos will then occupy the entire Zvol storage that was set ab
 
 # Disclaimer
 I did not come up with the instructions above.  
-I fount these steps from [This community Hassio page](https://community.home-assistant.io/t/alternative-way-of-running-hassos-full-os-on-freenas-without-iocage-or-docker/133738)  
+I found these steps from [This community Hassio page](https://community.home-assistant.io/t/alternative-way-of-running-hassos-full-os-on-freenas-without-iocage-or-docker/133738)  
 I only copied it and added it to my github page so i can access it again in the future easily if needed.  
 All credit for this tutorial must go to the original author [PetriciaM](https://community.home-assistant.io/u/Petrica/summary)
