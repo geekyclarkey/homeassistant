@@ -1,7 +1,7 @@
 
 # Camera Models and URLs
 
-Here is a list of IP cameras with their stream and still image URLs that I have managed to get working in Homeasistant.  
+Here is a list of generic IP cameras with their stream and still image URLs that I have managed to get working in Homeasistant.  
 [Here](https://www.ispyconnect.com/sources.aspx) is an amazing website with a huge database of stream and still image urls for thousands of cameras.  
 
 
@@ -39,7 +39,7 @@ Here is a list of IP cameras with their stream and still image URLs that I have 
 
   - platform: generic
     name: Panasonic PTZ SW-395
-    still_image_url: "http://"
+    still_image_url: "http://" #Cant get the still image out of this one
     stream_source: "rtsp://192.168.0.10/ONVIF/MediaInput?profile=3_def_profile6"
 
   - platform: generic
@@ -65,5 +65,25 @@ Here is a list of IP cameras with their stream and still image URLs that I have 
     name: Panasonic SF-438
     still_image_url:  "http://admin:admin@192.168.0.11/SnapshotJPEG?Resolution=1280x960"
     stream_source: "rtsp://admin:admin@192.168.0.11/ONVIF/MediaInput?profile=1_def_profile6"
+
+  - platform: generic
+    name: Panasonic WV-SFV631L
+    still_image_url: "http://192.168.0.13:50009/cgi-bin/camera"
+    stream_source: "rtsp://admin:admin@192.168.0.13/MediaInput/h264"
+    username: 'admin'
+    password: 'admin'
+    authentication: digest
+
+  - platform: generic
+    name: Panasonic SC-EFK-EP104LWE
+    still_image_url: "http://admin:admin@192.168.0.50/cgi-bin/snapshot.cgi?1"
+    stream_source: "rtsp://192.168.0.50:554/cam/realmonitor?channel=1&subtype=0&unicast=true&proto=Onvif"
+
+  - platform: generic
+    name: Panasonic SC-EF104E
+    still_image_url: "http://admin:admin@192.168.0.193/cgi-bin/snapshot.cgi?1"
+    stream_source: "rtsp://192.168.0.193:554/cam/realmonitor?channel=1&subtype=1&unicast=true&proto=Onvif"
+
+
 
 ```
