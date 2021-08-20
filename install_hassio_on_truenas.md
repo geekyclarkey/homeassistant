@@ -53,10 +53,11 @@ Burn the hassos_vm.img to the Zvol created above by running the following comman
 
 `dd if=/mnt/pool_name/dataset_name/location_of_hassos_vm/hassos_vm.img of=/dev/zvol/pool_name/zvol_name`
 In my case the code would be:  
-`dd if=/mnt/HDDs/sean/PC/OperatingSystems/hassos_vm.img of=/dev/zvol/HDDs/hassio` Yours will obviously be different.
+`dd if=/mnt/HDD/sean/OS/hassos_vm.img of=/dev/zvol/HDD/hassio` Yours will obviously be different.
 
 ### Step 4
-Power on the VM (hassos will then occupy the entire Zvol storage that was set above)
+Power on the VM (hassos will then occupy the entire Zvol storage that was set above)  
+Wait a few minutes for hassos to boot then check your router for the ip address of your VM.
 
 
 
