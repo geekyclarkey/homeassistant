@@ -17,10 +17,13 @@ Unrar it! (.gz is an archive file; use a program like 7zip or winrar to unrar it
 if not already installed, install Oracle Virtual Box on your PC [Link Here](https://www.virtualbox.org/wiki/Downloads)
 
 ### Step 4
-Convert the virtual machine disk drive (in this case vdi drive for Oracle’s Virtual Box but vmdk should work too) to img by running (if running on Windows open a Command Prompt and change directory to Virtual Box install folder - defaults to c:\Program Files\Oracle\VirtualBox)
+Convert the virtual machine disk drive (in this case vdi drive for Oracle’s Virtual Box but vmdk should work too) to img by running  
+If running on Windows open a Command Prompt and change directory to Virtual Box install folder - defaults to c:\Program Files\Oracle\VirtualBox  
 (replace source/hassos_vm.vdi and destination/hassos_vm.img with own locations)
 
-`VBoxManage clonehd source/hassos_vm.vdi destination/hassos_vm.img --format raw`
+`VBoxManage clonehd source/hassos_vm.vdi destination/hassos_vm.img --format raw`  
+In my case the code would be:  
+`VBoxManage clonehd C:\Users\PC\Desktop\hassos_vm.vdi C:\Users\PC\Desktop\hassos_vm.img --format raw`
 
 The size of the img should be around 6 GB (up from 400 MB for the vdi).
 
