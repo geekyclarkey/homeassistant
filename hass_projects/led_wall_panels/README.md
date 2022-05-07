@@ -11,12 +11,15 @@ Wood and wallpaper can be purchased from your local DIY store.
 ### Step 1
 i started by using some project board and soldering on the gpio ins so the esp32 can be easily replaced if necessary.  
 I also used screw terminals for the wires and soldered wires to the necessary pins.   
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/1.jpg" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/2.jpg" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/3.jpg" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/4.jpg" width="300px">   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/1.jpg" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/2.jpg" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/3.jpg" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/4.jpg" width="300px">   
 *Its not in the previous pictures but i added screw terminals for a push button switch thats placed on my wall to toggle the lights on and off.*
 
 ### Step 2
 Flash The esp32 With the ESPHome config.  
-The code i used is below:     
+The code i used is below:  
 ```
 substitutions:
   espname: "mediawalllights"
@@ -94,38 +97,39 @@ Essentially you need to connect the + of your 12v power supply to the VIN pin of
 The - of your 12v power supply goes to the GND of the esp32 and the source of the MOSFET.  
 GPIO18 of the esp32 goes to the gate of the MOSFET with a 10k resistor between.  
 then the drain of the MOSFET goes to the - output to the LEDs.  
-Here is a badly drawn schematic.
+Here is a badly drawn schematic.  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/21.jpg" width="300px">  
 
 ### Step 4
 Once all everything is connected it should work and you should be able to control the power and brightness in homeassistant.  
-*If you drop the brightness down below 10% they go off completely.*  
-![](images/5.JPG) ![](images/19.png)  
+*If you drop the brightness down below 10% they go off completely.*   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/5.JPG" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/19.png" width="300px">   
 
 ### Step 5
 Next i built the panels by adding some 5cm standoffs to the back of pieces of chipboard.  
-![](images/7.JPG) ![](images/8.JPG) ![](images/9.JPG)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/7.JPG" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/8.JPG" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/9.JPG" width="300px">   
 
 ### Step 6
 When i built the media wall i ran tubes to the centre in preparation for the led power cables.  
-![](images/10.JPG)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/10.JPG" width="300px">    
 
 ### Step 7
 Quick position test to make sure they fit nicely and are both level.  
-![](images/11.JPG)   
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/11.JPG" width="300px">     
 
 ### Step 8
 I took the boards back off to install the led strips to the back of each board.  
-![](images/12.JPG)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/12.JPG" width="300px">   
 
 ### Step 9
 I ran the LEDS 4-5cm from the edge of the panel from the top centre all the way around using the adhesive on the LED strips
 and some staples to hold them in place more permanently.  
-![](images/13.JPG) ![](images/14.JPG)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/13.JPG" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/14.JPG" width="300px">   
 
 ### Step 10
 After mounting the panels and wiring up the LEDs, I put the power supply and the esp32 into an electrical box that sits inside the media wall.
-![](images/15.JPG) ![](images/16.JPG)
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/15.JPG" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/16.JPG" width="300px">  
 
 ## And here it is!
-![](images/17.JPG) ![](images/18.JPG)
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/17.JPG" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/18.JPG" width="300px">  
