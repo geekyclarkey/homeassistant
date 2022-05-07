@@ -1,12 +1,13 @@
 # LED Wall panels for my media wall
 
 ## Purchase all the sensors and components needed
-[esp32](https://www.banggood.com/custlink/Gm3KgKZrD4)   
-[Pack of resistors](https://www.banggood.com/custlink/Gm3KgKZrD4)  
-[N-channel MOSFETs](https://www.banggood.com/custlink/Gm3KgKZrD4)  
-[12v power supply](https://www.banggood.com/custlink/Gm3KgKZrD4)  
-[12v LED Strips](https://www.banggood.com/custlink/Gm3KgKZrD4)  
-Wood and wallpaper can be purchased from your local DIY store.  
+[esp32](https://www.amazon.es/Tablero-Desarrollo-ESP-WROOM-32-ESP-32S-Bluetooth/dp/B071JR9WS9/ref=sr_1_9?crid=2IX8Y5R7MXL6J&keywords=12v+esp32&qid=1651913171&s=electronics&sprefix=12v+esp32%2Celectronics%2C58&sr=1-9)   
+[Pack of resistors](https://www.amazon.es/HUAREW-metálico-valores-resistencias-surtido/dp/B09NSPVFRM/ref=sr_1_1_sspa?crid=3ERYCEIV3LGVT&keywords=resistors&qid=1651913277&s=industrial&sprefix=risistors%2Cindustrial%2C64&sr=1-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUExWUdSTEpNS05EOFZQJmVuY3J5cHRlZElkPUEwOTc5NTkyMjAzQUZMNDBaQ1ZGTyZlbmNyeXB0ZWRBZElkPUEwOTQ2NTc2MjNWTTM4MEhUNkNLWSZ3aWRnZXROYW1lPXNwX2F0ZiZhY3Rpb249Y2xpY2tSZWRpcmVjdCZkb05vdExvZ0NsaWNrPXRydWU=)  
+[N-channel MOSFETs](https://www.amazon.es/gp/product/B087LXSXNF/ref=ppx_yo_dt_b_asin_title_o04_s00?ie=UTF8&psc=1)  
+[12v power supply](https://www.amazon.es/gp/product/B0151MBLY0/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&th=1)  
+[12v LED Strips](https://www.amazon.es/gp/product/B0151MBLY0/ref=ppx_yo_dt_b_asin_title_o05_s00?ie=UTF8&th=1)  
+
+Wood, wall hooks and wallpaper can be purchased from your local DIY store.  
 
 ### Step 1
 i started by using some project board and soldering on the gpio ins so the esp32 can be easily replaced if necessary.  
