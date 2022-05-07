@@ -95,7 +95,8 @@ The - of your 12v power supply goes to the GND of the esp32 and the source of th
 GPIO18 of the esp32 goes to the gate of the MOSFET with a 10k resistor between.  
 then the drain of the MOSFET goes to the - output to the LEDs.  
 Here is a badly drawn schematic.
-![](images/21.jpg)
+![](images/21.jpg) width=300px
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_pcb_soldered.jpeg" width="300px">  
 
 ### Step 4
 Once all everything is connected it should work and you should be able to control the power and brightness in homeassistant.  
