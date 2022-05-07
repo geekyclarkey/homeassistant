@@ -43,6 +43,7 @@ Including step by step instruction how i accomplished the end result.
 [CCTV With Recording In Homeassistant](hass_projects/cctv_with_recording_in_homeassistant/README.md)  
 [Christmas Tree Lights In Homeassistant](hass_projects/homeassistant_christmas_tree_lights/README.md)  
 [Garage Door Module](hass_projects/garage_door_module/README.md)  
+[LED Wall panels](hass_projects/led_wall_panels/README.md)
 
 ## ESP8266 & ESP32 Pinout
 A detailed writeup about the ESP chip pinouts, all features and useful information.  
