@@ -11,7 +11,7 @@ Wood and wallpaper can be purchased from your local DIY store.
 ### Step 1
 i started by using some project board and soldering on the gpio ins so the esp32 can be easily replaced if necessary.  
 I also used screw terminals for the wires and soldered wires to the necessary pins.   
-![](images/1.jpg) ![](images/2.jpg) ![](images/3.jpg) ![](images/4.jpg)  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/1.jpg" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/2.jpg" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/3.jpg" width="300px"> <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/4.jpg" width="300px">   
 *Its not in the previous pictures but i added screw terminals for a push button switch thats placed on my wall to toggle the lights on and off.*
 
 ### Step 2
@@ -95,8 +95,7 @@ The - of your 12v power supply goes to the GND of the esp32 and the source of th
 GPIO18 of the esp32 goes to the gate of the MOSFET with a 10k resistor between.  
 then the drain of the MOSFET goes to the - output to the LEDs.  
 Here is a badly drawn schematic.
-![](images/21.jpg) width=300px
-<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/homeassistant_christmas_tree_lights/images/lights_pcb_soldered.jpeg" width="300px">  
+<img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/21.jpg" width="300px">  
 
 ### Step 4
 Once all everything is connected it should work and you should be able to control the power and brightness in homeassistant.  
