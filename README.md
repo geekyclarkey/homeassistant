@@ -7,6 +7,10 @@ I am not a computer programmer in any way. Just a smart home enthusiast.
 I hope anyone who finds this repo makes use out of it.
 I am trying to keep it up to date as much as possible and adding any new features or tips i come across.
 
+# Share the love  
+If you find any of this information helpful please consider [buying me a coffee ☕️](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  
+
 ## Installing HASSIO on Ubuntu server
 [Click Here](hassio_ubuntu_install_instructions.md) For installing hassio help
 
