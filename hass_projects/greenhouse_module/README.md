@@ -270,3 +270,7 @@ Add the following to your automations.yaml
 
 
 ### Thats it! Have fun trying it for yourself.
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

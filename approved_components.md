@@ -73,3 +73,7 @@
 [Blitzwolf BW-SHP6 Pro 15A Smart Plug](https://www.banggood.com/custlink/mDDm2QrKBh)  
 ### Other Devices
 [Broadlink RM Mini3](https://www.banggood.com/custlink/KD3GBKOZT9)  
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

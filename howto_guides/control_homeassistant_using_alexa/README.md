@@ -152,3 +152,7 @@ also please check out the other sites and youtube channels below. Everyone in th
 * [Digiblur](https://www.digiblur.com/) Here is a link to Travis website
 * [Hasscasts](https://www.youtube.com/channel/UCGOCeqMJnLvr-5C-ypUw7IQ/featured) Here is a link to his youtube channel
 * [BurnsHa](https://www.youtube.com/channel/UCSKQutOXuNLvFetrKuwudpg) Here is a link to his youtube channel
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

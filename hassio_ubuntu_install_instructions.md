@@ -30,7 +30,7 @@ then:
 `sudo apt-get upgrade`
 
 ### To install hassio, Run this command. type:
- 
+
 `curl sL https://raw.githubusercontent.com/geekyclarkey/homeassistant/master/install.sh | bash -`
 
 Once the script has ran you should have hassio installed and be able to start setting up hass.
@@ -81,3 +81,7 @@ Then run this command:
 
 ### if open ssh is not installed and enabled from ubuntu install. Do so by typing:
 `sudo apt-get install openssh-server`
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

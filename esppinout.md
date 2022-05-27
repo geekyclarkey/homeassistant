@@ -274,3 +274,7 @@ I did not create information above.
 I found this information on [Here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/) and [Here](https://randomnerdtutorials.com/esp8266-pinout-reference-gpios/)  
 I added it to my github page so i can access it again in the future or incase the source site/post gets removed.  
 All credit for the information has to go to [Random Nerd Tutorials](https://randomnerdtutorials.com/)
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

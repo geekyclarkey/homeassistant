@@ -194,9 +194,6 @@ exec mono $DIR/JackettConsole.exe
 
 
 
-
-
-
-
-
-
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

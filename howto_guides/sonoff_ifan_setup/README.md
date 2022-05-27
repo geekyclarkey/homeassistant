@@ -39,3 +39,7 @@ fan:
     payload_off: "OFF"
     retain: true
 ```
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

@@ -88,7 +88,7 @@ switch:
     retain: false
     icon: mdi:autorenew
 ```
-You may need to swap the power1 and power2 sections according to your hardware setup. 
+You may need to swap the power1 and power2 sections according to your hardware setup.
 *Remember to set the MQTT command_topic and state_topic to the same as what you made it in your Tasmota setup  
 Save the file then reboot Homeassistant. (after checking your config to make sure you havent done anything wrong in your config file)  
 
@@ -108,3 +108,7 @@ We still ahve the option to change the effects once they are on of course.
 
 
 ## Now you have control of your tree lights and its effects in Homeassistant
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

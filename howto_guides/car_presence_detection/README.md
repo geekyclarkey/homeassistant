@@ -86,8 +86,12 @@ This will close the garage door (Run the `script.close_garage_door`) when `binar
 ```
 This will close the garage door (Run the `script.close_garage_door`) when `binary_sensor.CarPresenceHayley` becomes `off` in Homeasistant. There is a condition that checks to see if `binary_sensor.CarPresence` is also off and if `binary_sensor.garage_door`(the reed sensor on the garage door) is open.  
 
-I hope this helps someone. I did a demonstration on my Instagram [click here](https://www.instagram.com/p/B-69Z2fgNe0/) to see it. Consider following me, i post all of my projects and ideas. 
+I hope this helps someone. I did a demonstration on my Instagram [click here](https://www.instagram.com/p/B-69Z2fgNe0/) to see it. Consider following me, i post all of my projects and ideas.
 **I have to say, I use this device and automation every day. I would like to give a huge thanks to Luma for showing us how its done.**  
 
 ## All credit has to go to Luma
 [Here](https://github.com/aderusha) is a link to his GitHub page. Consider buying him a coffee.
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

@@ -87,3 +87,8 @@ Here is a list of generic IP cameras with their stream and still image URLs that
 
 
 ```
+
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

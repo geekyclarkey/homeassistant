@@ -134,3 +134,7 @@ After mounting the panels and wiring up the LEDs, I put the power supply and the
 ## And here it is!
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/17.JPG" width="300px">  
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/hass_projects/led_wall_panels/images/18.JPG" width="300px">  
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

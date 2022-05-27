@@ -106,3 +106,7 @@ title: Home Energy Monitering
 type: entities
 ```
 If you changed and names in your config you will need to edit this example to accommodate.  
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

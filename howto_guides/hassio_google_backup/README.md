@@ -18,3 +18,7 @@ For this you need to be using Hassio, i dont know how to do it using Hasbian or 
 <img src="https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/hassio_google_backup/images/drive_addon_settings.png" width="400px">  
 
 ## Backing up is important! You never know when your machine will go down. Be prepared.
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

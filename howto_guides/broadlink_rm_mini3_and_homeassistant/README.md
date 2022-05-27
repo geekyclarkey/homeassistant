@@ -100,7 +100,7 @@ You can find the rf code for any infrared remote.
 * Copy the code by pressing CMD+C (Mac) or CTRL+C (PC)
 * Then paste the code somewhere for you to use later
 
-### OR Check out my personal list of Broadlink IR Codes 
+### OR Check out my personal list of Broadlink IR Codes
 [Click here](https://github.com/geekyclarkey/homeassistant/blob/master/howto_guides/broadlink_rm_mini3_and_homeassistant/Broadlink_IR_Codes.md) to go to the list
 
 ## Restart homeassistant and Thats it! Have fun trying it for yourself.
@@ -113,3 +113,7 @@ There is also a windows program for learning ir codes.
 See This [Website](https://sourceforge.net/u/tech-blog/profile/) and choose the `broadlink manager` project for the latest version
 
 I have uploaded the latest version as of 04/09/19 in case the project ever gets deleted. [Click here](https://github.com/geekyclarkey/homeassistant/raw/master/howto_guides/broadlink_rm_mini3_and_homeassistant/Broadlink_Manager.exe) to download the version i have installed on my pc. I can confirm it works perfectly.
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

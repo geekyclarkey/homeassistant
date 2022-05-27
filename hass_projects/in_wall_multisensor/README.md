@@ -105,3 +105,7 @@ binary_sensor:
 Restart homeassistant and add the new entities into your lovelace interface
 
 Thats it! Have fun trying it for yourself.
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

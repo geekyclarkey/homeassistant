@@ -185,3 +185,7 @@ The `notify.notify` will send a notification to all my ios devices with the home
 If you are an android user, **i can't help with notifications.** I don't have any android devices to try!
 
 ## Restart homeassistant and Thats it! Have fun trying it for yourself.
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

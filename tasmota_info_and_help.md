@@ -148,3 +148,8 @@ Here are some that i use on a regular basis:
 ## Remember to switch on rules:
 * `rule1 1` (switches on rule 1)
 * `rule1 0` (switches off rule 1)  
+
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  

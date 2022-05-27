@@ -132,3 +132,8 @@ I use this is to calibrate the temperature sensor slightly.
 
 ### Homeassistant docs
 More examples and information can be found in the [Homeassistant docs](https://www.home-assistant.io/docs/configuration/templating/)  
+
+
+# Share the love  
+If you found this information helpful please consider [buying me a coffee](https://www.buymeacoffee.com/geekyclarkey)  
+Thank you.  
